@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.Home_Feeds"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <views:AppPageBase.Resources>
+        <ResourceDictionary>
+            <controls:FeedLineTemplateSelector x:Key="FeedLineTemplateSelector" />
+        </ResourceDictionary>
+    </views:AppPageBase.Resources>
+    <ContentPage.Content>
+        <Grid
+            x:Name="Maingrid"
+            BackgroundColor="#F1F1F1"
+            ColumnSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="16" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="16" />
+            </Grid.ColumnDefinitions>
+            <template:HeaderView
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                NotificationCommand="{Binding NotificationCommand}"
+                NotificationVisible="True"
+                WalletCommand="{Binding WalletCommand}"
+                WalletVisible="True" />
+            <ScrollView x:Name="PageScroll" Grid.Row="2" Grid.Column="1" VerticalScrollBarVisibility="Never" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Scrolled="ScrollView_Scrolled" >
+                <StackLayout Orientation="Vertical">
+                    <ActivityIndicator x:Name="TopIndicator" Margin="0,20,0,0"  IsVisible="{Binding TopIndicator}" IsRunning="{Binding TopIndicator}" Color="#E5B59D" VerticalOptions="Center"  HorizontalOptions="Center" />
+                    <Grid RowSpacing="0" ColumnSpacing="0">
+                        <StackLayout Margin="0,10,0,0"  x:Name="FeedList" BindableLayout.ItemsSource="{Binding PostDetailsList}" BindableLayout.ItemTemplateSelector="{StaticResource FeedLineTemplateSelector}" BackgroundColor="Transparent" IsVisible="true" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                        <ActivityIndicator Margin="0,0,0,10"  IsVisible="{Binding BottomIndicator}" IsRunning="{Binding BottomIndicator}" Color="#E5B59D" VerticalOptions="End"  HorizontalOptions="Center" />
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+            <Label
+                Grid.Row="2"
+                Grid.Column="1"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                IsVisible="{Binding IsInfoLabelVisible}"
+                Style="{StaticResource BlackLabelMedium14}"
+                Text="{x:Static Common:AppResources.HomeFeedInfo}"
+                VerticalOptions="Center"
+                VerticalTextAlignment="Center" />
+             <ActivityIndicator Grid.Row="1" Grid.RowSpan="3" Grid.Column="1"    IsVisible="{Binding IsListUpdate}" IsRunning="{Binding IsListUpdate}" Color="#E5B59D" VerticalOptions="Center"  HorizontalOptions="Center" />
+            <template:ProgressView Grid.Row="1" Grid.RowSpan="3" Grid.Column="1"  IsVisible="{Binding InitialLoad}" IsRunning="{Binding InitialLoad}" HorizontalOptions="Fill" VerticalOptions="Fill" />
+        </Grid>
+    </ContentPage.Content>
+</views:AppPageBase>

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.TermsAndCondititons"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:htmlLabel="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <views:AppPageBase.Content>
+        <Grid
+            x:Name="Maingrid"
+            BackgroundColor="#F1F1F1"
+            ColumnSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="16" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="16" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="16" />
+            </Grid.ColumnDefinitions>
+            <template:HeaderView
+                Title="{x:Static Common:AppResources.AgreeTermsAndConditions2Text}"
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                BackButtonCommand="{Binding Back}"
+                BackButtonVisible="True"
+                LogoVisible="False"
+                TitleVisible="True"
+                WalletVisible="False" NotificationVisible="False" />
+
+            <OnPlatform x:TypeArguments="View">
+                <OnPlatform.iOS>
+                    <WebView Grid.Row="2" Grid.Column="1"  Source="{Binding TermsAndConditionUrl}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></WebView>
+                </OnPlatform.iOS>
+                <OnPlatform.Android>
+                    <controls:TailWebview Grid.Row="2" Grid.Column="1"  Source="{Binding TermsAndConditionUrl}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></controls:TailWebview>
+                </OnPlatform.Android>
+            </OnPlatform>
+
+            <ActivityIndicator  Grid.Row="2" Grid.Column="1" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="#E5B59D" VerticalOptions="Center"  HorizontalOptions="Center" />
+
+
+
+        </Grid>
+    </views:AppPageBase.Content>
+</views:AppPageBase>

@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.Coins"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:behaviors="clr-namespace:XamarinFastEntrySample.FastEntry;assembly=XamarinFastEntry.Behaviors"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:converter="clr-namespace:Tail.Converters"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <views:AppPageBase.Resources>
+        <ResourceDictionary>
+            <converter:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        </ResourceDictionary>
+    </views:AppPageBase.Resources>
+    <ContentPage.Content>
+        <Grid
+            BackgroundColor="#F1F1F1"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <template:HeaderView
+                Title="{x:Static Common:AppResources.CoinsText}"
+                Grid.Row="0"
+                BackButtonCommand="{Binding Back}"
+                BackButtonVisible="True"
+                LogoVisible="False"
+                NotificationVisible="False"
+                TitleVisible="True"
+                WalletVisible="False" />
+            <ScrollView
+                Grid.Row="1"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Grid
+                    Margin="16"
+                    HorizontalOptions="FillAndExpand"
+                    RowSpacing="10"
+                    VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackLayout Orientation="Horizontal">
+                        <Label
+                            Grid.Row="0"
+                            HorizontalOptions="Start"
+                            Style="{StaticResource PurplePoppinsLabelBold16}"
+                            Text="{x:Static Common:AppResources.SummaryText}" />
+                        <Button
+                            Command="{Binding AddCoinsCommand}"
+                            HeightRequest="26"
+                            HorizontalOptions="EndAndExpand"
+                            Style="{StaticResource PurpleButton}"
+                            Text="{x:Static Common:AppResources.AddCoinsText}"
+                            WidthRequest="100" />
+                    </StackLayout>
+                    <controls:TailCustomFrame
+                        Grid.Row="1"
+                        Padding="0"
+                        BackgroundColor="#FFFFFF"
+                        CornerRadius="0"
+                        HasShadow="False">
+                        <Grid
+                            Padding="16"
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            RowSpacing="15"
+                            VerticalOptions="FillAndExpand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <StackLayout
+                                Grid.Row="0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal">
+                                <Label
+                                    HorizontalOptions="StartAndExpand"
+                                    Style="{StaticResource BlackLabelMedium14}"
+                                    Text="{x:Static Common:AppResources.CoinBalanceText}" />
+                                <Label
+                                    HorizontalOptions="End"
+                                    Style="{StaticResource PurplePoppinsLabelBold16}"
+                                    Text="{Binding CoinBalance, StringFormat='{0:F0} Coin(s)'}" />
+                            </StackLayout>
+
+                            <BoxView
+                                Grid.Row="1"
+                                Margin="-16,0,-16,0"
+                                BackgroundColor="#ECECEC"
+                                HeightRequest="1"
+                                HorizontalOptions="FillAndExpand" />
+                            <StackLayout
+                                Grid.Row="2"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal">
+                                <Label
+                                    HorizontalOptions="StartAndExpand"
+                                    Style="{StaticResource BlackLabelMedium14}"
+                                    Text="{x:Static Common:AppResources.EarningsBalanceText}" />
+                                <Label
+                                    HorizontalOptions="End"
+                                    Style="{StaticResource PurplePoppinsLabelBold16}"
+                                    Text="{Binding EarningsBalance}" />
+                            </StackLayout>
+
+
+                        </Grid>
+                    </controls:TailCustomFrame>
+
+                    <Label
+                        Grid.Row="2"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource PurplePoppinsLabelBold16}"
+                        Text="{x:Static Common:AppResources.TransactionHistoryText}" />
+                    <Label
+                        Margin="0,20,0,0"
+                        Text="{x:Static Common:AppResources.NoTransactionInfo}"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource BlackLabelMedium14}"
+                        Grid.Row="3"
+                        IsVisible="{Binding NoDataVisible}"/>
+                    <controls:TailCustomFrame
+                        IsVisible="{Binding NoDataVisible, Converter={StaticResource InverseBooleanConverter}}"
+                        Grid.Row="3"
+                        Padding="0"
+                        BackgroundColor="#FFFFFF"
+                        CornerRadius="0"
+                        HasShadow="False">
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Spacing="0"
+                            VerticalOptions="FillAndExpand">
+                            <StackLayout
+                                x:Name="TransactionsList"
+                                BindableLayout.ItemsSource="{Binding TransactionsList}"
+                                HorizontalOptions="FillAndExpand"
+                                Spacing="0"
+                                VerticalOptions="FillAndExpand">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid
+                                            Padding="16,13,16,0"
+                                            BackgroundColor="White"
+                                            HorizontalOptions="FillAndExpand"
+                                            RowSpacing="0"
+                                            VerticalOptions="FillAndExpand">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Style="{StaticResource BlackLabelRegular13}"
+                                                Text="{Binding Title}" />
+                                            <Label
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                Margin="0,5,0,0"
+                                                Style="{StaticResource BlackLabelRegular12}"
+                                                Text="{Binding DateString}" />
+                                            <StackLayout
+                                                Spacing="0"
+                                                Grid.Row="0"
+                                                Grid.RowSpan="2"
+                                                Grid.Column="1"
+                                                VerticalOptions="FillAndExpand">
+                                                        <Label
+                                                            Style="{StaticResource PurpleLabelBold14}"
+                                                            Text="{Binding Coins, StringFormat='{0:F0} Coin(s)'}"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            TextColor="{Binding IsSuccess, Converter={StaticResource FailedLabelColorConverter}}"/>
+                                                        <Label
+                                                            HorizontalOptions="Center"
+                                                            Text="{x:Static Common:AppResources.FailedText}"
+                                                            Style="{StaticResource RedLabelRegular12}"
+                                                            IsVisible="{Binding IsSuccess , Converter={StaticResource InverseBooleanConverter}}">
+                                                        </Label>
+                                                        <Label
+                                                            HorizontalOptions="Center"
+                                                            Text="{x:Static Common:AppResources.RefundText}"
+                                                            Style="{StaticResource GreenLabelRegular12}"
+                                                            IsVisible="{Binding IsRefunded}">
+                                                        </Label>
+                                                
+                                            </StackLayout>
+                                            <BoxView
+                                                Grid.Row="2"
+                                                Grid.ColumnSpan="2"
+                                                Margin="-16,13,-16,0"
+                                                BackgroundColor="#ECECEC"
+                                                HeightRequest="1"
+                                                HorizontalOptions="FillAndExpand" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                            <StackLayout BackgroundColor="White" IsVisible="{Binding IsLoadMoreVisible}">
+                                <!--<BoxView
+                                BackgroundColor="#ECECEC"
+                                HeightRequest="1"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Start" />-->
+                                <StackLayout
+                                    Margin="0,15,0,15"
+                                    HorizontalOptions="Center"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Label
+                                        HorizontalOptions="Center"
+                                        Style="{StaticResource PurpleLabelSemiBold14}"
+                                        Text="Load More"
+                                        VerticalOptions="Center" />
+                                    <Image Source="arrow_down" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding LoadMoreCommand}" />
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </StackLayout>
+                    </controls:TailCustomFrame>
+                </Grid>
+            </ScrollView>
+            <template:ProgressView
+                Grid.Row="1"
+                HorizontalOptions="Fill"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </ContentPage.Content>
+</views:AppPageBase>

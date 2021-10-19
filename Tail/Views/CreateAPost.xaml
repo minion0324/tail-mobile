@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.CreateAPost"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <views:AppPageBase.Content>
+        <Grid
+            x:Name="Maingrid"
+            BackgroundColor="#F1F1F1"
+            ColumnSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="16" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="16" />
+            </Grid.ColumnDefinitions>
+            <template:HeaderView
+                Title="{x:Static Common:AppResources.CreateAPostText}"
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                BackButtonCommand="{Binding Back}"
+                BackButtonVisible="True"
+                LogoVisible="False"
+                NotificationVisible="False"
+                TitleVisible="True"
+                WalletVisible="False" />
+            <template:CreateAPosteTemplate
+                x:Name="PostTemplate"
+                Grid.Row="2"
+                Grid.Column="1"
+                AttachmentTapCommand="{Binding ImageTapCommand}"
+                EditorText="{Binding PostContent, Mode=TwoWay}"
+                IsShare="False"
+                IsPostAPick="False"
+                ProfileImage="{Binding UserImage}"
+                ProfileName="{Binding UserName}"
+                SelectedCount="{Binding ImageSelectedCount, Mode=TwoWay}"
+                SelectedMedia="{Binding Media, Mode=TwoWay}" />
+            <controls:TailCustomFrame
+                Grid.Row="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                BackgroundColor="White"
+                CornerRadius="0"
+                HasShadow="False"
+                VerticalOptions="End">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Frame
+                        Grid.Column="0"
+                        Padding="0"
+                        BorderColor="#D8D8D8"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HeightRequest="42"
+                        HorizontalOptions="FillAndExpand">
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource BlackRobotoLabelBold16}"
+                            Text="Discard"
+                            VerticalOptions="Center" />
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DiscardCommand}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <template:PurpleGradientButton
+                        Grid.Column="1"
+                        ButtonText="{x:Static Common:AppResources.PostNow}"
+                        Command="{Binding PostNow}"
+                        HeightRequest="42"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="CenterAndExpand" />
+                </Grid>
+
+            </controls:TailCustomFrame>
+            <template:ProgressView
+                Grid.Row="0"
+                Grid.RowSpan="4"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                HorizontalOptions="Fill"
+                IsProgressVisible="True"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                ProgressCount="{Binding ProgressCountDisplay}"
+                ProgressPercentageValue="{Binding ProgressPercentage}"
+                VerticalOptions="Fill" />
+            <template:ProgressView
+                Grid.Row="0"
+                Grid.RowSpan="4"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                HorizontalOptions="Fill"
+                IsProgressVisible="False"
+                IsRunning="{Binding IsNormalIndicator}"
+                IsVisible="{Binding IsNormalIndicator}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </views:AppPageBase.Content>
+</views:AppPageBase>

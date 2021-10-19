@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.OTPVerification"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:behaviors="clr-namespace:XamarinFastEntrySample.FastEntry;assembly=XamarinFastEntry.Behaviors"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <views:AppPageBase.Content>
+        <Grid
+            BackgroundColor="#fffff"
+            ColumnSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Image
+                Grid.Row="0"
+                Grid.Column="0"
+                Aspect="AspectFill"
+                HorizontalOptions="FillAndExpand"
+                Source="bg_top"
+                VerticalOptions="Start" />
+            <ScrollView
+                Grid.Row="0"
+                BackgroundColor="Transparent"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Grid
+                    ColumnSpacing="0"
+                    HorizontalOptions="FillAndExpand"
+                    RowSpacing="0"
+                    VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Margin="0,59,0,0"
+                        Aspect="AspectFit"
+                        Source="Logo_inside" />
+                    <Label
+                        x:Name="OtpTitleLabel"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,21,0,30"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        LineHeight="1.4"
+                        Style="{StaticResource GreyLabelRegular16}"
+                        Text="{x:Static Common:AppResources.OTPTitleText}" />
+                    <StackLayout
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        HorizontalOptions="CenterAndExpand"
+                        Orientation="Horizontal"
+                        Spacing="6">
+                        <controls:TailCustomEntry
+                            x:Name="OTPFirstEntry"
+                            BorderColor="#D8D8D8"
+                            HeightRequest="44"
+                            HorizontalOptions="CenterAndExpand"
+                            HorizontalTextAlignment="Center"
+                            IsOTP="True"
+                            Keyboard="Numeric"
+                            ReturnKeyType="Next"
+                            Style="{StaticResource EntryRegular14}"
+                            Text="{Binding FirstCharOTP}"
+                            WidthRequest="44" />
+                        <controls:TailCustomEntry
+                            x:Name="OTPSecondEntry"
+                            BorderColor="#D8D8D8"
+                            HeightRequest="44"
+                            HorizontalOptions="CenterAndExpand"
+                            HorizontalTextAlignment="Center"
+                            IsOTP="True"
+                            Keyboard="Numeric"
+                            ReturnKeyType="Next"
+                            Style="{StaticResource EntryRegular14}"
+                            Text="{Binding SecondCharOTP}"
+                            WidthRequest="44" />
+                        <controls:TailCustomEntry
+                            x:Name="OTPThridEntry"
+                            BorderColor="#D8D8D8"
+                            HeightRequest="44"
+                            HorizontalOptions="CenterAndExpand"
+                            HorizontalTextAlignment="Center"
+                            IsOTP="True"
+                            Keyboard="Numeric"
+                            ReturnKeyType="Next"
+                            Style="{StaticResource EntryRegular14}"
+                            Text="{Binding ThirdCharOTP}"
+                            WidthRequest="44" />
+                        <controls:TailCustomEntry
+                            x:Name="OTPFourthEntry"
+                            BorderColor="#D8D8D8"
+                            HeightRequest="44"
+                            HorizontalOptions="CenterAndExpand"
+                            HorizontalTextAlignment="Center"
+                            IsOTP="True"
+                            Keyboard="Numeric"
+                            ReturnKeyType="Next"
+                            Style="{StaticResource EntryRegular14}"
+                            Text="{Binding FourthCharOTP}"
+                            TextChanged="OTPFourthEntry_TextChanged"
+                            WidthRequest="44" />
+                    </StackLayout>
+                    <controls:AutoFillEntry
+                        x:Name="OtpAutoFillEntry"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="CenterAndExpand"
+                        HorizontalTextAlignment="Center"
+                        Keyboard="Numeric"
+                        Style="{StaticResource EntryRegular14}"
+                        Text="{Binding EnteredOTP}"
+                        TextChanged="OtpAutoFillEntry_TextChanged"
+                        TextColor="Transparent"
+                        WidthRequest="194">
+                        <controls:AutoFillEntry.Behaviors>
+                            <behaviors:XamarinFastEntryBehaviour MaxLength="4" />
+
+                        </controls:AutoFillEntry.Behaviors>
+                    </controls:AutoFillEntry>
+                    <StackLayout
+                        x:Name="OTPExpireLayout"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Orientation="Vertical">
+                        <Label
+                            Margin="0,30,0,0"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Style="{StaticResource GreyLabelRegular16}"
+                            Text="{Binding OTPExpireText}" />
+                        <Label
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            IsVisible="{Binding IsTimerVisible}"
+                            Style="{StaticResource GreyLabelRegular16}"
+                            Text="{Binding TimerTime}" />
+                    </StackLayout>
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Margin="0,30,0,0"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource GreyLabelRegular14}"
+                        Text="{x:Static Common:AppResources.HavintRecievedCodeText}" />
+                    <Label
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Margin="0,10,0,0"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource PurpleLabelBold16}"
+                        Text="{x:Static Common:AppResources.ResentCodeText}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ResendCodeCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <StackLayout
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Margin="0,80,0,0"
+                        HorizontalOptions="CenterAndExpand"
+                        IsVisible="{Binding IsFromSignup}"
+                        Orientation="Horizontal">
+                        <Image
+                            HorizontalOptions="Center"
+                            Source="back_arrow"
+                            VerticalOptions="Center" />
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource VioletLabelBold16}"
+                            Text="{x:Static Common:AppResources.BackText}"
+                            VerticalOptions="Center" />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Back}" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                    <Image
+                        Grid.Row="8"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Aspect="Fill"
+                        HorizontalOptions="FillAndExpand"
+                        IsVisible="{Binding IsFromSignup}"
+                        Source="bg_bottom"
+                        VerticalOptions="EndAndExpand" />
+                    <StackLayout
+                        Grid.Row="8"
+                        Grid.Column="1"
+                        Margin="0,0,0,50"
+                        IsVisible="{Binding IsFromSignup}"
+                        Orientation="Vertical"
+                        Spacing="5"
+                        VerticalOptions="End">
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource BlackLabelRegular14}"
+                            Text="{x:Static Common:AppResources.AlreadyHaveAccountText}"
+                            VerticalOptions="Start" />
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource PurpleLabelBold16}"
+                            Text="{x:Static Common:AppResources.LoginText}"
+                            VerticalOptions="Start">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LoginCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+            <template:ProgressView
+                Grid.Row="0"
+                HorizontalOptions="Fill"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </views:AppPageBase.Content>
+</views:AppPageBase>

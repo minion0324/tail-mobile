@@ -1,0 +1,943 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.PostYourPickModified"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:behaviors="clr-namespace:Tail.Behaviors"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <ContentPage.Content>
+        <Grid
+            x:Name="Maingrid"
+            BackgroundColor="#F1F1F1"
+            ColumnSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="16"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="84" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="16" />
+            </Grid.ColumnDefinitions>
+            <template:HeaderView
+                Title="{x:Static Common:AppResources.PostYourPick}"
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                BackButtonCommand="{Binding Back}"
+                BackButtonVisible="True"
+                LogoVisible="False"
+                NotificationVisible="False"
+                TitleVisible="True"
+                WalletVisible="False" />
+            <ScrollView
+                x:Name="ContentScroll"
+                Grid.Row="1"
+                Grid.Column="1"
+                BackgroundColor="Transparent"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                VerticalScrollBarVisibility="Never">
+
+                <StackLayout
+                    x:Name="OuterStck"
+                    Padding="0"
+                    Orientation="Vertical"
+                    Spacing="16"
+                    VerticalOptions="Start">
+                    <Label Style="{StaticResource BlackRobotoLabelBold16}" Text="Your Pick" />
+                    <controls:TailCustomFrame
+                        Margin="0,0,0,0"
+                        Padding="16"
+                        BackgroundColor="White"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand">
+                        <StackLayout
+                            Padding="0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Vertical"
+                            Spacing="0">
+                            <Label
+                                HorizontalOptions="Start"
+                                Style="{StaticResource BlackLabelSemiBold12}"
+                                Text="{x:Static Common:AppResources.SelectYourSpot}"
+                                VerticalOptions="Start" />
+                            <Frame
+                                Margin="0,10,0,0"
+                                Padding="10"
+                                BorderColor="#D8D8D8"
+                                CornerRadius="0"
+                                HasShadow="False">
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                    <Label
+                                        HorizontalOptions="FillAndExpand"
+                                        Style="{StaticResource BlackLabelRobotoRegular14}"
+                                        Text="{Binding SelectedSport}"
+                                        VerticalOptions="Center" />
+                                    <Image
+                                        Aspect="AspectFit"
+                                        HorizontalOptions="End"
+                                        Source="arrow_down"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectSportCommand}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <!--<template:ThemePicker
+                                Title="{x:Static Common:AppResources.SelectYourSpot}"
+                                Margin="0,10,0,0"
+                                DisplayMember="ItemName"
+                                HeightRequest="44"
+                                ItemSource="{Binding SportOptions}"
+                                SelectedIndex="{Binding SportSelectedIndex, Mode=TwoWay}"
+                                SelectedIndexChangedCallback="{Binding OnSpotIndexChanged}" />-->
+                            <Label
+                                Margin="0,20,0,0"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource BlackLabelSemiBold12}"
+                                Text="{x:Static Common:AppResources.SelectYourLeague}"
+                                VerticalOptions="Start" />
+                            <Frame
+                                Margin="0,10,0,0"
+                                Padding="10"
+                                BorderColor="#D8D8D8"
+                                CornerRadius="0"
+                                HasShadow="False">
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                    <Label
+                                        HorizontalOptions="FillAndExpand"
+                                        Style="{StaticResource BlackLabelRobotoRegular14}"
+                                        Text="{Binding SelectedLeague}"
+                                        VerticalOptions="Center" />
+                                    <Image
+                                        Aspect="AspectFit"
+                                        HorizontalOptions="End"
+                                        Source="arrow_down"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectLeagueCommand}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                           
+
+                        </StackLayout>
+                    </controls:TailCustomFrame>
+                    <controls:TailCustomFrame
+                        Margin="0,0,0,0"
+                        Padding="16"
+                        BackgroundColor="White"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        IsEnabled="{Binding IsGameSelectionEnabled}">
+                        <Grid HorizontalOptions="FillAndExpand" RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <StackLayout
+                                Grid.Row="0"
+                                Padding="0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                Spacing="0">
+                                <Label
+                                    x:Name="SelectGameLabel"
+                                    HorizontalOptions="StartAndExpand"
+                                    Style="{StaticResource BlackLabelSemiBold12}"
+                                    Text="{Binding SelectGameText}"
+                                    TextColor="{Binding IsGameSelectionEnabled, Converter={StaticResource DisableEnableColorConverter}}" />
+                                <Grid
+                                    ColumnSpacing="0"
+                                    HorizontalOptions="EndAndExpand"
+                                    RowSpacing="0">
+                                    <Label
+                                        HorizontalOptions="EndAndExpand"
+                                        IsVisible="{Binding IsGameSelected, Converter={StaticResource InverseBooleanConverter}}"
+                                        Style="{StaticResource BlackLabelMedium16}"
+                                        Text="{Binding PlusText}"
+                                        TextColor="{Binding IsGameSelectionEnabled, Converter={StaticResource DisableEnableColorConverter}}" />
+                                    <Image
+                                        HorizontalOptions="EndAndExpand"
+                                        IsVisible="{Binding IsGameSelected}"
+                                        Source="editNew" />
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectGameCommand}" />
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectGameCommand}" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                            <BoxView
+                                Grid.Row="1"
+                                Margin="-16,16,-16,-16"
+                                BackgroundColor="#EBEBEB"
+                                HeightRequest="1"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="End" />
+                            <Grid
+                                x:Name="BetSelectionGrid"
+                                Grid.Row="2"
+                                Margin="0,32,0,0"
+                                HorizontalOptions="FillAndExpand"
+                                IsVisible="{Binding IsGameSelected}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Label
+                                    Grid.Row="0"
+                                    Margin="0,0,0,0"
+                                    Style="{StaticResource BlackLabelRobotoRegular14}"
+                                    Text="{x:Static Common:AppResources.BetTypeText}" />
+                                <Frame
+                                    Grid.Row="1"
+                                    Margin="0,10,0,0"
+                                    Padding="10"
+                                    BorderColor="#D8D8D8"
+                                    CornerRadius="0"
+                                    HasShadow="False">
+                                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                        <Label
+                                            HorizontalOptions="FillAndExpand"
+                                            Style="{StaticResource BlackLabelRobotoRegular14}"
+                                            Text="{Binding SelectedBet}"
+                                            VerticalOptions="Center" />
+                                        <Image
+                                            Aspect="AspectFit"
+                                            HorizontalOptions="End"
+                                            Source="arrow_down"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectBetOptionCommand}" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            
+                                <Label
+                                    Grid.Row="2"
+                                    Margin="0,15,0,0"
+                                    Style="{StaticResource BlackLabelRobotoRegular14}"
+                                    Text="{x:Static Common:AppResources.SelectYourTeamText}" />
+                                <Grid
+                                    Grid.Row="3"
+                                    Margin="0,15,0,0"
+                                    HeightRequest="150"
+                                    IsVisible="{Binding IsMoneyLineVisible}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="35" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Frame
+                                        Grid.Column="0"
+                                        Padding="0"
+                                        BorderColor="{Binding IsMoneyline1Selected, Converter={StaticResource FrameBorderColorConverter}}"
+                                        CornerRadius="10"
+                                        HasShadow="False">
+                                        <Grid
+                                            ColumnSpacing="0"
+                                            HorizontalOptions="FillAndExpand"
+                                            RowSpacing="0"
+                                            VerticalOptions="FillAndExpand">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="20" />
+                                            </Grid.RowDefinitions>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Spacing="10"
+                                                VerticalOptions="Center">
+                                                <Frame IsVisible="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.IsDefaultLogo, Converter={StaticResource InverseBooleanConverter}}" HasShadow="False"  Padding="0" CornerRadius="0" HorizontalOptions="Center" HeightRequest="60" WidthRequest="90" BorderColor="#d9d9d9">
+                                                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical"  Spacing="0">
+                                                        <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="45" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamColor}">
+                                                            <Label HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamNameShort}" Style="{StaticResource WhiteLabelSemiBold18}" TextColor="#FFFFFF"></Label>
+                                                        </Grid>
+                                                        <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="15" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamSecondaryColor}">
+                                                        </Grid>
+                                                    </StackLayout>
+                                                </Frame>
+                                                <Image IsVisible="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.IsDefaultLogo}" Aspect="AspectFit" Source="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamDefaultLogo}" ></Image>
+
+                                                <!--<ffimageloading:CachedImage
+                                                    Aspect="AspectFit"
+                                                    ErrorPlaceholder="team_placeholder.png"
+                                                    HeightRequest="60"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    Source="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamLogo}"
+                                                    VerticalOptions="FillAndExpand" />-->
+                                                <Label
+                                                    x:Name="Team1Name"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource BlackLabelSemiBold12}"
+                                                    Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamName}"
+                                                    VerticalOptions="Start"
+                                                    VerticalTextAlignment="Start" />
+
+                                            </StackLayout>
+                                            <Label
+                                                Grid.Row="1"
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                Style="{StaticResource BlackLabelRegular13}"
+                                                Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.MoneylineDisply}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </Grid>
+
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding MonyLine1SelectedCommand}" CommandParameter="{Binding BettingDetails.SelectedGame.EventID}" />
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                    <Image
+                                        Grid.Column="0"
+                                        Margin="0,-5,-5,0"
+                                        HorizontalOptions="End"
+                                        IsVisible="{Binding IsMoneyline1Selected}"
+                                        Source="radio_selected"
+                                        VerticalOptions="Start" />
+                                    <StackLayout
+                                        Grid.Column="1"
+                                        HeightRequest="30"
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="30">
+
+                                        <Frame
+                                            Padding="0"
+                                            BackgroundColor="#152430"
+                                            CornerRadius="15"
+                                            HasShadow="False"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="FillAndExpand">
+                                            <Label
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                Style="{StaticResource WhiteLabelSemiBold13}"
+                                                Text="{x:Static Common:AppResources.Vs}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center">
+                                                <Label.Margin>
+                                                    <OnPlatform x:TypeArguments="Thickness">
+                                                        <OnPlatform.Platforms>
+                                                            <On Platform="iOS" Value="0,0,0,0" />
+                                                            <On Platform="Android" Value="0,4,0,0" />
+                                                        </OnPlatform.Platforms>
+                                                    </OnPlatform>
+                                                </Label.Margin>
+                                            </Label>
+                                        </Frame>
+                                    </StackLayout>
+                                    <Frame
+                                        Grid.Column="2"
+                                        Padding="0"
+                                        BorderColor="{Binding IsMoneyline2Selected, Converter={StaticResource FrameBorderColorConverter}}"
+                                        CornerRadius="10"
+                                        HasShadow="False">
+                                        <Grid
+                                            ColumnSpacing="0"
+                                            HorizontalOptions="FillAndExpand"
+                                            RowSpacing="0"
+                                            VerticalOptions="FillAndExpand">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="20" />
+                                            </Grid.RowDefinitions>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Spacing="10"
+                                                VerticalOptions="Center">
+                                                <Frame IsVisible="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.IsDefaultLogo, Converter={StaticResource InverseBooleanConverter}}" HasShadow="False"  Padding="0" CornerRadius="0" HorizontalOptions="Center" HeightRequest="60" WidthRequest="90" BorderColor="#d9d9d9">
+                                                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical"  Spacing="0">
+                                                        <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="45" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamColor}">
+                                                            <Label HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamNameShort}" Style="{StaticResource WhiteLabelSemiBold18}" TextColor="#FFFFFF"></Label>
+                                                        </Grid>
+                                                        <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="15" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamSecondaryColor}">
+                                                        </Grid>
+                                                    </StackLayout>
+                                                </Frame>
+                                                 <Image IsVisible="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.IsDefaultLogo}" Aspect="AspectFit" Source="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamDefaultLogo}" ></Image>
+                                                <Label
+                                                    x:Name="Team2Name"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource BlackLabelSemiBold12}"
+                                                    Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamName}"
+                                                    VerticalOptions="Start"
+                                                    VerticalTextAlignment="Start" />
+
+                                            </StackLayout>
+                                            <Label
+                                                Grid.Row="1"
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                Style="{StaticResource BlackLabelRegular13}"
+                                                Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.MoneylineDisply}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </Grid>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding MonyLine2SelectedCommand}" CommandParameter="{Binding BettingDetails.SelectedGame.EventID}" />
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                    <Image
+                                        Grid.Column="2"
+                                        Margin="0,-5,-5,0"
+                                        HorizontalOptions="End"
+                                        IsVisible="{Binding IsMoneyline2Selected}"
+                                        Source="radio_selected"
+                                        VerticalOptions="Start" />
+                                </Grid>
+
+                                <Grid
+                                    x:Name="SpreadView"
+                                    Grid.Row="3"
+                                    Margin="0,15,0,0"
+                                    HeightRequest="150"
+                                    IsVisible="{Binding IsSpreadVisible}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="35" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Frame
+                                        Grid.Column="0"
+                                        Padding="0"
+                                        BorderColor="{Binding IsSpread1Selected, Converter={StaticResource FrameBorderColorConverter}}"
+                                        CornerRadius="10"
+                                        HasShadow="False">
+                                        <Grid
+                                            ColumnSpacing="0"
+                                            HorizontalOptions="FillAndExpand"
+                                            RowSpacing="0"
+                                            VerticalOptions="FillAndExpand">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="20" />
+                                            </Grid.RowDefinitions>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Spacing="10"
+                                                VerticalOptions="Center">
+                                                <Frame IsVisible="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.IsDefaultLogo, Converter={StaticResource InverseBooleanConverter}}" HasShadow="False"  Padding="0" CornerRadius="0" HorizontalOptions="Center" HeightRequest="60" WidthRequest="90" BorderColor="#d9d9d9">
+                                                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical"  Spacing="0">
+                                                        <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="45" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamColor}">
+                                                            <Label HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamNameShort}" Style="{StaticResource WhiteLabelSemiBold18}" TextColor="#FFFFFF"></Label>
+                                                        </Grid>
+                                                        <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="15" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamSecondaryColor}">
+                                                        </Grid>
+                                                    </StackLayout>
+                                                </Frame>
+                                                <Image IsVisible="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.IsDefaultLogo}" Aspect="AspectFit" Source="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamDefaultLogo}" ></Image>
+                                                <Label
+                                                    x:Name="Team1NameSpread"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource BlackLabelSemiBold12}"
+                                                    Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamName}"
+                                                    VerticalOptions="Start"
+                                                    VerticalTextAlignment="Start" />
+
+
+                                            </StackLayout>
+                                            <StackLayout
+                                                Grid.Row="1"
+                                                HorizontalOptions="Center"
+                                                Orientation="Horizontal">
+                                                <Label
+                                                    HorizontalOptions="Center"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource BlackLabelRegular13}"
+                                                    Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.SpreadDisply}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                                <Label
+                                                    HorizontalOptions="Center"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource LightGrayLabelRegular13}"
+                                                    Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.SpreadMoneyDisply}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                            </StackLayout>
+
+                                        </Grid>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Spread1SelectedCommand}" CommandParameter="{Binding BettingDetails.SelectedGame.EventID}" />
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                    <Image
+                                        Grid.Column="0"
+                                        Margin="0,-5,-5,0"
+                                        HorizontalOptions="End"
+                                        IsVisible="{Binding IsSpread1Selected}"
+                                        Source="radio_selected"
+                                        VerticalOptions="Start" />
+                                    <StackLayout
+                                        Grid.Column="1"
+                                        HeightRequest="30"
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="30">
+                                        <Frame
+                                            Padding="0"
+                                            BackgroundColor="#152430"
+                                            CornerRadius="15"
+                                            HasShadow="False"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="FillAndExpand">
+                                            <Label
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                Style="{StaticResource WhiteLabelSemiBold13}"
+                                                Text="{x:Static Common:AppResources.Vs}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center">
+                                                <Label.Margin>
+                                                    <OnPlatform x:TypeArguments="Thickness">
+                                                        <OnPlatform.Platforms>
+                                                            <On Platform="iOS" Value="0,0,0,0" />
+                                                            <On Platform="Android" Value="0,4,0,0" />
+                                                        </OnPlatform.Platforms>
+                                                    </OnPlatform>
+                                                </Label.Margin>
+                                            </Label>
+                                        </Frame>
+                                    </StackLayout>
+                                    <Frame
+                                        Grid.Column="2"
+                                        Padding="0"
+                                        BorderColor="{Binding IsSpread2Selected, Converter={StaticResource FrameBorderColorConverter}}"
+                                        CornerRadius="10"
+                                        HasShadow="False">
+                                        <Grid
+                                            ColumnSpacing="0"
+                                            HorizontalOptions="FillAndExpand"
+                                            RowSpacing="0"
+                                            VerticalOptions="FillAndExpand">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="20" />
+                                            </Grid.RowDefinitions>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Spacing="10"
+                                                VerticalOptions="Center">
+                                                <Frame IsVisible="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.IsDefaultLogo, Converter={StaticResource InverseBooleanConverter}}" HasShadow="False"  Padding="0" CornerRadius="0" HorizontalOptions="Center" HeightRequest="60" WidthRequest="90" BorderColor="#d9d9d9">
+                                                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical"  Spacing="0">
+                                                        <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="45" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamColor}">
+                                                            <Label HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamNameShort}" Style="{StaticResource WhiteLabelSemiBold18}" TextColor="#FFFFFF"></Label>
+                                                        </Grid>
+                                                        <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="15" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamSecondaryColor}">
+                                                        </Grid>
+                                                    </StackLayout>
+                                                </Frame>
+                                                 <Image IsVisible="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.IsDefaultLogo}" Aspect="AspectFit" Source="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamDefaultLogo}" ></Image>
+                                                <Label
+                                                    x:Name="Team2NameSpread"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource BlackLabelSemiBold12}"
+                                                    Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamName}"
+                                                    VerticalOptions="Start"
+                                                    VerticalTextAlignment="Start" />
+
+
+                                            </StackLayout>
+                                            <StackLayout
+                                                Grid.Row="1"
+                                                HorizontalOptions="Center"
+                                                Orientation="Horizontal">
+                                                <Label
+                                                    Grid.Column="0"
+                                                    HorizontalOptions="Center"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource BlackLabelRegular13}"
+                                                    Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.SpreadDisply}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                                <Label
+                                                    Grid.Column="0"
+                                                    HorizontalOptions="Center"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource LightGrayLabelRegular13}"
+                                                    Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.SpreadMoneyDisply}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                            </StackLayout>
+                                        </Grid>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Spread2SelectedCommand}" CommandParameter="{Binding BettingDetails.SelectedGame.EventID}" />
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                    <Image
+                                        Grid.Column="2"
+                                        Margin="0,-5,-5,0"
+                                        HorizontalOptions="End"
+                                        IsVisible="{Binding IsSpread2Selected}"
+                                        Source="radio_selected"
+                                        VerticalOptions="Start" />
+                                </Grid>
+                                <Grid
+                                    x:Name="OverUnderView"
+                                    Grid.Row="3"
+                                    Margin="0,15,0,0"
+                                    HeightRequest="150"
+                                    IsVisible="{Binding IsOverUnderLineVisible}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="35" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Frame
+                                        Grid.Column="0"
+                                        Padding="0"
+                                        BorderColor="{Binding IsOverUnder1Selected, Converter={StaticResource FrameBorderColorConverter}}"
+                                        CornerRadius="10"
+                                        HasShadow="False">
+                                        <Grid
+                                            ColumnSpacing="0"
+                                            HorizontalOptions="FillAndExpand"
+                                            RowSpacing="0"
+                                            VerticalOptions="FillAndExpand">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="20" />
+                                            </Grid.RowDefinitions>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Spacing="10"
+                                                VerticalOptions="Center">
+                                                <Frame IsVisible="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.IsDefaultLogo, Converter={StaticResource InverseBooleanConverter}}" HasShadow="False"  Padding="0" CornerRadius="0" HorizontalOptions="Center" HeightRequest="60" WidthRequest="90" BorderColor="#d9d9d9">
+                                                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical"  Spacing="0">
+                                                        <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="45" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamColor}">
+                                                            <Label HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamNameShort}" Style="{StaticResource WhiteLabelSemiBold18}" TextColor="#FFFFFF"></Label>
+                                                        </Grid>
+                                                        <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="15" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamSecondaryColor}">
+                                                        </Grid>
+                                                    </StackLayout>
+                                                </Frame>
+                                                   <Image IsVisible="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.IsDefaultLogo}" Aspect="AspectFit" Source="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamDefaultLogo}" ></Image>
+                                                <Label
+                                                    x:Name="Team1NameOverUnder"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource BlackLabelSemiBold12}"
+                                                    Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamName}"
+                                                    VerticalOptions="Start"
+                                                    VerticalTextAlignment="Start" />
+
+
+                                            </StackLayout>
+                                            <StackLayout
+                                                Grid.Row="1"
+                                                HorizontalOptions="Center"
+                                                Orientation="Horizontal">
+                                                <Label
+                                                    Grid.Column="0"
+                                                    HorizontalOptions="Center"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource BlackLabelRegular13}"
+                                                    Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.OverScoreDisply}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                                <Label
+                                                    Grid.Column="0"
+                                                    HorizontalOptions="Center"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource LightGrayLabelRegular13}"
+                                                    Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.OverScoreMoneyDisply}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                            </StackLayout>
+                                        </Grid>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding OverUnder1SelectedCommand}" CommandParameter="{Binding BettingDetails.SelectedGame.EventID}" />
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                    <Image
+                                        Grid.Column="0"
+                                        Margin="0,-5,-5,0"
+                                        HorizontalOptions="End"
+                                        IsVisible="{Binding IsOverUnder1Selected}"
+                                        Source="radio_selected"
+                                        VerticalOptions="Start" />
+                                    <StackLayout
+                                        Grid.Column="1"
+                                        HeightRequest="30"
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="30">
+                                        <Frame
+                                            Padding="0"
+                                            BackgroundColor="#152430"
+                                            CornerRadius="15"
+                                            HasShadow="False"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="FillAndExpand">
+                                            <Label
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                Style="{StaticResource WhiteLabelSemiBold13}"
+                                                Text="{x:Static Common:AppResources.Vs}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center">
+                                                <Label.Margin>
+                                                    <OnPlatform x:TypeArguments="Thickness">
+                                                        <OnPlatform.Platforms>
+                                                            <On Platform="iOS" Value="0,0,0,0" />
+                                                            <On Platform="Android" Value="0,4,0,0" />
+                                                        </OnPlatform.Platforms>
+                                                    </OnPlatform>
+                                                </Label.Margin>
+                                            </Label>
+                                        </Frame>
+                                    </StackLayout>
+                                    <Frame
+                                        Grid.Column="2"
+                                        Padding="0"
+                                        BorderColor="{Binding IsOverUnder2Selected, Converter={StaticResource FrameBorderColorConverter}}"
+                                        CornerRadius="10"
+                                        HasShadow="False">
+                                        <Grid
+                                            ColumnSpacing="0"
+                                            HorizontalOptions="FillAndExpand"
+                                            RowSpacing="0"
+                                            VerticalOptions="FillAndExpand">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="auto" />
+                                                <RowDefinition Height="20" />
+                                            </Grid.RowDefinitions>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Spacing="10"
+                                                VerticalOptions="Center">
+                                                <Frame IsVisible="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.IsDefaultLogo, Converter={StaticResource InverseBooleanConverter}}" HasShadow="False"  Padding="0" CornerRadius="0" HorizontalOptions="Center" HeightRequest="60" WidthRequest="90" BorderColor="#d9d9d9">
+                                                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical"  Spacing="0">
+                                                        <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="45" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamColor}">
+                                                            <Label HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamNameShort}" Style="{StaticResource WhiteLabelSemiBold18}" TextColor="#FFFFFF"></Label>
+                                                        </Grid>
+                                                        <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="15" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamSecondaryColor}">
+                                                        </Grid>
+                                                    </StackLayout>
+                                                </Frame>
+                                                   <Image IsVisible="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.IsDefaultLogo}" Aspect="AspectFit" Source="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamDefaultLogo}" ></Image>
+                                                <Label
+                                                    x:Name="Team2NameOverUnder"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource BlackLabelSemiBold12}"
+                                                    Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamName}"
+                                                    VerticalOptions="Start"
+                                                    VerticalTextAlignment="Start" />
+
+
+                                            </StackLayout>
+                                            <StackLayout
+                                                Grid.Row="1"
+                                                HorizontalOptions="Center"
+                                                Orientation="Horizontal">
+                                                <Label
+                                                    Grid.Column="0"
+                                                    HorizontalOptions="Center"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource BlackLabelRegular13}"
+                                                    Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.UnderScoreDisply}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                                <Label
+                                                    Grid.Column="0"
+                                                    HorizontalOptions="Center"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource LightGrayLabelRegular13}"
+                                                    Text="{Binding StepsDataList[1].BettingDetails.SelectedGame.UnderScoreMoneyDisply}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                            </StackLayout>
+                                        </Grid>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding OverUnder2SelectedCommand}" CommandParameter="{Binding BettingDetails.SelectedGame.EventID}" />
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                    <Image
+                                        Grid.Column="2"
+                                        Margin="0,-5,-5,0"
+                                        HorizontalOptions="End"
+                                        IsVisible="{Binding IsOverUnder2Selected}"
+                                        Source="radio_selected"
+                                        VerticalOptions="Start" />
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </controls:TailCustomFrame>
+                    <controls:TailCustomFrame
+                        x:Name="WageringUnitFrame"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        IsVisible="{Binding IsGameSelected}">
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                            <Label
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource BlackLabelSemiBold12}"
+                                Text="{x:Static Common:AppResources.WageringUnitText}"
+                                VerticalOptions="Start" />
+                            <controls:TailCustomEntry
+                                x:Name="WageringValue"
+                                Margin="0,10,0,0"
+                                HorizontalOptions="FillAndExpand"
+                                Keyboard="Numeric"
+                                ReturnKeyType="Done"
+                                Style="{StaticResource EntryRegular14}"
+                                Text="{Binding WageringUnitValue}">
+                                <controls:TailCustomEntry.Behaviors>
+                                    <behaviors:WaggeringEntryBehaviour />
+                                </controls:TailCustomEntry.Behaviors>
+                            </controls:TailCustomEntry>
+                            <Label
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource BlackLabelRobotoRegular12}"
+                                Text="{x:Static Common:AppResources.WageringHintText}"
+                                VerticalOptions="Start"
+                                VerticalTextAlignment="Start" />
+                        </StackLayout>
+                    </controls:TailCustomFrame>
+                    <controls:TailCustomFrame
+                        CornerRadius="0"
+                        HasShadow="False"
+                        IsVisible="{Binding IsGameSelected}">
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                            <Label
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource BlackLabelSemiBold12}"
+                                Text="{x:Static Common:AppResources.PickFee}"
+                                VerticalOptions="Start" />
+                            <controls:TailCustomEntry
+                                x:Name="EntryPrice"
+                                Margin="0,10,0,0"
+                                HorizontalOptions="FillAndExpand"
+                                Keyboard="Numeric"
+                                Placeholder="0"
+                                ReturnKeyType="Done"
+                                Style="{StaticResource EntryRegular14}"
+                                Text="{Binding StepsDataList[1].BettingDetails.PickPrice}"
+                                TextChanged="EntryPrice_TextChanged">
+                                <controls:TailCustomEntry.Behaviors>
+                                    <behaviors:NumericValidationBehavior />
+                                </controls:TailCustomEntry.Behaviors>
+                            </controls:TailCustomEntry>
+                            <Label
+                                Margin="0,10,0,0"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource PurpleLabelRegular12}"
+                                Text="{Binding StepsDataList[1].BettingDetails.PickPriceHint}"
+                                VerticalOptions="Start"
+                                VerticalTextAlignment="Start" />
+                        </StackLayout>
+                    </controls:TailCustomFrame>
+                    <template:CreateAPosteTemplate
+                        x:Name="PostTemplate"
+                        Margin="0,0,0,0"
+                        AttachmentTapCommand="{Binding ImageTapCommand}"
+                        EditorText="{Binding PostContent, Mode=TwoWay}"
+                        IsShare="False"
+                        IsPostAPick="True"
+                        IsHideCaptionEnabled="{Binding IsHideCaptionEnabled, Mode=TwoWay}"
+                        IsHideSelected="{Binding HideCaption, Mode=TwoWay}"
+                        ProfileImage="{Binding UserImage}"
+                        ProfileName="{Binding UserName}"
+                        SelectedCount="{Binding ImageSelectedCount, Mode=TwoWay}"
+                        SelectedMedia="{Binding Media, Mode=TwoWay}" />
+                </StackLayout>
+            </ScrollView>
+            <controls:TailCustomFrame
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                BackgroundColor="White"
+                CornerRadius="0"
+                HasShadow="False"
+                VerticalOptions="End">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Frame
+                        Grid.Column="0"
+                        Padding="0"
+                        BorderColor="#D8D8D8"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HeightRequest="42"
+                        HorizontalOptions="FillAndExpand">
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource BlackRobotoLabelBold16}"
+                            Text="Discard"
+                            VerticalOptions="Center" />
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DiscardCommand}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <template:PurpleGradientButton
+                        Grid.Column="1"
+                        ButtonText="{x:Static Common:AppResources.PostNow}"
+                        Command="{Binding Post}"
+                        HeightRequest="42"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="CenterAndExpand" />
+                </Grid>
+            </controls:TailCustomFrame>
+            <template:ProgressView
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                HorizontalOptions="Fill"
+                IsProgressVisible="True"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                ProgressCount="{Binding ProgressCountDisplay}"
+                ProgressPercentageValue="{Binding ProgressPercentage}"
+                VerticalOptions="Fill" />
+            <template:ProgressView
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                HorizontalOptions="Fill"
+                IsProgressVisible="False"
+                IsRunning="{Binding IsNormalIndicator}"
+                IsVisible="{Binding IsNormalIndicator}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </ContentPage.Content>
+</views:AppPageBase>

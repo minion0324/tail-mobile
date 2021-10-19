@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:Common="clr-namespace:Tail.Common"  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" xmlns:template="clr-namespace:Tail.Views.Templates"  x:Class="Tail.Views.ViewAllFilterPopUp">
+    <Grid  x:Name="MainGrid" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="40"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid RowSpacing="0" ColumnSpacing="0" Grid.Row="1" Grid.Column="1" BackgroundColor="White"  >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Margin="16,0,16,0" VerticalOptions="Center" Text="{x:Static Common:AppResources.PurchaseType}" Style="{StaticResource PurpleLabelSemiBold12}"></Label>
+             <BoxView Grid.Row="0" VerticalOptions="End" HeightRequest="1" HorizontalOptions="FillAndExpand" BackgroundColor="#EBEBEB"/>
+            <controls:StackView Grid.Row="1" Spacing="0" x:Name="PickTypeStack" xmlns:controls="clr-namespace:Tail.Controls" Orientation="Vertical" ItemSource="{Binding PickTypeList}"  >
+                <controls:StackView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Vertical" Spacing="0">
+
+                            <Grid RowSpacing="0" ColumnSpacing="0"  HeightRequest="50" Margin="16,0,16,0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="40"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                
+                                <Label Grid.Column="0" Text="{Binding PickInfo.Name}" HorizontalOptions="Start" VerticalOptions="Center" Margin="26,0,0,0" Style="{StaticResource BlackLabelRegular13}" ></Label>
+                                <Image Grid.Column="1" Source="{Binding PickInfo.CheckboxImage}" HorizontalOptions="Center" VerticalOptions="Center" ></Image>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer  Command="{Binding SelectedCommand}" CommandParameter="{Binding PickInfo}" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView  HeightRequest="1" HorizontalOptions="FillAndExpand" BackgroundColor="#EBEBEB"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </controls:StackView.ItemTemplate>
+            </controls:StackView>
+
+             <Label Grid.Row="2" Margin="16,0,16,0" VerticalOptions="Center" Text="{x:Static Common:AppResources.SportType}" Style="{StaticResource PurpleLabelSemiBold12}"></Label>
+            <BoxView Grid.Row="2" VerticalOptions="End" HeightRequest="1" HorizontalOptions="FillAndExpand" BackgroundColor="#EBEBEB"/>
+            <controls:StackView Grid.Row="3" Spacing="0" x:Name="FilterStack" xmlns:controls="clr-namespace:Tail.Controls" Orientation="Vertical" ItemSource="{Binding SportsListList}"  >
+                <controls:StackView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Vertical" Spacing="0">
+
+                            <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="50" Margin="16,0,16,0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="40"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                               
+                                <Label Grid.Column="0" Text="{Binding SportsInfo.SportName}" VerticalOptions="Center" Margin="26,0,0,0" Style="{StaticResource BlackLabelRegular13}" ></Label>
+                                <Image Grid.Column="1" Source="{Binding SportsInfo.CheckboxImage}" HorizontalOptions="Center" VerticalOptions="Center" ></Image>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer  Command="{Binding SelectedCommand}" CommandParameter="{Binding SportsInfo}" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView  HeightRequest="1" HorizontalOptions="FillAndExpand" BackgroundColor="#EBEBEB"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </controls:StackView.ItemTemplate>
+            </controls:StackView>
+
+            <template:PurpleGradientButton Grid.Row="4"  Margin="24,5,24,5" ButtonText="{x:Static Common:AppResources.Done}" VerticalOptions="Center" HorizontalOptions="FillAndExpand"  HeightRequest="42" Command="{Binding DoneCommand}" ></template:PurpleGradientButton>
+        </Grid>
+
+    </Grid>
+</pages:PopupPage>

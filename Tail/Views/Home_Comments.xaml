@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:AppPageBase xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:ffTransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"  xmlns:views="clr-namespace:Tail.Views" xmlns:Common="clr-namespace:Tail.Common" xmlns:template="clr-namespace:Tail.Views.Templates" xmlns:controls="clr-namespace:Tail.Controls"  x:Class="Tail.Views.Home_Comments">
+    <ContentPage.Content>
+        <Grid x:Name="Maingrid" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" BackgroundColor="#F1F1F1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="74"></RowDefinition>
+            </Grid.RowDefinitions>
+            <template:HeaderView Grid.Row="0" BackButtonVisible="True" LogoVisible="False" WalletVisible="False" NotificationVisible="False" TitleVisible="True" Title="{x:Static Common:AppResources.PostText}" BackButtonCommand="{Binding Back}" ></template:HeaderView>
+            <ScrollView x:Name="ContentScroll" Grid.Row="1" VerticalScrollBarVisibility="Never"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Grid  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <template:PostSomething Margin="16,16,16,0" IsVisible="{Binding IsPickPost, Converter = {StaticResource InverseBooleanConverter}}" IsPlayVisible="{Binding PostItem.IsPlayEnable}" Grid.Row="0"></template:PostSomething>
+                    <template:PostPick Margin="16,16,16,0" IsVisible="{Binding IsPickPost}" IsPlayVisible="{Binding PostItem.IsPlayEnable}" Grid.Row="0"></template:PostPick>
+                    <Frame IsVisible="{Binding LoadMoreVisible}" BackgroundColor="White" Grid.Row="1" CornerRadius="0" HasShadow="False" HorizontalOptions="FillAndExpand" HeightRequest="40" Padding="0">
+                        <StackLayout Orientation="Horizontal" Spacing="0" Margin="16,16,0,0">
+                            <Label Style="{StaticResource PurpleLabelMedium14}" HorizontalOptions="Start"  Text="{x:Static Common:AppResources.PreviousComments}" ></Label>
+                            <ActivityIndicator Margin="20,0,0,0" Grid.Row="1" IsVisible="{Binding IsLoadMoreBusy}" IsRunning="{Binding IsLoadMoreBusy}" Color="#E5B59D" VerticalOptions="Center"  HorizontalOptions="Center" />
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer  Command="{Binding PreviousComments}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <controls:StackView IsVisible="{Binding IsCommentVisible}"  Grid.Row="2" Spacing="0" x:Name="CommentStack" Orientation="Vertical" ItemSource="{Binding CommentDetailsList}" AddItems="{Binding NewCommentsList}" >
+                        <controls:StackView.ItemTemplate>
+                            <DataTemplate>
+                                <SwipeView x:Name="swipeView" IsEnabled="{Binding EnableDelete}">
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Delete" IconImageSource="delete.png"  BackgroundColor="Red" Command="{Binding DeleteCommand}" CommandParameter="{Binding ID}" />
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <Grid RowSpacing="0" ColumnSpacing="0" BackgroundColor="White">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="10"></RowDefinition>
+                                            <RowDefinition Height="25"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="10"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="70"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <OnPlatform x:TypeArguments="View">
+                                            <OnPlatform.iOS>
+                                                <Frame Grid.Row="1" Grid.RowSpan="2"  Grid.Column="0" Padding="0" HeightRequest="38" WidthRequest="38" CornerRadius="19" HorizontalOptions="Center" VerticalOptions="Start" HasShadow="False" BackgroundColor="Transparent">
+                                                    <controls:CircleImage  Source="{Binding DisplayUserImage}" WidthRequest="38" HeightRequest="38" >
+                                                    </controls:CircleImage>
+                                                    <Frame.GestureRecognizers>
+                                                        <TapGestureRecognizer  Command="{Binding UserDetails}" CommandParameter="{Binding UserID}" />
+                                                    </Frame.GestureRecognizers>
+                                                </Frame>
+                                            </OnPlatform.iOS>
+                                            <OnPlatform.Android>
+                                                <ffimageloading:CachedImage Grid.Row="1" Grid.RowSpan="2"  Grid.Column="0" Source="{Binding DisplayUserImage}" Aspect="AspectFit" HeightRequest="38" WidthRequest="38" HorizontalOptions="Center" VerticalOptions="Center" >
+                                                    <ffimageloading:CachedImage.Transformations>
+                                                        <ffTransformations:CircleTransformation />
+                                                    </ffimageloading:CachedImage.Transformations>
+                                                    <ffimageloading:CachedImage.GestureRecognizers>
+                                                        <TapGestureRecognizer  Command="{Binding UserDetails}" CommandParameter="{Binding UserID}" />
+                                                    </ffimageloading:CachedImage.GestureRecognizers>
+                                                </ffimageloading:CachedImage>
+                                            </OnPlatform.Android>
+                                        </OnPlatform>
+                                        <Label Grid.Row="1" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Start" Style="{StaticResource PurpleLabelSemiBold12}" Text="{Binding UserName}">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer  Command="{Binding UserDetails}" CommandParameter="{Binding UserID}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Label Grid.Row="1" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start" Margin="0,0,20,0" Style="{StaticResource GrayLabelRegular10}" Text="{Binding PostedTime}"></Label>
+                                        <Label Grid.Row="2" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Start" Margin="0,0,20,0" Style="{StaticResource BlackLabelRegular12}" Text="{Binding CommentText}"></Label>
+                                        <BoxView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="End" HeightRequest="1" HorizontalOptions="FillAndExpand" BackgroundColor="#ECECEC"></BoxView>
+                                        <ActivityIndicator Margin="0,0,16,0" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="#E5B59D" VerticalOptions="Center" HorizontalOptions="End" />
+                                    </Grid>
+                                </SwipeView>
+                            </DataTemplate>
+                        </controls:StackView.ItemTemplate>
+                    </controls:StackView>
+                    <ActivityIndicator  Grid.Row="2" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="#E5B59D" VerticalOptions="Center"  HorizontalOptions="Center" />
+                </Grid>
+            </ScrollView>
+            <Grid IsVisible="{Binding IsCommentVisible}" Grid.Row="2" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" BackgroundColor="White" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="70"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.Column="0" Grid.ColumnSpan="3" HeightRequest="1" BackgroundColor="#ECECEC" VerticalOptions="Start" HorizontalOptions="FillAndExpand"></BoxView>
+
+
+                <OnPlatform x:TypeArguments="View">
+                    <OnPlatform.iOS>
+                        <Frame Grid.Column="0"  Padding="0" Margin="0,10,0,0" HeightRequest="40" WidthRequest="40" CornerRadius="20" HorizontalOptions="Center" VerticalOptions="Start" HasShadow="False" BackgroundColor="Transparent">
+                            <controls:CircleImage  Source="{Binding LoggedInUserImage}" WidthRequest="40" HeightRequest="40" >
+                            </controls:CircleImage>
+                        </Frame>
+                    </OnPlatform.iOS>
+                    <OnPlatform.Android>
+                        <ffimageloading:CachedImage  Grid.Column="0" Margin="0,10,0,0" Source="{Binding LoggedInUserImage}" Aspect="AspectFit" HeightRequest="40" WidthRequest="40" HorizontalOptions="Center" VerticalOptions="Center" >
+                            <ffimageloading:CachedImage.Transformations>
+                                <ffTransformations:CircleTransformation />
+                            </ffimageloading:CachedImage.Transformations>
+                        </ffimageloading:CachedImage>
+                    </OnPlatform.Android>
+                </OnPlatform>
+                <controls:CustomEditor
+                                x:Name="CommentEntry"
+                                Grid.Column="1"
+                                Margin="0,10,0,0"
+                                HorizontalOptions="FillAndExpand"   
+                                HeightRequest="40"
+                                VerticalOptions="Start"
+                                Keyboard="Chat"
+                                BackgroundColor="Transparent"
+                                Text="{Binding EnterCommentText}"
+                                Style="{StaticResource EditorRegular14}"
+                                Placeholder="{Binding Resources[EnterCommentPlaceHolder]}"/>
+                <Image  VerticalOptions="Start" HorizontalOptions="Center" Grid.Column="2" Source="send_btn">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"  Command="{Binding SendComment}" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>
+            <template:ProgressView Grid.Row="0" Grid.RowSpan="3"  IsVisible="{Binding InitialLoad}" IsRunning="{Binding InitialLoad}" HorizontalOptions="Fill" VerticalOptions="Fill" />
+        </Grid>
+    </ContentPage.Content>
+</views:AppPageBase>

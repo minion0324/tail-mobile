@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Tail.Views.Templates.BannerTags">
+    <ContentView.Content>
+        <Grid RowSpacing="0" VerticalOptions="Center" ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Frame Grid.Row="0" x:Name="TagFrame" HorizontalOptions="Center" HasShadow="False" CornerRadius="0" Padding="0">
+                <Label Padding="6,0,6,0" VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" x:Name="TagLabel" Style="{StaticResource DarkBlackLabelMedium12}"></Label>
+            </Frame>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

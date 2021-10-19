@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"   xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" xmlns:template="clr-namespace:Tail.Views.Templates"  x:Class="Tail.Views.EnlargeImagePopUp">
+    <Grid x:Name="MainGrid" BackgroundColor="Black" RowSpacing="0" ColumnSpacing="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Frame HorizontalOptions="Start" Grid.Row="0" VerticalOptions="Start" WidthRequest="80" HeightRequest="80" BackgroundColor="Transparent" CornerRadius="0" HasShadow="False" Padding="0" >
+            <Image x:Name="BackButton"  Margin="20,20,0,0" VerticalOptions="Start" HorizontalOptions="Start" Source="back">
+            </Image>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="DismissPopup_Clicked" />
+            </Frame.GestureRecognizers>
+        </Frame>
+        <Grid Grid.Row="0" x:Name="SingleImageGrid" IsVisible="false" Margin="0,60,0,0"  VerticalOptions="FillAndExpand" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand">
+            <Image x:Name="ImageViewSingle"  Aspect="AspectFit"  HorizontalOptions="Center" VerticalOptions="Center" ></Image>
+            <ActivityIndicator x:Name="IndicatorView" IsRunning="{Binding Source={x:Reference ImageViewSingle},Path=IsLoading}"  Color="White" VerticalOptions="Center"  HorizontalOptions="Center" />
+        </Grid>
+        <CarouselView Grid.Row="0" x:Name="ImageSlider" Margin="0,60,0,0"  HorizontalScrollBarVisibility="Never"  HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand" IndicatorView="indicatorView"  >
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <Grid VerticalOptions="FillAndExpand" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand">
+                        <Image x:Name="ImageView"  Aspect="AspectFit" Source="{Binding ImageName,Converter={StaticResource ImagePathConverter}}"  HorizontalOptions="Center" VerticalOptions="Center" ></Image>
+                        <ActivityIndicator x:Name="IndicatorView" IsRunning="{Binding Source={x:Reference ImageView},Path=IsLoading}"  Color="White" VerticalOptions="Center"  HorizontalOptions="Center" />
+                    </Grid>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+         <IndicatorView Grid.Row="1" x:Name="indicatorView" IndicatorSize="5"  IndicatorColor="White" SelectedIndicatorColor="Red" HorizontalOptions="Center" />
+    </Grid>
+</pages:PopupPage>

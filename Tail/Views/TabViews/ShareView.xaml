@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  xmlns:views="clr-namespace:Tail.Views" xmlns:Common="clr-namespace:Tail.Common" xmlns:template="clr-namespace:Tail.Views.Templates" xmlns:controls="clr-namespace:Tail.Controls" x:Class="Tail.Views.TabViews.ShareView">
+    <views:AppPageBase.Resources>
+        <ResourceDictionary>
+            <controls:FeedLineTemplateSelector x:Key="FeedLineTemplateSelector" />
+        </ResourceDictionary>
+    </views:AppPageBase.Resources>
+    <ContentView.Content>
+        <Grid
+            x:Name="Maingrid"
+            BackgroundColor="#F1F1F1"
+            ColumnSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="16" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="16" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="16" />
+            </Grid.ColumnDefinitions>
+
+            <Label
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalOptions="Center"
+                IsVisible="{Binding InfoVisible}"
+                Style="{StaticResource BlackLabelMedium14}"
+                Text="{x:Static Common:AppResources.PicksInfo}"
+                VerticalOptions="Center" />
+            <StackLayout
+                x:Name="ShareList"
+                Grid.Row="1"
+                Grid.Column="1"
+                BackgroundColor="Transparent"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="true"
+                BindableLayout.ItemsSource="{Binding ShareDetailsList}"
+                BindableLayout.ItemTemplateSelector="{StaticResource FeedLineTemplateSelector}"
+                VerticalOptions="StartAndExpand">
+
+            </StackLayout>
+
+        </Grid>
+    </ContentView.Content>
+</ContentView>

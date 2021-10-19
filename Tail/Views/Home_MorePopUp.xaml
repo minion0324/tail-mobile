@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:Common="clr-namespace:Tail.Common"  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"   x:Class="Tail.Views.Home_MorePopUp">
+    <Grid  x:Name="MainGrid" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="0" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+          <Frame BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="3" HorizontalOptions="Fill" VerticalOptions="Fill">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="DismissPopup_Clicked" />
+            </Frame.GestureRecognizers>
+        </Frame>
+         <Frame BackgroundColor="White" Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" HorizontalOptions="Fill" VerticalOptions="Fill">
+        </Frame>
+        <StackLayout Grid.Row="1"  Grid.Column="1"  Margin="16,0,0,0" Spacing="16" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+            <Image Source="unfollow"></Image>
+            <Label x:Name="LabelUnfollow"  Text="{x:Static Common:AppResources.Unfollow}" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" Style="{StaticResource DarkBlackLabelRegular14}"></Label>
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Unfollow}" />
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+        <BoxView Grid.Row="1" Grid.Column="1" HeightRequest="1" VerticalOptions="End" HorizontalOptions="FillAndExpand" BackgroundColor="#EBEBEB"></BoxView>
+
+        <StackLayout Grid.Row="2" x:Name="hidePost" Grid.Column="1" Margin="16,0,0,0" Spacing="16" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+            <Image Source="hide_post"></Image>
+            <Label x:Name="LabelHide" Text="{x:Static Common:AppResources.HidePost}" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" Style="{StaticResource DarkBlackLabelRegular14}"></Label>
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Hide}" />
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+        <BoxView  Grid.Row="2" x:Name="hidePostBox" Grid.Column="1" HeightRequest="1" VerticalOptions="End" HorizontalOptions="FillAndExpand" BackgroundColor="#EBEBEB"></BoxView>
+
+        <StackLayout Grid.Row="3"  Grid.Column="1" Margin="16,0,0,0" Spacing="16" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+            <Image Source="share_post"></Image>
+            <Label x:Name="SharePostLabel"  Text="{x:Static Common:AppResources.SharePost}" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" Style="{StaticResource DarkBlackLabelRegular14}"></Label>
+             <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Share}" />
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+        <BoxView x:Name="sharePostBox" Grid.Row="3" Grid.Column="1"  HeightRequest="1" VerticalOptions="End" HorizontalOptions="FillAndExpand" BackgroundColor="#EBEBEB"></BoxView>
+
+        <StackLayout Grid.Row="4" x:Name="reportPost" Grid.Column="1" Margin="16,0,0,0" Spacing="16" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+            <Image Source="report_post"></Image>
+            <Label x:Name="LabelReport" Text="{x:Static Common:AppResources.ReportPost}" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" Style="{StaticResource DarkBlackLabelRegular14}"></Label>
+             <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Report}" />
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+        <BoxView Grid.Row="4" Grid.Column="1" x:Name="reportPostBox" HeightRequest="1" VerticalOptions="End" HorizontalOptions="FillAndExpand" BackgroundColor="#EBEBEB"></BoxView>
+
+    </Grid>
+</pages:PopupPage>

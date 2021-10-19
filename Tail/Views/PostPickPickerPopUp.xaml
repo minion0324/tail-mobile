@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:PopupPage
+    x:Class="Tail.Views.PostPickPickerPopUp"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <Grid
+        x:Name="Maingrid"
+        BackgroundColor="Transparent"
+        ColumnSpacing="0"
+        HorizontalOptions="FillAndExpand"
+        RowSpacing="0"
+        VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Frame
+            Grid.Row="0"
+            Margin="20,20,20,20"
+            BackgroundColor="White"
+            CornerRadius="10"
+            HasShadow="False"
+            HorizontalOptions="FillAndExpand"
+            MinimumHeightRequest="150"
+            VerticalOptions="Center">
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Label
+                    Margin="0,0,0,20"
+                    Style="{StaticResource BlackLabelSemiBold13}"
+                    Text="{Binding TitleText}" />
+                <ScrollView HorizontalOptions="FillAndExpand">
+                    <StackLayout
+                        x:Name="PickerLayout"
+                        BindableLayout.ItemsSource="{Binding PickerItemsList}"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="0"
+                        VerticalOptions="FillAndExpand">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout HorizontalOptions="FillAndExpand" Spacing="0">
+                                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                        <Label
+                                            HorizontalOptions="FillAndExpand"
+                                            Style="{StaticResource BlackLabelRegular13}"
+                                            Text="{Binding ItemName}"
+                                            VerticalOptions="Center" />
+                                        <Image HorizontalOptions="EndAndExpand" Source="{Binding IsSelected, Converter={StaticResource RadioImageConverter}}" />
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="TapGestureRecognizer_Tapped" />
+                                        </StackLayout.GestureRecognizers>
+                                    </StackLayout>
+                                    <BoxView
+                                        Margin="0,10,0,10"
+                                        BackgroundColor="#D8D8D8"
+                                        HeightRequest="1"
+                                        HorizontalOptions="FillAndExpand" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </ScrollView>
+                <template:PurpleGradientButton
+                    x:Name="DoneButton"
+                    Margin="0,20,0,0"
+                    ButtonText="{x:Static Common:AppResources.Done}"
+                    Command="{Binding DoneCommand}"
+                    HeightRequest="42"
+                    HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="InsideFrame_Tapped"></TapGestureRecognizer>
+            </Frame.GestureRecognizers>
+        </Frame>
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OutsideTapped" />
+        </Grid.GestureRecognizers>
+    </Grid>
+</pages:PopupPage>

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Tail.Views.Templates.PostSomething"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Tail.Controls"
+     xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:ffTransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:template="clr-namespace:Tail.Views.Templates">
+    <ContentView.Content>
+        <controls:TailCustomFrame CornerRadius="0" HasShadow="True" Padding="0" Margin="0,0,0,15" BackgroundColor="White" >
+            <Grid RowSpacing="0" ColumnSpacing="0">
+                <controls:CustomStackLayout x:Name="OuterStackView" Orientation="Vertical" Spacing="0">
+                    <template:UserDetailsHeader IsVisible="{Binding PostItem.IsShareNotAvailable, Converter = {StaticResource InverseBooleanConverter}}" UserImage="{Binding PostItem.UserImage}" UserName="{Binding PostItem.UserName}" PostedTime="{Binding PostItem.DisplayPostDate}" PickPurchase_Type="{Binding PostItem.PickPurchase_Type}"  Pick_Type="{Binding PostItem.Pick_Type}"  PurchaseCount="{Binding PostItem.PuchaseCount}" MoreOptionCommand="{Binding MoreOptionCommand}" MoreOptionCommandParameter="{Binding PostItem}" IsMoreOptionVisible="{Binding PostItem.IsShare, Converter = {StaticResource InverseBooleanConverter}}"  UserDetailsCommand="{Binding UserDetails}" UserDetailsCommandParameter="{Binding PostItem.UserId}"  HorizontalOptions="FillAndExpand" VerticalOptions="Center" ></template:UserDetailsHeader>
+                    <Label
+                    Margin="16,16,16,16"
+                    x:Name="LabelContentAvailable"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="WordWrap"
+                    IsVisible="false"
+                    Style="{StaticResource BlackLabelRegular13}"
+                    Text="{x:Static Common:AppResources.ContentNotAvailable}" />
+                    <Label x:Name="LabelContent" Text="{Binding PostItem.PostText}" Margin="16,5,16,15" Style="{StaticResource BlackLabelRegular13}" LineBreakMode="WordWrap" HorizontalTextAlignment="Start" HorizontalOptions="Start" ></Label>
+                    <Grid x:Name="AttachmentView"  RowSpacing="0" HeightRequest="{Binding PostItem.AttachmentHeight}"   ColumnSpacing="0">
+
+                        <Grid IsVisible="{Binding PostItem.IsCarousal, Converter = {StaticResource InverseBooleanConverter}}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                            <ffimageloading:CachedImage  Source="{Binding PostItem.PostedAttachments[0].ImageUrl}" FadeAnimationEnabled="True" Aspect="AspectFit"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+
+                            </ffimageloading:CachedImage>
+                            <Image x:Name="PlayButton" Source="play" IsVisible="false" VerticalOptions="Center" HorizontalOptions="Center"></Image>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer  Command="{Binding PostItem.PostedAttachments[0].AttachmentTap}" CommandParameter="{Binding PostItem.PostedAttachments[0]}" />
+                            </Grid.GestureRecognizers>
+                        </Grid>
+                        <CarouselView IsVisible="{Binding PostItem.IsCarousal}"  Margin="0,9,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ItemsSource="{Binding PostItem.PostedAttachments}" HorizontalScrollBarVisibility="Never" IndicatorView="indicatorView" >
+                            <CarouselView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                                        <ffimageloading:CachedImage  Source="{Binding ImageUrl}" FadeAnimationEnabled="True" Aspect="AspectFit"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+                                        </ffimageloading:CachedImage>
+                                        <Image Source="play" IsVisible="{Binding IsPlayEnable}" VerticalOptions="Center" HorizontalOptions="Center"></Image>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding AttachmentTap}" CommandParameter="{Binding}" />
+                                        </Grid.GestureRecognizers>
+                                    </Grid>
+                                </DataTemplate>
+                            </CarouselView.ItemTemplate>
+                        </CarouselView>
+                    </Grid>
+                    <IndicatorView
+                        x:Name="indicatorView"
+                        Margin="0,5,0,5"
+                        HorizontalOptions="Center"
+                        IndicatorColor="#1E1A40"
+                        IndicatorSize="5"
+                        IsVisible="{Binding PostItem.IsCarouselVisible}"
+                        SelectedIndicatorColor="#CE60B6" />
+                    
+                
+                    <template:LikeCommnetFooter
+                        x:Name="FooterControl"
+                        IsVisible="{Binding PostItem.IsShareNotAvailable, Converter = {StaticResource InverseBooleanConverter}}"
+                        CommentCommand="{Binding CommentCommand}"
+                        CommentCommandParameter="{Binding PostItem}"
+                        CommentCount="{Binding PostItem.CommentCount}"
+                        DisLikeCommand="{Binding DisLikeCommand}"
+                        DisLikeCommandParameter="{Binding PostItem}"
+                        DisLikeCount="{Binding PostItem.DisLikeCount}"
+                        DisLikeImage="{Binding PostItem.DisLikeImage}"
+                       
+                        LikeCommand="{Binding LikeCommand}"
+                        LikeCommandParameter="{Binding PostItem}"
+                        LikeCount="{Binding PostItem.LikeCount}"
+                        LikeImage="{Binding PostItem.LikeImage}" />
+                </controls:CustomStackLayout>
+            </Grid>
+        </controls:TailCustomFrame>
+    </ContentView.Content>
+</ContentView>

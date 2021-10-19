@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Name="MainGrid" x:Class="Tail.Views.Templates.PurpleGradientButton"  xmlns:controls="clr-namespace:Tail.Controls" >
+    <ContentView.Content>
+        <Grid x:Name="ButtonGrid" HeightRequest="42" RowSpacing="0" ColumnSpacing="0">
+            <controls:GradientColorStack x:Name="ButtonFrame"  IsVisible="true"  CornerRadius="0" HasShadow="False" HeightRequest="42" Padding="0" StartColor="#C43CC2" EndColor="#E5B59D" HorizontalOptions="FillAndExpand" IsShadowVisible="False" GradientDirection="TopRightToBottomLeft" />
+            <Button x:Name="ButtonLabel" Style="{StaticResource WhiteLabelBold16}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Transparent" />
+
+        </Grid>
+    </ContentView.Content>
+</ContentView>

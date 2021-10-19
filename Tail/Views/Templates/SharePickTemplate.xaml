@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:template="clr-namespace:Tail.Views.Templates" xmlns:controls="clr-namespace:Tail.Controls"   x:Class="Tail.Views.Templates.SharePickTemplate">
+    <ContentView.Content>
+        <controls:TailCustomFrame CornerRadius="0" HasShadow="False" Padding="0" Margin="0,0,0,15" BackgroundColor="White" >
+            <controls:CustomStackLayout x:Name="OuterStackView" Orientation="Vertical" Spacing="0" MinimumHeightRequest="200">
+                <template:UserDetailsHeader UserImage="{Binding PostItem.SharedUserDetails.ShareUserImage}" UserName="{Binding PostItem.SharedUserDetails.ShareUserName}" PostedTime="{Binding PostItem.ShareDisplayPostDate}" MoreOptionCommand="{Binding MoreOptionCommand}" MoreOptionCommandParameter="{Binding PostItem}" IsMoreOptionVisible="{Binding MoreVisible}" UserDetailsCommand="{Binding UserDetails}" UserDetailsCommandParameter="{Binding PostItem.SharedUserDetails.ShareUserId}"  HorizontalOptions="FillAndExpand" VerticalOptions="Center" IsShared="True" ></template:UserDetailsHeader>
+                <Label Text="{Binding PostItem.ShareText}" Margin="16,5,16,0" Style="{StaticResource BlackLabelRegular13}" LineBreakMode="WordWrap" HorizontalTextAlignment="Start" HorizontalOptions="Start" ></Label>
+                <template:PostPick ContentAvailable="{Binding PostItem.IsShareNotAvailable}" IsPlayVisible="{Binding PostItem.IsPlayEnable}" Margin="10,10,10,0"></template:PostPick>
+            </controls:CustomStackLayout>
+        </controls:TailCustomFrame>
+    </ContentView.Content>
+</ContentView>

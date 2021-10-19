@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Tail.Views.Templates.LikeCommnetFooter">
+    <ContentView.Content>
+          <Grid x:Name="OuterGrid"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  HeightRequest="50"  RowSpacing="0" ColumnSpacing="0" BackgroundColor="Transparent">
+          <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="80"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+              <BoxView Grid.Column="0" Grid.ColumnSpan="3" BackgroundColor="#EBEBEB" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+            <StackLayout x:Name="LikeButton" Grid.Column="0" Orientation="Horizontal" Padding="10,0,10,0" Spacing="7" VerticalOptions="Center" HorizontalOptions="Center">
+                <Image x:Name="ImageLike" ></Image>
+                <Label x:Name="LabelLikeCount" VerticalTextAlignment="Center" HeightRequest="14" Padding="0" VerticalOptions="Center"  Style="{StaticResource BlackLabelMedium12}"></Label>
+            </StackLayout>
+               <StackLayout x:Name="CommentButton" Grid.Column="1" Orientation="Horizontal" Padding="10,0,10,0" Spacing="7" VerticalOptions="Center" HorizontalOptions="Center">
+                <Image Source="comment"></Image>
+                <Label x:Name="LabelCommentCount" VerticalTextAlignment="Center" HeightRequest="14" Padding="0" VerticalOptions="Center" Style="{StaticResource BlackLabelMedium12}"></Label>
+            </StackLayout>
+              <StackLayout x:Name="DisLikeButton" Grid.Column="2" Orientation="Horizontal" Padding="10,0,10,0" Spacing="7" VerticalOptions="Center" HorizontalOptions="Center">
+                <Image x:Name="ImageDisLike" ></Image>
+                <Label x:Name="LabelDisLikeCount" VerticalTextAlignment="Center" HeightRequest="14" Padding="0" VerticalOptions="Center"  Style="{StaticResource BlackLabelMedium12}"></Label>
+            </StackLayout>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

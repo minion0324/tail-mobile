@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:AppPageBase xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" xmlns:views="clr-namespace:Tail.Views" xmlns:Common="clr-namespace:Tail.Common" xmlns:template="clr-namespace:Tail.Views.Templates" xmlns:controls="clr-namespace:Tail.Controls" x:Class="Tail.Views.ReportPost">
+    <ContentPage.Content>
+        <Grid x:Name="Maingrid" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" BackgroundColor="#F1F1F1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <template:HeaderView Grid.Row="0" BackButtonVisible="True" LogoVisible="False" NotificationVisible="False" WalletVisible="False" TitleVisible="True" Title="{x:Static Common:AppResources.ReportPost}" BackButtonCommand="{Binding Back}" ></template:HeaderView>
+            <ScrollView x:Name="ContentScroll" Grid.Row="1" VerticalScrollBarVisibility="Never">
+                <Grid  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <template:PostSomething Margin="16,16,16,-16" IsVisible="{Binding IsPickPost, Converter = {StaticResource InverseBooleanConverter}}" IsPlayVisible="{Binding PostItem.IsPlayEnable}" Grid.Row="0"></template:PostSomething>
+                    <template:PostPick Margin="16,16,16,-16" IsVisible="{Binding IsPickPost}" IsPlayVisible="{Binding PostItem.IsPlayEnable}"  Grid.Row="0"></template:PostPick>
+                    <controls:TailCustomFrame Margin="16,0,16,0" Grid.Row="1" HeightRequest="270" HorizontalOptions="FillAndExpand" HasShadow="False" CornerRadius="0" Padding="0" BackgroundColor="White">
+                        <StackLayout Spacing="0" Orientation="Vertical" Padding="0">
+                            <template:ThemePicker HeightRequest="44" Margin="16,16,16,0" Title="{x:Static Common:AppResources.SelectYourIssue}" ItemSource="{Binding IssueOptions}" DisplayMember="ItemName"   SelectedIndexChangedCallback="{Binding OnIssueIndexChanged}" SelectedIndex="{Binding IssueSelectedIndex, Mode=TwoWay}"  ></template:ThemePicker>
+                            <Frame HasShadow="False" CornerRadius="0" HeightRequest="124" Margin="16,10,16,0" Padding="16,0,16,0" BorderColor="#D8D8D8" >
+                                <controls:CustomEditor
+                                x:Name="ReportEntry"
+                                Grid.Column="1"
+                                Margin="0,10,0,0"
+                                HorizontalOptions="FillAndExpand"   
+                                HeightRequest="124"
+                                VerticalOptions="FillAndExpand"
+                                Keyboard="Chat"
+                                BackgroundColor="Transparent"
+                                Text="{Binding EnterIssueText}"
+                                Style="{StaticResource EditorRegular14}"
+                                Placeholder="{x:Static Common:AppResources.ElaborateIssue}"/>
+                            </Frame>
+                            <Grid RowSpacing="0" Margin="0,16,0,0" ColumnSpacing="0">
+                                <Frame HasShadow="False" WidthRequest="92" Margin="16,0,0,0" CornerRadius="0" HeightRequest="42" HorizontalOptions="Start" Padding="0" VerticalOptions="Center" BorderColor="#672967">
+                                    <Label Text="{x:Static Common:AppResources.CancelText}" HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource PurpleRobotoLabelBold16}"></Label>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer  Command="{Binding Back}" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                                <template:PurpleGradientButton  ios:VisualElement.CanBecomeFirstResponder="True"  ButtonText="{x:Static Common:AppResources.ReportPost}"  WidthRequest="133" HeightRequest="42"  Margin="0,0,16,0" HorizontalOptions="End" VerticalOptions="Center" Command="{Binding ReportPostCommand}" ></template:PurpleGradientButton>
+                            </Grid>
+                        </StackLayout>
+                    </controls:TailCustomFrame>
+                </Grid>
+            </ScrollView>
+
+        </Grid>
+    </ContentPage.Content>
+</views:AppPageBase>

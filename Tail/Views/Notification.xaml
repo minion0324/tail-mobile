@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:AppPageBase xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:Tail.Controls" xmlns:views="clr-namespace:Tail.Views" xmlns:Common="clr-namespace:Tail.Common" xmlns:template="clr-namespace:Tail.Views.Templates" x:Class="Tail.Views.Notification">
+    <ContentPage.Content>
+        <Grid x:Name="Maingrid" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" BackgroundColor="#F1F1F1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="16"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <template:HeaderView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BackButtonVisible="True" NotificationVisible="False" LogoVisible="False" WalletVisible="False" TitleVisible="True" Title="{x:Static Common:AppResources.NotificationText}" BackButtonCommand="{Binding Back}" ClearVisible="{Binding NoDataVisible, Converter={StaticResource InverseBooleanConverter}}" ClearButtonCommand="{Binding ClearCommand}" ></template:HeaderView>
+
+            <Label Grid.ColumnSpan="3" Grid.Row="1"
+                        
+                        Text="{x:Static Common:AppResources.NoNotifications}"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        VerticalOptions="Center"
+                        Style="{StaticResource BlackLabelMedium14}"
+                       
+                        IsVisible="{Binding NoDataVisible}"/>
+            <ScrollView Grid.ColumnSpan="3" Grid.Row="1">
+                <StackLayout>
+                    
+                    <controls:TailCustomFrame
+                        IsVisible="{Binding NoDataVisible, Converter={StaticResource InverseBooleanConverter}}"
+                      
+                        Padding="0"
+                        BackgroundColor="#FFFFFF"
+                        CornerRadius="0"
+                        HasShadow="False">
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Spacing="0"
+                            VerticalOptions="FillAndExpand">
+                            <StackLayout
+                                x:Name="NotificationList"
+                                BindableLayout.ItemsSource="{Binding NotificationList}"
+                                HorizontalOptions="FillAndExpand"
+                                Spacing="0"
+                                VerticalOptions="FillAndExpand">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                       <controls:TailCustomFrame Margin="0,6,0,0" CornerRadius="0" HasShadow="False" Padding="0" BackgroundColor="{Binding NotificationColor}">
+                                    <Grid HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="10"></RowDefinition>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="10"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Frame Grid.Row="1" Grid.Column="0" Padding="0" HeightRequest="40" WidthRequest="40" HorizontalOptions="Center" VerticalOptions="Center" HasShadow="False" BackgroundColor="Transparent">
+                                            <controls:CircleImage Source="{Binding UserImage}" WidthRequest="40" HeightRequest="40" >
+                                                <controls:CircleImage.GestureRecognizers>
+                                                    <TapGestureRecognizer  Command="{Binding UserDetails}" CommandParameter="{Binding UserId}" />
+                                                </controls:CircleImage.GestureRecognizers>
+                                            </controls:CircleImage>
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer  Command="{Binding UserDetails}" CommandParameter="{Binding UserId}" />
+                                            </Frame.GestureRecognizers>
+                                        </Frame>
+                                        <StackLayout Orientation="Vertical" Grid.Row="1" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Start" Spacing="0" >
+                                            <Label Text="{Binding NotificationContent}" Style="{StaticResource BlackLabelRegular13}" ></Label>
+                                            <Label Text="{Binding NotificationTime}" Margin="0,5,0,0" Style="{StaticResource BlackLabelRegular12}"></Label>
+                                        </StackLayout>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer  Command="{Binding NotificationSelectCommand}" CommandParameter="{Binding }" />
+                                        </Grid.GestureRecognizers>
+                                    </Grid>
+                                </controls:TailCustomFrame>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                            <StackLayout BackgroundColor="White" IsVisible="{Binding IsLoadMoreVisible}">
+                                <StackLayout
+                                    Margin="0,15,0,15"
+                                    HorizontalOptions="Center"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Label
+                                        HorizontalOptions="Center"
+                                        Style="{StaticResource PurpleLabelSemiBold14}"
+                                        Text="Load More"
+                                        VerticalOptions="Center" />
+                                    <Image Source="arrow_down" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding LoadMoreCommand}" />
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </StackLayout>
+                    </controls:TailCustomFrame>
+                    </StackLayout>
+            </ScrollView>
+              <template:ProgressView
+                Grid.Row="1"
+                  Grid.ColumnSpan="3"
+                HorizontalOptions="Fill"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </ContentPage.Content>
+</views:AppPageBase>

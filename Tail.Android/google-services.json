@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "371920454058",
+    "project_id": "tail-network",
+    "storage_bucket": "tail-network.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371920454058:android:dd1d264fdf5351ac1aabd3",
+        "android_client_info": {
+          "package_name": "com.tailnetwork.tailapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371920454058-sernmj29kcta5uv99obeiupt7cp1h1f5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8Zm16hsp6lFqCC7mvcPU3O1Gib4TprJQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371920454058-sernmj29kcta5uv99obeiupt7cp1h1f5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "371920454058-6n74qpsdl4323frma30io3sdgbmvrd9p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tailnetwork.tail"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

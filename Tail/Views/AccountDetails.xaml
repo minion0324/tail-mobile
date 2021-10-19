@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.AccountDetails"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <ContentPage.Content>
+        <Grid
+            BackgroundColor="#F1F1F1"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <template:HeaderView
+                Title="{x:Static Common:AppResources.AccountDetailsText}"
+                Grid.Row="0"
+                BackButtonCommand="{Binding Back}"
+                BackButtonVisible="True"
+                LogoVisible="False"
+                NotificationVisible="False"
+                TitleVisible="True"
+                WalletVisible="False" />
+            <ScrollView
+                Grid.Row="1"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Grid
+                    Margin="16"
+                    HorizontalOptions="FillAndExpand"
+                    RowSpacing="10"
+                    VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource PurplePoppinsLabelBold16}"
+                        Text="{x:Static Common:AppResources.PaymentsText}" />
+                    <controls:TailCustomFrame
+                        Grid.Row="1"
+                        Padding="0"
+                        BackgroundColor="#FFFFFF"
+                        CornerRadius="0"
+                        HasShadow="False">
+                        <Grid
+                            Padding="16"
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            RowSpacing="15"
+                            VerticalOptions="FillAndExpand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <StackLayout
+                                Grid.Row="0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal">
+                                <Label
+                                    HorizontalOptions="StartAndExpand"
+                                    Style="{StaticResource BlackLabelMedium14}"
+                                    Text="{x:Static Common:AppResources.YourEarningsText}" />
+                                <Label
+                                    HorizontalOptions="End"
+                                    Style="{StaticResource PurplePoppinsLabelBold16}"
+                                    Text="{Binding TotalEarnings}" />
+                            </StackLayout>
+
+                            <BoxView
+                                Grid.Row="1"
+                                Margin="-16,0,-16,0"
+                                BackgroundColor="#ECECEC"
+                                HeightRequest="1"
+                                HorizontalOptions="FillAndExpand" />
+                            <Label
+                                Grid.Row="2"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource BlackLabelRegular13}"
+                                Text="{x:Static Common:AppResources.PayoutDescText}" />
+                            <template:AccuracySlider
+                                Grid.Row="3"
+                                Margin="0,10,0,0"
+                                HorizontalOptions="FillAndExpand"
+                                SliderRange="{Binding SliderValue}"
+                                VerticalOptions="Center" />
+                            <Label
+                                Grid.Row="4"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource BlackLabelRegular13}"
+                                Text="{Binding AchivementText}" />
+                            <Label
+                                Grid.Row="5"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource LightGrayLabelRegular11}"
+                                Text="5% of the total payout amount will be deducted as Tail Fee." />
+                        </Grid>
+                    </controls:TailCustomFrame>
+
+                    <Label
+                        Grid.Row="2"
+                        HorizontalOptions="Start"
+                        IsVisible="true"
+                        Style="{StaticResource PurplePoppinsLabelBold16}"
+                        Text="{x:Static Common:AppResources.EarningsSummaryText}" />
+                    <Label
+                        Margin="0,20,0,0"
+                        Text="{x:Static Common:AppResources.NoTransactionInfo}"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource BlackLabelMedium14}"
+                        Grid.Row="3"
+                        IsVisible="{Binding NoDataVisible}"/>
+                    <controls:TailCustomFrame
+                        IsVisible="{Binding NoDataVisible, Converter={StaticResource InverseBooleanConverter}}"
+                        Grid.Row="3"
+                        Padding="0"
+                        BackgroundColor="#FFFFFF"
+                        CornerRadius="0"
+                        HasShadow="False">
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Spacing="0"
+                            VerticalOptions="FillAndExpand">
+                            <StackLayout
+                                x:Name="TransactionsList"
+                                BindableLayout.ItemsSource="{Binding PayOutList}"
+                                HorizontalOptions="FillAndExpand"
+                                Spacing="0"
+                                VerticalOptions="FillAndExpand">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid
+                                            Padding="16,13,16,0"
+                                            BackgroundColor="White"
+                                            HorizontalOptions="FillAndExpand"
+                                            RowSpacing="0"
+                                            VerticalOptions="FillAndExpand">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Style="{StaticResource BlackLabelRegular13}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding PayDateString}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Style="{StaticResource PurpleLabelBold14}"
+                                                VerticalOptions="Center" >
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="$" />
+                                                        <Span Text="{Binding PayoutAmount}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <BoxView
+                                                Grid.Row="1"
+                                                Grid.ColumnSpan="2"
+                                                Margin="-16,13,-16,0"
+                                                BackgroundColor="#ECECEC"
+                                                HeightRequest="1"
+                                                HorizontalOptions="FillAndExpand" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                            <StackLayout BackgroundColor="White" IsVisible="{Binding IsLoadMoreVisible}">
+                                <StackLayout
+                                    Margin="0,15,0,15"
+                                    HorizontalOptions="Center"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Label
+                                        HorizontalOptions="Center"
+                                        Style="{StaticResource PurpleLabelSemiBold14}"
+                                        Text="Load More"
+                                        VerticalOptions="Center" />
+                                    <Image Source="arrow_down" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding LoadMoreCommand}" />
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </StackLayout>
+                    </controls:TailCustomFrame>
+
+
+                    <StackLayout
+                        Grid.Row="4"
+                        HorizontalOptions="FillAndExpand"
+                        IsVisible="false"
+                        Orientation="Horizontal">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource PurplePoppinsLabelBold16}"
+                            Text="{x:Static Common:AppResources.AccountDetailsText}" />
+                        <Button
+                            Command="{Binding ClickToChangeCommand}"
+                            HeightRequest="26"
+                            HorizontalOptions="EndAndExpand"
+                            Style="{StaticResource PurpleButton}"
+                            Text="{x:Static Common:AppResources.ClickToChangeText}"
+                            WidthRequest="116" />
+                    </StackLayout>
+                    <Grid
+                        Grid.Row="5"
+                        Padding="16,16,16,0"
+                        BackgroundColor="White"
+                        HorizontalOptions="FillAndExpand"
+                        IsVisible="false"
+                        VerticalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Style="{StaticResource BlackLabelRegular13}"
+                            Text="{x:Static Common:AppResources.AccountHolderNameText}"
+                            VerticalOptions="Center" />
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Style="{StaticResource PurpleLabelBold14}"
+                            Text="Mike John"
+                            VerticalOptions="Center" />
+                        <BoxView
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            Margin="-16,16,-16,16"
+                            BackgroundColor="#ECECEC"
+                            HeightRequest="1"
+                            HorizontalOptions="FillAndExpand" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Style="{StaticResource BlackLabelRegular13}"
+                            Text="{x:Static Common:AppResources.RoutingNumberText}"
+                            VerticalOptions="Center" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Style="{StaticResource PurpleLabelBold14}"
+                            Text="064103707"
+                            VerticalOptions="Center" />
+                        <BoxView
+                            Grid.Row="3"
+                            Grid.ColumnSpan="2"
+                            Margin="-16,16,-16,16"
+                            BackgroundColor="#ECECEC"
+                            HeightRequest="1"
+                            HorizontalOptions="FillAndExpand" />
+                        <Label
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Style="{StaticResource BlackLabelRegular13}"
+                            Text="{x:Static Common:AppResources.AccountNumberText}"
+                            VerticalOptions="Center" />
+                        <Label
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Style="{StaticResource PurpleLabelBold14}"
+                            Text="*3210"
+                            VerticalOptions="Center" />
+                        <BoxView
+                            Grid.Row="5"
+                            Grid.ColumnSpan="2"
+                            Margin="-16,16,-16,0"
+                            BackgroundColor="#ECECEC"
+                            HeightRequest="1"
+                            HorizontalOptions="FillAndExpand" />
+                    </Grid>
+
+                </Grid>
+            </ScrollView>
+            <template:ProgressView
+                Grid.Row="1"
+                HorizontalOptions="Fill"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </ContentPage.Content>
+</views:AppPageBase>

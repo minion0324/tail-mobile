@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Tail.Views.TabViews.PostsView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <controls:FeedLineTemplateSelector x:Key="FeedLineTemplateSelector" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid
+            x:Name="Maingrid"
+            BackgroundColor="#F1F1F1"
+            ColumnSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="16" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="16" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="16" />
+            </Grid.ColumnDefinitions>
+            <controls:StackView
+                x:Name="PostList"
+                Grid.Row="1"
+                Grid.Column="1"
+                AddItems="{Binding AddPostDetails}"
+                BackgroundColor="Transparent"
+                HorizontalOptions="FillAndExpand"
+                ItemSource="{Binding PostDetailsList}"
+                Orientation="Vertical"
+                Spacing="0"
+                VerticalOptions="FillAndExpand">
+                <controls:StackView.ItemTemplate>
+                    <DataTemplate >
+                        <template:PostSomething CreateImage="{Binding PostItem.CreateImage}" IsPlayVisible="{Binding PostItem.IsPlayEnable}" ></template:PostSomething>
+                    </DataTemplate>
+                </controls:StackView.ItemTemplate>
+            </controls:StackView>
+
+            <!--<controls:CustomListView x:Name="PostListView" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding PostDetailsList}" HasUnevenRows="True"  IsAllowSelection="False" BackgroundColor="Transparent" IsVisible="true" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" SeparatorColor="Transparent" VerticalScrollBarVisibility="Never"  IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshPostCommand}"  IsRefreshing="{Binding IsRefreshingPost}" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <template:PostSomethingTemplate  CreateImage="{Binding PostItem.CreateImage}" ></template:PostSomethingTemplate>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </controls:CustomListView>-->
+
+            <!--<controls:CustomListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding PostDetailsList}" HasUnevenRows="True"  IsAllowSelection="False" BackgroundColor="Transparent" IsVisible="true" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" SeparatorColor="Transparent" VerticalScrollBarVisibility="Never" ItemTemplate="{StaticResource FeedLineTemplateSelector}"/>-->
+            <!--<ActivityIndicator  Grid.Row="1" Grid.Column="1" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="#E5B59D" VerticalOptions="Center"  HorizontalOptions="Center" />-->
+            <Label
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                IsVisible="{Binding IsPostInfoLabelVisible}"
+                Style="{StaticResource BlackLabelMedium14}"
+                Text="{x:Static Common:AppResources.HomeFeedInfo}"
+                VerticalOptions="Center"
+                VerticalTextAlignment="Center" />
+
+        </Grid>
+    </ContentView.Content>
+</ContentView>

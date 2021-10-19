@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:Common="clr-namespace:Tail.Common" xmlns:template="clr-namespace:Tail.Views.Templates" xmlns:controls="clr-namespace:Tail.Controls" x:Class="Tail.Views.Templates.TrendingPeople">
+    <ContentView.Content>
+        <StackLayout Orientation="Vertical" Spacing="0">
+            <Grid RowSpacing="0" ColumnSpacing="0" Margin="16,16,10,16" VerticalOptions="Start" HorizontalOptions="FillAndExpand">
+                <Label Text="{x:Static Common:AppResources.TrendingInPeople}" IsVisible="{Binding IsResult, Converter = {StaticResource InverseBooleanConverter}}" Style="{StaticResource PurplePoppinsLabelBold16}" HorizontalOptions="Start" VerticalOptions="Start" ></Label>
+                <Label Text="{x:Static Common:AppResources.SearchResultInPeople}" IsVisible="{Binding IsResult}" Style="{StaticResource PurplePoppinsLabelBold16}" HorizontalOptions="Start" VerticalOptions="Start" ></Label>
+                <StackLayout IsVisible="{Binding IsViewAllPeopleEnable}" Orientation="Horizontal" HorizontalOptions="End" Spacing="0" VerticalOptions="FillAndExpand">
+                    <Label Text="{x:Static Common:AppResources.ViewAll}"  Style="{StaticResource PurpleLabelBold14}" HorizontalOptions="Start"  VerticalOptions="Center" ></Label>
+                    <Image  Source="right_arrow"></Image>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding ViewAllPeople}" />
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+            </Grid>
+
+            <controls:StackView x:Name="PeopleStack" Orientation="Vertical" Spacing="2" ItemSource="{Binding UserDetailsList}" >
+                <controls:StackView.ItemTemplate>
+                    <DataTemplate>
+                        <controls:TailCustomFrame CornerRadius="0" HasShadow="False" Padding="0" BackgroundColor="White" >
+                            <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="60" BackgroundColor="White">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto" ></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="10"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Frame Grid.Column="0" Padding="0" HeightRequest="40" WidthRequest="40" HorizontalOptions="Center" VerticalOptions="Center" HasShadow="False" BackgroundColor="Transparent">
+                                    <controls:CircleImage Source="{Binding UserItem.UserImage}" WidthRequest="40" HeightRequest="40" >
+                                    </controls:CircleImage>
+                                </Frame>
+                                <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" Style="{StaticResource BlackLabelSemiBold13}" Text="{Binding UserItem.UserName}"></Label>
+                                <Label Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,0,20,0" Style="{StaticResource DarkBlackLabelMedium14}" Text="{Binding UserItem.PredSports.UserAccuracy}"></Label>
+                                <Image Grid.Column="3" Source="{Binding UserItem.PredSports.UserSportImage}" ></Image>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer  Command="{Binding UserDetails}" CommandParameter="{Binding UserItem.UserId}" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </controls:TailCustomFrame>
+                    </DataTemplate>
+                </controls:StackView.ItemTemplate>
+            </controls:StackView>
+        </StackLayout>
+
+    </ContentView.Content>
+</ContentView>

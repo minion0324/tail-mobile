@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"              
+             xmlns:controls="clr-namespace:Tail.Controls" 
+             x:Class="Tail.Views.Templates.ThemePicker">
+    <ContentView.Content>
+        <Frame HasShadow="False" CornerRadius="0" Padding="16,0,0,0" BorderColor="#D8D8D8" >
+            <Grid RowSpacing="0" ColumnSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="10" />
+                </Grid.ColumnDefinitions>
+                <controls:PickerWithoutBorder
+                    x:Name="TemplatePicker"                                    
+                    Grid.Column="0" 
+                    HorizontalOptions="Fill"
+                    Style="{StaticResource BlackPickerMedium14}"
+                    SelectedIndexChanged="TemplatePicker_SelectedIndexChanged" 
+                    BackgroundColor="Transparent"
+                    TextColor="#000000"
+                    TitleColor="#2a3541"/>
+                <Image Grid.Column="2" Source="arrow_down" Aspect="AspectFit">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TemplatePicker_Tapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Frame CornerRadius="0" HasShadow="false" BackgroundColor="Transparent" BorderColor="Transparent" Grid.Column="1" Grid.ColumnSpan="3" VerticalOptions="FillAndExpand">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TemplatePicker_Tapped" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+            </Grid>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

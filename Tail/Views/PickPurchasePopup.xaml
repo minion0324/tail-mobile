@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:PopupPage
+    x:Class="Tail.Views.PickPurchasePopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:template="clr-namespace:Tail.Views.Templates">
+    <Grid
+        x:Name="Maingrid"
+        BackgroundColor="Transparent"
+        ColumnSpacing="0"
+        HorizontalOptions="FillAndExpand"
+        RowSpacing="0"
+        VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Frame
+            Padding="0"
+            BackgroundColor="#FFFFFF"
+            CornerRadius="0"
+            HasShadow="False"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand">
+            <Grid
+                x:Name="InnerGrid"
+                BackgroundColor="#FFFFFF"
+                ColumnSpacing="0"
+                HorizontalOptions="CenterAndExpand"
+                RowSpacing="0"
+                VerticalOptions="CenterAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="23" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="23" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="23" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="23" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    x:Name="TitleLabel"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Style="{StaticResource PurpleLabelMedium16}"
+                    Text="{Binding TitleText}" />
+                <StackLayout
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="0,20,0,10"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <Label
+                        HorizontalOptions="Start"
+                        Style="{StaticResource DarkGrayLabelRegular14}"
+                        Text="{x:Static Common:AppResources.PayUsingText}" />
+                </StackLayout>
+                <Frame
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Margin="0,0,0,16"
+                    Padding="17"
+                    BorderColor="#F1F1F1"
+                    CornerRadius="0"
+                    HasShadow="False"
+                    HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Horizontal" Spacing="20">
+                        <Image
+                            HorizontalOptions="Start"
+                            Source="tail_coins"
+                            VerticalOptions="Center" />
+                        <Label
+                            Style="{StaticResource GreyLabelBold14}"
+                            Text="{x:Static Common:AppResources.TailCoinsText}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </Frame>
+                <template:PurpleGradientButton
+                    x:Name="PayButton"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    ButtonText="{Binding BuyText}"
+                    Command="{Binding PayCommand}"
+                    HeightRequest="42"
+                    HorizontalOptions="FillAndExpand" />
+            </Grid>
+
+        </Frame>
+
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="DismissNotification_Clicked" />
+        </Grid.GestureRecognizers>
+    </Grid>
+</pages:PopupPage>

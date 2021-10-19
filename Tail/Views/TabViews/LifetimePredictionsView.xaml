@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:views="clr-namespace:Tail.Views" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  xmlns:Common="clr-namespace:Tail.Common" xmlns:template="clr-namespace:Tail.Views.Templates" x:Class="Tail.Views.TabViews.LifetimePredictionsView"  xmlns:controls="clr-namespace:Tail.Controls;assembly=Tail">
+    <ContentView.Content>
+        <Grid x:Name="Maingrid" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" HeightRequest="115" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                 <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+             <Frame Grid.Row="0" x:Name="ButtonFrame"  CornerRadius="0" HasShadow="False"  Padding="0" BackgroundColor="#1E1A40" HorizontalOptions="FillAndExpand" ></Frame>
+            <!--<controls:GradientColorStack Grid.Row="0" x:Name="ButtonFrame"  CornerRadius="0" HasShadow="False"  Padding="0" StartColor="#1E1A40" EndColor="#341232" HorizontalOptions="FillAndExpand" IsShadowVisible="False" GradientDirection="TopRightToBottomLeft" />-->
+            <controls:StackView Grid.Row="0" x:Name="predictionList" Orientation="Horizontal" Spacing="0"  ItemSource="{Binding LifetimePredictions}" BackgroundColor="Transparent" IsVisible="true" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"  >
+                <controls:StackView.ItemTemplate>
+                    <DataTemplate >
+                        <template:Prediction></template:Prediction>
+                    </DataTemplate>
+                </controls:StackView.ItemTemplate>
+            </controls:StackView>
+            <Frame Grid.Row="1" HasShadow="False" CornerRadius="0" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="Start" HeightRequest="30" Padding="0">
+                <Grid ColumnSpacing="0" RowSpacing="0">
+                     <Grid.ColumnDefinitions>
+                         <ColumnDefinition Width="*"></ColumnDefinition>
+                           <ColumnDefinition Width="*"></ColumnDefinition>
+                     </Grid.ColumnDefinitions>
+                     <Label Grid.Column="0" VerticalOptions="Center" HorizontalOptions="End" Margin="0,0,5,0" Style="{StaticResource PurpleLabelSemiBold12}" Text="{x:Static Common:AppResources.LifeTimeUnitText}"></Label>
+                    <Label Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Start" Margin="5,0,0,0"   Style="{StaticResource PurpleLabelSemiBold12}" Text="{Binding LifeTimeUnit}"></Label>
+                 </Grid>
+                <!--<StackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5" Orientation="Horizontal">
+                    <Label Style="{StaticResource PurpleLabelSemiBold14}" Text="Unit :"></Label>
+                    <Label Style="{StaticResource PurpleLabelSemiBold14}" Text="{Binding LifeTimeUnit}"></Label>
+                </StackLayout>-->
+            </Frame>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

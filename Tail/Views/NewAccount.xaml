@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.NewAccount"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:behaviors="clr-namespace:Tail.Behaviors"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:converter="clr-namespace:Tail.Converters"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffTransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views"
+    x:Name="NewAccountView">
+    <views:AppPageBase.Resources>
+        <ResourceDictionary>
+            <converter:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <converter:FirstValidationErrorConverter x:Key="ValidationErrorConverter" />
+        </ResourceDictionary>
+    </views:AppPageBase.Resources>
+    <views:AppPageBase.Content>
+        <Grid
+            BackgroundColor="#fffff"
+            ColumnSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Image
+                Grid.Row="0"
+                Grid.Column="0"
+                Aspect="AspectFill"
+                HorizontalOptions="FillAndExpand"
+                Source="bg_top"
+                VerticalOptions="Start" />
+            <ScrollView
+                Margin="0,20,0,0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Grid
+                    ColumnSpacing="0"
+                    HorizontalOptions="FillAndExpand"
+                    RowSpacing="0"
+                    VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="0,53,0,0"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource GreyLabelRegular16}"
+                        Text="{x:Static Common:AppResources.CreateAccountText}" />
+                    <Frame
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,35,0,18"
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        HasShadow="False"
+                        HeightRequest="80"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="80">
+                       <controls:CircleImage
+                            HeightRequest="80"
+                            Source="{Binding UserProfileImage}"
+                            WidthRequest="80" />
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddProfilePhotoCommand}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+
+                    <StackLayout
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="10"
+                        VerticalOptions="FillAndExpand">
+                        <controls:TailCustomEntry
+                            x:Name="NameEntry"
+                            BorderColor="#D8D8D8"
+                            ClearButtonVisibility="WhileEditing"
+                            HorizontalOptions="FillAndExpand"
+                            Keyboard="Text"
+                            MaxLength="100"
+                            Placeholder="{x:Static Common:AppResources.PlaceHolderName}"
+                            ReturnKeyType="Next"
+                            Style="{StaticResource EntryRegular14}"
+                            Text="{Binding Name.Value}" />
+                        <Label
+                            IsVisible="{Binding Name.IsValid, Converter={StaticResource InverseBooleanConverter}}"
+                            Style="{StaticResource RedLabelLight13}"
+                            Text="{Binding Name.Errors, Converter={StaticResource ValidationErrorConverter}}" />
+                        <controls:TailCustomEntry
+                            x:Name="EmailEntry"
+                            BorderColor="#D8D8D8"
+                            ClearButtonVisibility="WhileEditing"
+                            HorizontalOptions="FillAndExpand"
+                            Keyboard="Email"
+                            MaxLength="150"
+                            Placeholder="{x:Static Common:AppResources.PlaceHolderEmail}"
+                            ReturnKeyType="Next"
+                            Style="{StaticResource EntryRegular14}"
+                            Text="{Binding Email.Value}" />
+                        <Label
+                            IsVisible="{Binding Email.IsValid, Converter={StaticResource InverseBooleanConverter}}"
+                            Style="{StaticResource RedLabelLight13}"
+                            Text="{Binding Email.Errors, Converter={StaticResource ValidationErrorConverter}}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <controls:TailCustomDatePicker
+                                x:Name="DOBPicker"
+                                BackgroundColor="White"
+                                Date="{Binding DOB.Value}"
+                                HeightRequest="44"
+                                Format="MM/dd/yyyy"
+                                HorizontalOptions="FillAndExpand"
+                                MaximumDate="{Binding MaximumDate}"
+                                Placeholder="{x:Static Common:AppResources.PlaceHolderDOB}"
+                                Style="{StaticResource EntryRegular14}" />
+                            <Image
+                                Margin="0,0,16,0"
+                                HorizontalOptions="End"
+                                Source="calendar"
+                                VerticalOptions="Center">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="CalenderIcon_Tapped" />
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </Grid>
+                        <Label
+                            IsVisible="{Binding DOB.IsValid, Converter={StaticResource InverseBooleanConverter}}"
+                            Style="{StaticResource RedLabelLight13}"
+                            Text="{Binding DOB.Errors, Converter={StaticResource ValidationErrorConverter}}" />
+                        <StackLayout Orientation="Horizontal" Spacing="0">
+                            <Label
+                                Style="{x:StaticResource GreyLabelRegular18}"
+                                Text="+"
+                                VerticalOptions="Center" />
+                            <controls:TailCustomEntry
+                                x:Name="CountryCodeEntry"
+                                Margin="10,0,0,0"
+                                BorderColor="#D8D8D8"
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                IsOTP="True"
+                                Keyboard="Numeric"
+                                Placeholder="{x:Static Common:AppResources.CountryText}"
+                                ReturnKeyType="Next"
+                                Style="{StaticResource EntryRegular14}"
+                                Text="{Binding CountryCode.Value}"
+                                WidthRequest="70">
+                                <controls:TailCustomEntry.Behaviors>
+                                    <behaviors:FieldLengthValidator MaxLength="4" />
+                                </controls:TailCustomEntry.Behaviors>
+                            </controls:TailCustomEntry>
+                            <Label
+                                Margin="10,0,0,0"
+                                Style="{x:StaticResource GreyLabelRegular18}"
+                                Text="-"
+                                VerticalOptions="Center" />
+                            <controls:TailCustomEntry
+                                x:Name="PhoneEntry"
+                                Margin="10,0,0,0"
+                                BorderColor="#D8D8D8"
+                                ClearButtonVisibility="WhileEditing"
+                                Focused="PhoneEntry_Focused"
+                                HorizontalOptions="FillAndExpand"
+                                Keyboard="Telephone"
+                                Placeholder="{x:Static Common:AppResources.PlaceHolderPhoneNumber}"
+                                ReturnKeyType="Next"
+                                Style="{StaticResource EntryRegular14}"
+                                Text="{Binding Phone.Value}">
+                                <controls:TailCustomEntry.Behaviors>
+                                    <behaviors:PhoneFieldFormatter />
+                                </controls:TailCustomEntry.Behaviors>
+                            </controls:TailCustomEntry>
+                        </StackLayout>
+                        <Label
+                            IsVisible="{Binding CountryCode.IsValid, Converter={StaticResource InverseBooleanConverter}}"
+                            Style="{StaticResource RedLabelLight13}"
+                            Text="{Binding CountryCode.Errors, Converter={StaticResource ValidationErrorConverter}}" />
+                        <Label
+                            IsVisible="{Binding Phone.IsValid, Converter={StaticResource InverseBooleanConverter}}"
+                            Style="{StaticResource RedLabelLight13}"
+                            Text="{Binding Phone.Errors, Converter={StaticResource ValidationErrorConverter}}" />
+                        <Grid IsVisible="{Binding IsEmailSignUp}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Frame
+                                Padding="0"
+                                BorderColor="#D8D8D8"
+                                CornerRadius="0"
+                                HasShadow="False">
+                                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                    <controls:TailPasswordEntry
+                                        x:Name="PasswordEntry"
+                                        BorderColor="White"
+                                        ClearButtonVisibility="WhileEditing"
+                                        Focused="PasswordEntry_Focused"
+                                        HorizontalOptions="FillAndExpand"
+                                        IsPassword="True"
+                                        Keyboard="Text"
+                                        MaxLength="50"
+                                        Placeholder="{x:Static Common:AppResources.PlaceHolderPassword}"
+                                        ReturnKeyType="Done"
+                                        Style="{StaticResource EntryRegular14}"
+                                        Text="{Binding Password.Value}"
+                                        TextChanged="PasswordEntry_TextChanged" />
+
+                                    <Image
+                                        x:Name="ShowPassword"
+                                        Margin="0,0,16,0"
+                                        HorizontalOptions="End"
+                                        Source="eye_signup"
+                                        VerticalOptions="Center">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="ShowPassword_Tapped" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </StackLayout>
+                            </Frame>
+
+
+                        </Grid>
+                        <Label
+                            IsVisible="{Binding Password.IsValid, Converter={StaticResource InverseBooleanConverter}}"
+                            Style="{StaticResource RedLabelLight13}"
+                            Text="{Binding Password.Errors, Converter={StaticResource ValidationErrorConverter}}" />
+                        <Label
+                            x:Name="ValidationLbl"
+                            IsVisible="{Binding IsEmailSignUp}"
+                            Style="{StaticResource BlackLabelLight11}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Password should contain atleast " />
+                                    <Span x:Name="eightCharTxt" Text="8 characters, " />
+                                    <Span Text="with " />
+                                    <Span x:Name="letterTxt" Text="1 uppercase letter, " />
+                                    <Span x:Name="numberTxt" Text="1 number " />
+                                    <Span Text="and " />
+                                    <Span x:Name="specialCharTxt" Text="1 special character." />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Margin="0,30,0,17"
+                        Orientation="Horizontal"
+                        Spacing="16">
+                        <Image HorizontalOptions="Start" Source="{Binding AcceptTermsAndCondition, Converter={StaticResource CheckBoxImageConverter}}" />
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource GreyLabelRegular14}"
+                            VerticalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{x:Static Common:AppResources.AgreeTermsAndConditions1Text}">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding TermsAndConditionAgreeCommand}" />
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                    <Span Text="{x:Static Common:AppResources.AgreeTermsAndConditions2Text}" TextDecorations="Underline">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding TermsAndConditionCommand}" />
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                    <Span Text="{x:Static Common:AppResources.AgreeTermsAndConditions3Text}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TermsAndConditionAgreeCommand}" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                    <StackLayout Grid.Row="4" Grid.Column="1" Orientation="Vertical" Spacing="0" >
+                        <template:PurpleGradientButton
+                        ButtonText="{x:Static Common:AppResources.CreateAccountButtonText}"
+                        Command="{Binding CreateNewAccountCommand}"
+                        HeightRequest="42" />
+                        <Label
+                         Margin="0,10,0,0"
+                            HorizontalOptions="Center"
+                            Style="{StaticResource GreyLabelRegular14}"
+                            VerticalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{x:Static Common:AppResources.PrivacyPolicyText}" TextDecorations="Underline">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding PrivacyCommand}" />
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+
+                    <Image
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Aspect="Fill"
+                        HorizontalOptions="FillAndExpand"
+                        Source="bg_bottom"
+                        VerticalOptions="EndAndExpand" />
+                    <StackLayout
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Margin="0,0,0,50"
+                        Orientation="Vertical"
+                        Spacing="5"
+                        VerticalOptions="End">
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource BlackLabelRegular14}"
+                            Text="{x:Static Common:AppResources.AlreadyHaveAccountText}"
+                            VerticalOptions="Start" />
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource PurpleLabelBold16}"
+                            Text="{x:Static Common:AppResources.LoginText}"
+                            VerticalOptions="Start">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LoginCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+            <template:ProgressView
+                Grid.Row="0"
+                HorizontalOptions="Fill"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </views:AppPageBase.Content>
+</views:AppPageBase>

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" xmlns:Common="clr-namespace:Tail.Common" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:Tail.Controls;assembly=Tail"  xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:ffTransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"  x:Class="Tail.Views.Templates.RecommendedFollowers">
+    <Frame CornerRadius="0" HasShadow="False" Padding="0" Margin="0,0,0,5" BackgroundColor="White" >
+        <Grid RowSpacing="0" ColumnSpacing="0" x:Name="OuterGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+
+            <OnPlatform x:TypeArguments="View">
+                <OnPlatform.iOS>
+                    <Frame Grid.Row="1" Grid.Column="0"   Padding="0" CornerRadius="25" HeightRequest="50" WidthRequest="50" HorizontalOptions="Center" VerticalOptions="Center" HasShadow="False" BackgroundColor="Transparent">
+                        <controls:CircleImage x:Name="UserImageView" Source="{Binding UserImage}" WidthRequest="50" HeightRequest="50" >
+                        </controls:CircleImage>
+                    </Frame>
+                </OnPlatform.iOS>
+                <OnPlatform.Android>
+                    <ffimageloading:CachedImage  Grid.Row="1" Grid.Column="0"   Source="{Binding UserImage}" Aspect="AspectFit" HeightRequest="50" WidthRequest="50" HorizontalOptions="Center" VerticalOptions="Center" >
+                        <ffimageloading:CachedImage.Transformations>
+                            <ffTransformations:CircleTransformation />
+                        </ffimageloading:CachedImage.Transformations>
+                    </ffimageloading:CachedImage>
+                </OnPlatform.Android>
+            </OnPlatform>
+            <StackLayout Grid.Row="1"  Grid.Column="1" Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Start" Spacing="3">
+                <Label x:Name="UserNameLabel" Style="{StaticResource PurpleLabelSemiBold14}" Text="{Binding UserName}" />
+                <Button  Style="{StaticResource WhiteButtonWithPurpleBorder}" Command="{Binding FollowUnfollow}" CommandParameter="{Binding UserId}" TextColor="{Binding IsFollow, Converter={StaticResource TabSelectionColorConverter}}" Text="{Binding IsFollow,Converter={StaticResource FollowFollowingTextConverter}}" BackgroundColor="{Binding IsFollow, Converter={StaticResource FollowButtonColorConverter}}" Grid.Row="1" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Start"></Button>
+            </StackLayout>
+            <Label Style="{StaticResource BlackLabelMedium16}" Grid.Row="1"  Grid.Column="1"  Text="{Binding MySports.PickByPrediction}"  HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,15,0"></Label>
+            <Image HorizontalOptions="Center" HeightRequest="75" WidthRequest="75"  Grid.Column="2" Source="{Binding MySports.SportIcon}" VerticalOptions="Center"  Grid.Row="1" />
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer  Command="{Binding UserDetails}" CommandParameter="{Binding UserId}" />
+            </Grid.GestureRecognizers>
+        </Grid>
+    </Frame>
+</ViewCell>
+

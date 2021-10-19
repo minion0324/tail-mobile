@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.PostYourPick"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <ContentPage.Content>
+        <Grid
+            x:Name="Maingrid"
+            BackgroundColor="#F1F1F1"
+            ColumnSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="74" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <template:HeaderView
+                Title="{x:Static Common:AppResources.PostYourPick}"
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                BackButtonCommand="{Binding Back}"
+                BackButtonVisible="True"
+                LogoVisible="False"
+                NotificationVisible="False"
+                TitleVisible="True"
+                WalletVisible="False" />
+            <ScrollView
+                x:Name="ContentScroll"
+                Grid.Row="1"
+                Grid.Column="1"
+                VerticalOptions="Start"
+                VerticalScrollBarVisibility="Never">
+                <StackLayout
+                    x:Name="OuterStck"
+                    Margin="0,16,0,0"
+                    Padding="0"
+                    Orientation="Vertical"
+                    Spacing="0"
+                    VerticalOptions="Start">
+                    <template:CreateAPosteTemplate
+                        Margin="0,0,16,0"
+                        AttachmentTapCommand="{Binding ImageTapCommand}"
+                        EditorText="{Binding PostContent, Mode=TwoWay}"
+                        IsShare="False"
+                        SelectedCount="{Binding ImageSelectedCount, Mode=TwoWay}"
+                        SelectedMedia="{Binding Media, Mode=TwoWay}" />
+                    <CarouselView
+                        Margin="0,10,0,0"
+                        BackgroundColor="Transparent"
+                        HeightRequest="{Binding PageHeight}"
+                        HorizontalOptions="FillAndExpand"
+                        HorizontalScrollBarVisibility="Never"
+                        IsSwipeEnabled="False"
+                        ItemsSource="{Binding StepsDataList}"
+                        Position="{Binding Position}"
+                        PositionChangedCommand="{Binding PositionChangedCommand}"
+                        PositionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=Position}"
+                        VerticalOptions="Start"
+                        VerticalScrollBarVisibility="Never">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnSpacing="0" RowSpacing="0">
+                                    <template:PickStep1 IsVisible="{Binding IsStep1}" />
+                                    <template:PickStep2 IsVisible="{Binding IsStep1, Converter={StaticResource InverseBooleanConverter}}" SelectedTabIndex="{Binding SelectedTabIndex}" />
+                                </Grid>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                </StackLayout>
+            </ScrollView>
+            <Grid
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                BackgroundColor="White"
+                ColumnSpacing="0"
+                HorizontalOptions="FillAndExpand"
+                RowSpacing="0"
+                VerticalOptions="FillAndExpand">
+                <BoxView
+                    BackgroundColor="#ECECEC"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Start" />
+                <StackLayout
+                    Margin="16,0,0,0"
+                    HorizontalOptions="Start"
+                    IsVisible="{Binding IsBackEnable}"
+                    Orientation="Horizontal"
+                    Spacing="12"
+                    VerticalOptions="Center">
+                    <Image Source="back_arrow" />
+                    <Label
+                        Style="{StaticResource PurpleRobotoLabelBold16}"
+                        Text="{x:Static Common:AppResources.BackText}"
+                        VerticalOptions="Center" />
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PageBack}" />
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+                <StackLayout
+                    Margin="0,0,16,0"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding IsBackEnable, Converter={StaticResource InverseBooleanConverter}}"
+                    Orientation="Horizontal"
+                    Spacing="12"
+                    VerticalOptions="Center">
+                    <Label
+                        Style="{StaticResource PurpleRobotoLabelBold16}"
+                        Text="{x:Static Common:AppResources.NextText}"
+                        VerticalOptions="Center" />
+                    <Image Source="next_arrow" />
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Next}" />
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+                <template:PurpleGradientButton
+                    Margin="0,0,16,0"
+                    ButtonText="{Binding Resources[PostNow]}"
+                    Command="{Binding Post}"
+                    HeightRequest="42"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding IsBackEnable}"
+                    VerticalOptions="Center"
+                    WidthRequest="111" />
+            </Grid>
+            <template:ProgressView
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                HorizontalOptions="Fill"
+                IsProgressVisible="True"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                ProgressCount="{Binding ProgressCountDisplay}"
+                ProgressPercentageValue="{Binding ProgressPercentage}"
+                VerticalOptions="Fill" />
+            <template:ProgressView
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                HorizontalOptions="Fill"
+                IsProgressVisible="False"
+                IsRunning="{Binding IsNormalIndicator}"
+                IsVisible="{Binding IsNormalIndicator}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </ContentPage.Content>
+</views:AppPageBase>

@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.Login"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:behaviour="clr-namespace:Tail.Behaviors"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:converter="clr-namespace:Tail.Converters"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <converter:FirstValidationErrorConverter x:Key="ValidationErrorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid
+            BackgroundColor="#ffffff"
+            ColumnSpacing="0"
+            RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Image
+                Grid.Row="0"
+                Aspect="Fill"
+                HorizontalOptions="FillAndExpand"
+                Source="bg_top"
+                VerticalOptions="Start" />
+
+            <ScrollView
+                x:Name="LoginScrollBar"
+                Grid.Row="0"
+                Margin="0,59,0,0"
+                BackgroundColor="Transparent"
+                VerticalScrollBarVisibility="Never">
+                <Grid
+                    BackgroundColor="Transparent"
+                    ColumnSpacing="0"
+                    RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Aspect="AspectFit"
+                        HorizontalOptions="Center"
+                        Source="Logo_inside" />
+                    <StackLayout
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Orientation="Vertical"
+                        Spacing="0">
+                        <Frame
+                            Padding="0"
+                            BackgroundColor="#3F63AD"
+                            CornerRadius="0"
+                            HasShadow="False"
+                            HeightRequest="42">
+                            <Grid
+                                ColumnSpacing="0"
+                                HorizontalOptions="FillAndExpand"
+                                RowSpacing="0"
+                                VerticalOptions="FillAndExpand">
+                                <Image
+                                    Margin="20,0,0,0"
+                                    HorizontalOptions="Start"
+                                    Source="icn_facebook"
+                                    VerticalOptions="Center" />
+                                <controls:FacebookLoginButton
+                                    BorderWidth="0"
+                                    Style="{StaticResource WhiteButtonRegular16}"
+                                    Text="{Binding Resources[FacebookText]}"
+                                    VerticalOptions="CenterAndExpand" >
+                                    <controls:FacebookLoginButton.HorizontalOptions>
+                                        <OnPlatform x:TypeArguments="LayoutOptions">
+                                            <On Platform="Android" Value="FillAndExpand" />
+                                            <On Platform="iOS" Value="CenterAndExpand" />
+                                        </OnPlatform>
+                                    </controls:FacebookLoginButton.HorizontalOptions>
+                                </controls:FacebookLoginButton>
+                            </Grid>
+                        </Frame>
+                        <Frame
+                            x:Name="AppleLoginFrame"
+                            Margin="0,10,0,0"
+                            Padding="0"
+                            CornerRadius="0"
+                            HasShadow="False"
+                            HeightRequest="42">
+                            <Frame.BackgroundColor>
+                                <OnPlatform x:TypeArguments="Color">
+                                    <OnPlatform.Platforms>
+                                        <On Platform="iOS" Value="#060709" />
+                                        <On Platform="Android" Value="#4285f4" />
+                                    </OnPlatform.Platforms>
+                                </OnPlatform>
+                            </Frame.BackgroundColor>
+                            <Grid
+                                ColumnSpacing="0"
+                                IsEnabled="False"
+                                RowSpacing="0">
+                                <Image
+                                    HorizontalOptions="Start"
+                                    Source="icn_apple"
+                                    VerticalOptions="Center">
+                                    <Image.Margin>
+                                        <OnPlatform x:TypeArguments="Thickness">
+                                            <OnPlatform.Platforms>
+                                                <On Platform="iOS" Value="20,0,0,0" />
+                                                <On Platform="Android" Value="1,0,0,0" />
+                                            </OnPlatform.Platforms>
+                                        </OnPlatform>
+                                    </Image.Margin>
+                                </Image>
+                                <Label
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource WhiteLabelRegular16}"
+                                    VerticalOptions="Center">
+                                    <Label.Text>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <OnPlatform.Platforms>
+                                                <On Platform="iOS" Value="{x:Static Common:AppResources.AppleText}" />
+                                                <On Platform="Android" Value="{x:Static Common:AppResources.GoogleText}" />
+                                            </OnPlatform.Platforms>
+                                        </OnPlatform>
+                                    </Label.Text>
+                                    <Label.Margin>
+                                        <OnPlatform x:TypeArguments="Thickness">
+                                            <OnPlatform.Platforms>
+                                                <On Platform="iOS" Value="0,0,0,0" />
+                                                <On Platform="Android" Value="-6,0,0,0" />
+                                            </OnPlatform.Platforms>
+                                        </OnPlatform>
+                                    </Label.Margin>
+                                </Label>
+                            </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AppleLogin}" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </StackLayout>
+                    <BoxView
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        BackgroundColor="#D8D8D8"
+                        HeightRequest="1"
+                        HorizontalOptions="FillAndExpand"
+                        Opacity="0.43"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Padding="10,10,10,10"
+                        BackgroundColor="White"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource BlackLabelLight18}"
+                        Text="{Binding Resources[OrText]}"
+                        VerticalOptions="Center" />
+                    <StackLayout
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Orientation="Vertical"
+                        Spacing="0">
+                        <controls:TailCustomEntry
+                            x:Name="EntryEmail"
+                            BorderColor="#D8D8D8"
+                            ClearButtonVisibility="WhileEditing"
+                            HorizontalOptions="FillAndExpand"
+                            Keyboard="Email"
+                            MaxLength="150"
+                            Placeholder="{Binding Resources[PlaceHolderEmail]}"
+                            ReturnKeyType="Next"
+                            Style="{StaticResource EntryRegular14}"
+                            Text="{Binding Email.Value}">
+                            <controls:TailCustomEntry.Behaviors>
+                                <behaviour:EntryLineValidationBehaviour IsValid="{Binding Email.IsValid}" />
+                            </controls:TailCustomEntry.Behaviors>
+                        </controls:TailCustomEntry>
+                        <Label
+                            Margin="0,10,0,0"
+                            IsVisible="{Binding Email.IsValid, Converter={StaticResource InverseBooleanConverter}}"
+                            Style="{StaticResource RedLabelLight13}"
+                            Text="{Binding Email.Errors, Converter={StaticResource ValidationErrorConverter}}" />
+                        <Frame
+                            Margin="0,10,0,0"
+                            Padding="0"
+                            BorderColor="#D8D8D8"
+                            CornerRadius="0"
+                            HasShadow="False">
+                            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                <controls:TailPasswordEntry
+                                    x:Name="EntryPassword"
+                                    BorderColor="White"
+                                    ClearButtonVisibility="WhileEditing"
+                                    HorizontalOptions="FillAndExpand"
+                                    IsPassword="True"
+                                    Keyboard="Text"
+                                    MaxLength="50"
+                                    Placeholder="{Binding Resources[PlaceHolderPassword]}"
+                                    ReturnKeyType="Done"
+                                    
+                                    Style="{StaticResource EntryRegular14}"
+                                    Text="{Binding Password.Value}">
+                                    <controls:TailPasswordEntry.Behaviors>
+                                        <behaviour:EntryLineValidationBehaviour IsValid="{Binding Password.IsValid}" />
+                                    </controls:TailPasswordEntry.Behaviors>
+                                </controls:TailPasswordEntry>
+                                <Image
+                                    x:Name="ShowPassword"
+                                    Margin="0,0,16,0"
+                                    HorizontalOptions="End"
+                                    Source="eye_signup"
+                                    VerticalOptions="Center">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ShowPassword_Tapped" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </StackLayout>
+
+
+                        </Frame>
+
+                        <Label
+                            Margin="0,10,0,0"
+                            IsVisible="{Binding Password.IsValid, Converter={StaticResource InverseBooleanConverter}}"
+                            Style="{StaticResource RedLabelLight13}"
+                            Text="{Binding Password.Errors, Converter={StaticResource ValidationErrorConverter}}" />
+                        <StackLayout
+                            Margin="0,16,0,0"
+                            Orientation="Horizontal"
+                            Spacing="10">
+                            <Image
+                                HorizontalOptions="Start"
+                                Source="{Binding RememberMeCheckBox}"
+                                VerticalOptions="Center" />
+                            <Label
+                                HorizontalOptions="Start"
+                                Style="{StaticResource GreyLabelRegular14}"
+                                Text="{Binding Resources[RememberMeText]}"
+                                VerticalOptions="Center" />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding RememberMe}" />
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                        <template:PurpleGradientButton
+                            Margin="0,16,0,0"
+                            ButtonText="{Binding Resources[LoginText]}"
+                            Command="{Binding Login}" />
+                        <Label
+                            Padding="0,25,0,17"
+                            HorizontalOptions="Center"
+                            Style="{StaticResource BlackLabelRegular14}"
+                            Text="{Binding Resources[ForgotPasswordText]}"
+                            VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ForgotPassword}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                    <Image
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Aspect="Fill"
+                        Source="bg_bottom" />
+                    <StackLayout
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Margin="0,0,0,50"
+                        Orientation="Vertical"
+                        Spacing="3"
+                        VerticalOptions="End">
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource BlackLabelRegular14}"
+                            Text="{Binding Resources[DontHaveAccountText]}"
+                            VerticalOptions="Start" />
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource PurpleLabelBold16}"
+                            Text="{Binding Resources[SignUpText]}"
+                            VerticalOptions="Start">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SignUp}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+            <template:ProgressView
+                Grid.Row="0"
+                HorizontalOptions="Fill"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </ContentPage.Content>
+</views:AppPageBase>

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:PopupPage
+    x:Class="Tail.Views.MakeAPost"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <Grid
+        x:Name="Maingrid"
+        BackgroundColor="Transparent"
+        ColumnSpacing="0"
+        HorizontalOptions="FillAndExpand"
+        RowSpacing="0"
+        VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout HeightRequest="220" VerticalOptions="End">
+            <controls:CustomCurvedFrame
+                Padding="0"
+                BackgroundColor="White"
+                CornerRadius="20,20,0,0"
+                HasShadow="False"
+                VerticalOptions="End">
+                <Grid
+                    x:Name="InnerGrid"
+                    Margin="0,0,0,0"
+                    BackgroundColor="Transparent"
+                    ColumnSpacing="0"
+                    HorizontalOptions="FillAndExpand"
+                    RowSpacing="10"
+                    VerticalOptions="End">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="25" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout
+                        Grid.Column="1"
+                        Margin="0,20,0,20"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label Style="{StaticResource DarkBlackLabelMedium14}" Text="Post" />
+                        <Image HorizontalOptions="EndAndExpand" Source="clear">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="DismissNotification_Clicked" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,0,0,5"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        Spacing="15">
+                        <Image Source="post_pick" />
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource DarkBlackLabelRegular14}"
+                            Text="{x:Static Common:AppResources.PostYourPickText}"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PostYourPickCommand}" />
+                        </StackLayout.GestureRecognizers>
+
+                    </StackLayout>
+                    <BoxView
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="0,0,0,0"
+                        BackgroundColor="#ECECEC"
+                        HeightRequest="1"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Center" />
+
+                    <StackLayout
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Margin="0,5,0,40"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        Spacing="15">
+                        <Image Source="post_something" />
+                        <Label
+                            Grid.Row="0"
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource DarkBlackLabelRegular14}"
+                            Text="{x:Static Common:AppResources.PostSomethingText}"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PostSomethingCommand}" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+
+                </Grid>
+
+            </controls:CustomCurvedFrame>
+        </StackLayout>
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="DismissNotification_Clicked" />
+        </Grid.GestureRecognizers>
+    </Grid>
+</pages:PopupPage>

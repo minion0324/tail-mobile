@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.EditProfile"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:behaviors="clr-namespace:Tail.Behaviors"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+     xmlns:converter="clr-namespace:Tail.Converters"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffTransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:views="clr-namespace:Tail.Views">
+    <views:AppPageBase.Resources>
+        <ResourceDictionary>
+            <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+            <converter:FirstValidationErrorConverter x:Key="ValidationErrorConverter"/>
+        </ResourceDictionary>
+    </views:AppPageBase.Resources>
+    <views:AppPageBase.Content>
+        <Grid
+            BackgroundColor="#F1F1F1"
+            ColumnSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <template:HeaderView Grid.Row="0" BackButtonVisible="True" NotificationVisible="False" LogoVisible="False" WalletVisible="False" TitleVisible="True" Title="{x:Static Common:AppResources.EditProfileText}" BackButtonCommand="{Binding Back}" ></template:HeaderView>
+            <ScrollView Grid.Row="1" BackgroundColor="Transparent" VerticalScrollBarVisibility="Never" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0,0,0,50" >
+                <Grid
+                    ColumnSpacing="0"
+                    HorizontalOptions="FillAndExpand"
+                    RowSpacing="0"
+                    BackgroundColor="Transparent"
+                    VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+                    <Frame Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="19" BackgroundColor="White" HasShadow="False" CornerRadius="0" Padding="0" Margin="16,56,16,20"></Frame>
+                    <OnPlatform x:TypeArguments="View">
+                        <OnPlatform.iOS>
+                            <Frame Grid.Row="0" Grid.Column="1" Margin="0,16,0,0"  Padding="0" HeightRequest="80" WidthRequest="80" HorizontalOptions="Center" VerticalOptions="Center" HasShadow="False" BackgroundColor="Transparent">
+                                <controls:CircleImage Source="{Binding UserProfileImage}" WidthRequest="80" HeightRequest="80" >
+                                    
+                                    <controls:CircleImage.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding AddProfilePhotoCommand}" />
+                                    </controls:CircleImage.GestureRecognizers>
+                                </controls:CircleImage>
+                            </Frame>
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            <ffimageloading:CachedImage Grid.Row="0" Grid.Column="1" Margin="0,16,0,0"  Source="{Binding UserProfileImage}" Aspect="AspectFit" HeightRequest="80" WidthRequest="80" HorizontalOptions="Center" VerticalOptions="Center" >
+                                <ffimageloading:CachedImage.Transformations>
+                                    <ffTransformations:CircleTransformation />
+                                </ffimageloading:CachedImage.Transformations>
+                                <ffimageloading:CachedImage.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding AddProfilePhotoCommand}" />
+                                </ffimageloading:CachedImage.GestureRecognizers>
+                            </ffimageloading:CachedImage>
+                        </OnPlatform.Android>
+                    </OnPlatform>
+                    <Image
+                        Grid.Row="0"
+                        Grid.Column="1"
+                      Margin="0,0,0,-20"
+                        HorizontalOptions="Center"
+                        Source="add_icon"
+                        VerticalOptions="End">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddProfilePhotoCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,20,0,5"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource BlackLabelMedium13}"
+                        Text="{x:Static Common:AppResources.PlaceHolderName}" />
+                    <controls:TailCustomEntry Grid.Row="2"
+                        Grid.Column="1"
+                            x:Name="NameEntry"
+                            BorderColor="#D8D8D8"
+                            HorizontalOptions="FillAndExpand"
+                                                  HeightRequest="44"
+                            Keyboard="Text"
+                            MaxLength="100"
+                            Text="{Binding  UserName.Value}"
+                            Placeholder="{x:Static Common:AppResources.PlaceHolderName}"
+                            ReturnKeyType="Next"
+                            Style="{StaticResource EntryRegular14}" />
+                    <Label Grid.Row="3"
+                        Grid.Column="1" Text="{Binding UserName.Errors, Converter={StaticResource ValidationErrorConverter}}" IsVisible="{Binding UserName.IsValid, Converter={StaticResource InverseBooleanConverter}}" Style="{StaticResource RedLabelLight13}"/>
+
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Margin="0,15,0,5"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource BlackLabelMedium13}"
+                        Text="{x:Static Common:AppResources.PlaceHolderEmail}" />
+                    <controls:TailCustomEntry Grid.Row="5"
+                        Grid.Column="1"
+                            x:Name="EmailEntry"
+                            BorderColor="#D8D8D8"
+                            HorizontalOptions="FillAndExpand"
+                            IsEnabled="False"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             HeightRequest="44"
+                            Keyboard="Email"
+                            Text="{Binding Email.Value}"
+                            Placeholder="{x:Static Common:AppResources.PlaceHolderEmail}"
+                            ReturnKeyType="Next"
+                            Style="{StaticResource EntryRegular14}" />
+                    <Frame Grid.Row="5" Grid.Column="1" HeightRequest="40" HorizontalOptions="FillAndExpand" HasShadow="False" BackgroundColor="Gray" Opacity="0.3" CornerRadius="0" Padding="0"></Frame>
+                    <Label Grid.Row="6"
+                        Grid.Column="1" Text="{Binding Email.Errors, Converter={StaticResource ValidationErrorConverter}}" IsVisible="{Binding Email.IsValid, Converter={StaticResource InverseBooleanConverter}}" Style="{StaticResource RedLabelLight13}"/>
+
+                    <Label
+                        Grid.Row="7"
+                            Grid.Column="1"
+                        Margin="0,15,0,5"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource BlackLabelMedium13}"
+                        Text="{x:Static Common:AppResources.PlaceHolderDOB}" />
+                    <Grid Grid.Row="8"
+                        Grid.Column="1" HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <controls:TailCustomDatePicker 
+                                x:Name="DOBPicker"
+                                BackgroundColor="White"
+                                HeightRequest="44"
+                                HorizontalOptions="FillAndExpand"
+                                Date="{Binding DOB.Value}"
+                                MaximumDate="{Binding MaximumDate}"
+                                Style="{StaticResource EntryRegular14}" />
+                        <Image
+                                Margin="0,0,16,0"
+                                HorizontalOptions="End"
+                                Source="calendar"
+                                VerticalOptions="Center">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="CalenderIcon_Tapped" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
+                    <Label Text="{Binding CountryCode.Errors, Converter={StaticResource ValidationErrorConverter}}" IsVisible="{Binding CountryCode.IsValid, Converter={StaticResource InverseBooleanConverter}}" Style="{StaticResource RedLabelLight13}"/>
+                    <Label Text="{Binding Phone.Errors, Converter={StaticResource ValidationErrorConverter}}" IsVisible="{Binding Phone.IsValid, Converter={StaticResource InverseBooleanConverter}}" Style="{StaticResource RedLabelLight13}"/>
+
+                    <Label Grid.Row="9"
+                        Grid.Column="1" Text="{Binding DOB.Errors, Converter={StaticResource ValidationErrorConverter}}" IsVisible="{Binding DOB.IsValid, Converter={StaticResource InverseBooleanConverter}}" Style="{StaticResource RedLabelLight13}"/>
+
+                    <Label
+                        Grid.Row="10"
+                        Grid.Column="1"
+                        Margin="0,15,0,5"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource BlackLabelMedium13}"
+                        Text="{x:Static Common:AppResources.PlaceHolderPhoneNumber}" />
+                    <StackLayout Orientation="Horizontal" Spacing="0"   Grid.Row="11"
+                        Grid.Column="1">
+                        <Label Text="+"  VerticalOptions="Center" Style="{x:StaticResource GreyLabelRegular18}" ></Label>
+                        <controls:TailCustomEntry
+                            x:Name="CountryCodeEntry"
+                            Margin="10,0,0,0"
+                            BorderColor="#D8D8D8"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            IsOTP="True"
+                            WidthRequest="70"
+                            Keyboard="Numeric"
+                            ReturnKeyType="Next"
+                            Placeholder="{x:Static Common:AppResources.CountryText}"
+                            Text="{Binding CountryCode.Value}"
+                            Style="{StaticResource EntryRegular14}">
+                            <controls:TailCustomEntry.Behaviors>
+                                <behaviors:FieldLengthValidator MaxLength="4" />
+                            </controls:TailCustomEntry.Behaviors>
+                        </controls:TailCustomEntry>
+                        <Label  Margin="10,0,0,0" VerticalOptions="Center" Text="-" Style="{x:StaticResource GreyLabelRegular18}" ></Label>
+                        <controls:TailCustomEntry
+                            x:Name="PhoneEntry"
+                            Margin="10,0,0,0"
+                            BorderColor="#D8D8D8"
+                            HorizontalOptions="FillAndExpand"
+                            Keyboard="Telephone"
+                            Placeholder="{x:Static Common:AppResources.PlaceHolderPhoneNumber}"
+                            ReturnKeyType="Next"
+                            Text="{Binding Phone.Value}"
+                            Focused="PhoneEntry_Focused"
+                            Style="{StaticResource EntryRegular14}">
+                            <controls:TailCustomEntry.Behaviors>
+                                <behaviors:PhoneFieldFormatter />
+                            </controls:TailCustomEntry.Behaviors>
+                        </controls:TailCustomEntry>
+                    </StackLayout>
+                  
+
+                    <Label
+                        Grid.Row="12"
+                        Grid.Column="1"
+                        Margin="0,5,0,5"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource BlackLabelRegular12
+                        }"
+                        Text="{x:Static Common:AppResources.OTPVerificationText}" />
+                    <Label  Grid.Row="13"
+                        Grid.Column="1" Text="{Binding CountryCode.Errors, Converter={StaticResource ValidationErrorConverter}}" IsVisible="{Binding CountryCode.IsValid, Converter={StaticResource InverseBooleanConverter}}" Style="{StaticResource RedLabelLight13}"/>
+                    <Label  Grid.Row="14"
+                        Grid.Column="1" Text="{Binding Phone.Errors, Converter={StaticResource ValidationErrorConverter}}" IsVisible="{Binding Phone.IsValid, Converter={StaticResource InverseBooleanConverter}}" Style="{StaticResource RedLabelLight13}"/>
+
+                    <Label
+                        Grid.Row="15"
+                        Grid.Column="1"
+                        Margin="0,15,0,5"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource BlackLabelMedium13}"
+                        Text="{x:Static Common:AppResources.AboutMe}" />
+                    <Frame HasShadow="False"  Grid.Row="16"
+                        Grid.Column="1" CornerRadius="0"  Padding="10,0,0,0" BorderColor="#D8D8D8" >
+                        <controls:CustomEditor
+                                x:Name="AboutMeEntry"
+                                
+                                Margin="0,0,0,20"
+                                HorizontalOptions="FillAndExpand"   
+                                HeightRequest="80"
+                                VerticalOptions="FillAndExpand"
+                                Keyboard="Chat"
+                                BackgroundColor="Transparent"
+                                Text="{Binding AboutMe}"
+                                Style="{StaticResource EditorRegular14}"
+                                Placeholder="{x:Static Common:AppResources.AboutMe}"/>
+                    </Frame>
+
+                    <template:PurpleGradientButton
+                        Grid.Row="17"
+                        Grid.Column="1"
+                        Margin="0,10,0,10"
+                        ios:VisualElement.CanBecomeFirstResponder="True"
+                        ButtonText="{x:Static Common:AppResources.UpdateDetails}"
+                        Command="{Binding UpdateProfileCommand}"
+                        HeightRequest="42" />
+                    <Grid
+                        Grid.Row="18"
+                        Grid.Column="1"
+                        Margin="0,5,0,35"
+                      
+                        VerticalOptions="End" HorizontalOptions="FillAndExpand">
+                        <Label IsVisible="{Binding IsUserWithEmail}"
+                            HorizontalOptions="Start"
+                            Style="{StaticResource PurpleLabelRegular14}"
+                            Text="{x:Static Common:AppResources.ChangePassword}"
+                            TextDecorations="Underline"
+                            VerticalOptions="Start">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ChangePasswordCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label
+                            HorizontalOptions="End"
+                            Style="{StaticResource PurpleLabelRegular14}"
+                            Text="{x:Static Common:AppResources.RemoveAccount}"
+                            TextDecorations="Underline"
+                            VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding RemoveAccountCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Grid>
+            </ScrollView>
+            <template:ProgressView Grid.Row="0" Grid.RowSpan="2" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" HorizontalOptions="Fill" VerticalOptions="Fill" />
+        </Grid>
+    </views:AppPageBase.Content>
+</views:AppPageBase>

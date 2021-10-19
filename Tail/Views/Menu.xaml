@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.Menu"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <views:AppPageBase.Content>
+        <Grid
+            x:Name="Maingrid"
+            BackgroundColor="#F1F1F1"
+            ColumnSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <template:HeaderView
+                Title="{x:Static Common:AppResources.MenuText}"
+                Grid.Row="0"
+                BackButtonVisible="False"
+                LogoVisible="False"
+                TitleVisible="True"
+                WalletVisible="False" NotificationVisible="False" />
+            <CollectionView
+                x:Name="MenuCollectionView"
+                Grid.Row="1"
+                Margin="15,15,0,0"
+                BackgroundColor="#F1F1F1"
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding MenuItems}"
+                VerticalOptions="FillAndExpand"
+                VerticalScrollBarVisibility="Never">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame
+                            Padding="0,0,15,15"
+                            BackgroundColor="#F1F1F1"
+                            CornerRadius="0"
+                            HasShadow="False">
+                            <Grid BackgroundColor="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <controls:GradientColorStack
+                                    Grid.RowSpan="2"
+                                    Padding="0"
+                                    CornerRadius="0"
+                                    EndColor="#E5B59D"
+                                    GradientDirection="Bottom"
+                                    HasShadow="False"
+                                    HorizontalOptions="FillAndExpand"
+                                    IsShadowVisible="False"
+                                    IsVisible="True"
+                                    StartColor="#C43CC2" />
+                                <Frame
+                                    Grid.RowSpan="2"
+                                    Padding="0"
+                                    BackgroundColor="White"
+                                    CornerRadius="0"
+                                    HasShadow="False"
+                                    IsVisible="{Binding IsSelected, Converter={StaticResource InverseBooleanConverter}}" />
+                                <Label
+                                    x:Name="NameLabel"
+                                    Grid.Row="1"
+                                    Margin="0,15,0,17"
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource PurplePoppinsLabelBold16}"
+                                    Text="{Binding Name}"
+                                    TextColor="{Binding IsSelected, Converter={StaticResource MenuLabelColorConverter}}" />
+                                <Image
+                                    Margin="0,26,0,0"
+                                    HorizontalOptions="Center"
+                                    Source="{Binding IsSelected, Converter={StaticResource MenuImageConverter}, ConverterParameter={x:Reference NameLabel}}"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference MenuCollectionView}, Path=BindingContext.MenuItemTapCommand}" CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </views:AppPageBase.Content>
+</views:AppPageBase>

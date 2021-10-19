@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:Common="clr-namespace:Tail.Common"  x:Class="Tail.Views.TabViews.FollowersView"  xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:template="clr-namespace:Tail.Views.Templates">
+    <ContentView.Content>
+        <Grid x:Name="Maingrid" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" BackgroundColor="#F1F1F1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="16"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="16"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <controls:StackView Orientation="Vertical" Spacing="0" x:Name="Followers" Grid.Row="1" ItemSource="{Binding FollowerList}"  BackgroundColor="Transparent"  HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"  >
+                <controls:StackView.ItemTemplate>
+                    <DataTemplate >
+                        <template:Followers ></template:Followers>
+                    </DataTemplate>
+                </controls:StackView.ItemTemplate>
+            </controls:StackView>
+            <!--<controls:CustomListView Grid.Row="1" Grid.Column="0" x:Name="followersListView" ItemsSource="{Binding FollowerList}" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshFollowerCommand}"  IsRefreshing="{Binding IsRefreshingFollowers}" HasUnevenRows="True"  IsAllowSelection="True" BackgroundColor="Transparent" IsVisible="true" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" SeparatorColor="Transparent" VerticalScrollBarVisibility="Never" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <template:Followers ></template:Followers>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </controls:CustomListView>-->
+             <!--<ActivityIndicator  Grid.Row="1" Grid.Column="0" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="#E5B59D" VerticalOptions="Center"  HorizontalOptions="Center" />-->
+            <Label Grid.Row="1" Grid.Column="0" IsVisible="{Binding IsFollowersInfoLabelVisible}" Text="{Binding FollowersInfoLabelText}" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center" Style="{StaticResource BlackLabelMedium14}"></Label>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

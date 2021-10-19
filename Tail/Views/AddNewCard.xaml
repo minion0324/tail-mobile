@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.AddNewCard"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:behaviors="clr-namespace:XamarinFastEntrySample.FastEntry;assembly=XamarinFastEntry.Behaviors"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <ContentPage.Content>
+        <Grid
+            BackgroundColor="#F1F1F1"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <template:HeaderView
+                Title="{x:Static Common:AppResources.AddNewCardText}"
+                Grid.Row="0"
+                BackButtonCommand="{Binding Back}"
+                BackButtonVisible="True"
+                LogoVisible="False"
+                TitleVisible="True"
+                WalletVisible="False" NotificationVisible="False"/>
+            <Grid
+                Grid.Row="1"
+                Margin="16"
+                Padding="16"
+                BackgroundColor="#FFFFFF"
+                HorizontalOptions="FillAndExpand"
+                RowSpacing="10"
+                VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Row="0"
+                    HorizontalOptions="Start"
+                    Style="{StaticResource BlackLabelMedium13}"
+                    Text="{x:Static Common:AppResources.AccountHolderNameText}" />
+                <controls:TailCustomEntry
+                    x:Name="EntryName"
+                    Grid.Row="1"
+                    HorizontalOptions="FillAndExpand"
+                    Keyboard="Chat"
+                    Placeholder="{x:Static Common:AppResources.EnterYourNameText}"
+                    ReturnKeyType="Next"
+                    Style="{StaticResource EntryRegular14}" />
+                <Label
+                    Grid.Row="2"
+                    Margin="0,7,0,0"
+                    HorizontalOptions="Start"
+                    Style="{StaticResource BlackLabelMedium13}"
+                    Text="{x:Static Common:AppResources.CardNumberText}" />
+                <controls:TailCustomEntry
+                    x:Name="EntryCardNumber"
+                    Grid.Row="3"
+                    HorizontalOptions="FillAndExpand"
+                    Keyboard="Numeric"
+                    Placeholder="&#x2022; &#x2022; &#x2022; &#x2022;   &#x2022; &#x2022; &#x2022; &#x2022;   &#x2022; &#x2022; &#x2022; &#x2022;   &#x2022; &#x2022; &#x2022; &#x2022;"
+                    ReturnKeyType="Next"
+                    Style="{StaticResource EntryRegular14}">
+                    <controls:TailCustomEntry.Behaviors>
+                        <behaviors:XamarinFastEntryBehaviour Mask="####  ####  ####  ####" />
+                    </controls:TailCustomEntry.Behaviors>
+                </controls:TailCustomEntry>
+                <StackLayout
+                    Grid.Row="4"
+                    Margin="0,7,0,0"
+                    Orientation="Horizontal"
+                    Spacing="30">
+                    <StackLayout Orientation="Vertical">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource BlackLabelMedium13}"
+                            Text="{x:Static Common:AppResources.ExpiryDateText}" />
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <controls:TailCustomEntry
+                                HorizontalOptions="Start"
+                                Keyboard="Numeric"
+                                Placeholder="MM"
+                                ReturnKeyType="Next"
+                                Style="{StaticResource EntryRegular14}"
+                                WidthRequest="60">
+                                <controls:TailCustomEntry.Behaviors>
+                                    <behaviors:XamarinFastEntryBehaviour MaxLength="2" />
+                                </controls:TailCustomEntry.Behaviors>
+                            </controls:TailCustomEntry>
+                            <controls:TailCustomEntry
+                                HorizontalOptions="Start"
+                                Keyboard="Numeric"
+                                Placeholder="YY"
+                                ReturnKeyType="Next"
+                                Style="{StaticResource EntryRegular14}"
+                                WidthRequest="60">
+                                <controls:TailCustomEntry.Behaviors>
+                                    <behaviors:XamarinFastEntryBehaviour MaxLength="2" />
+                                </controls:TailCustomEntry.Behaviors>
+                            </controls:TailCustomEntry>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Vertical">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource BlackLabelMedium13}"
+                            Text="{x:Static Common:AppResources.CVVText}" />
+                        <controls:TailCustomEntry
+                            HorizontalOptions="FillAndExpand"
+                            Keyboard="Numeric"
+                            Placeholder="{x:Static Common:AppResources.CVVText}"
+                            ReturnKeyType="Next"
+                            Style="{StaticResource EntryRegular14}">
+                            <controls:TailCustomEntry.Behaviors>
+                                <behaviors:XamarinFastEntryBehaviour MaxLength="4" />
+                            </controls:TailCustomEntry.Behaviors>
+                        </controls:TailCustomEntry>
+                    </StackLayout>
+                </StackLayout>
+                <template:PurpleGradientButton
+                    Grid.Row="5"
+                    Margin="0,10,0,0"
+                    ButtonText="{x:Static Common:AppResources.AddNewCardText}"
+                    Command="{Binding AddNewCardCommand}"
+                    HeightRequest="42"
+                    HorizontalOptions="FillAndExpand" />
+
+
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</views:AppPageBase>

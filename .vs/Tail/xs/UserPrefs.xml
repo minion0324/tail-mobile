@@ -1,0 +1,30 @@
+﻿<Properties HasIOSDesignerOverlayBeenDismissed="True" StartupConfiguration="{07721272-1AEC-4F6C-8F9D-29B2E4874275}|Default">
+  <MonoDevelop.Ide.ItemProperties.Tail.iOS automaticSigning="False" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.1472F02D-EF2F-43BD-83A9-A7803D80092D" />
+  <MonoDevelop.Ide.ItemProperties.Tail.Android AndroidDesignerPreferredDevice="Nexus 4" TriggeredFromHotReload="False" PreferredExecutionTarget="Android.Android_Accelerated_Oreo" />
+  <MonoDevelop.Ide.Workbench>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Tail" expanded="True">
+            <Node name="Tail" expanded="True">
+              <Node name="Common" expanded="True">
+                <Node name="Constants.cs" selected="True" />
+              </Node>
+              <Node name="Services" expanded="True">
+                <Node name="OnlineServices" expanded="True" />
+              </Node>
+              <Node name="ViewModels" expanded="True" />
+            </Node>
+            <Node name="Tail.iOS" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

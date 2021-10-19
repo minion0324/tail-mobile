@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Tail.Views.Templates.CreateAPosteTemplate"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:ffTransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:template="clr-namespace:Tail.Views.Templates">
+    <ContentView.Content>
+        <Grid
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="10"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label x:Name="HeaderLabel" Style="{StaticResource BlackRobotoLabelBold16}" Text="Post Content" />
+            <controls:TailCustomFrame
+                Grid.Row="1"
+                BackgroundColor="White"
+                CornerRadius="0"
+                HasShadow="False">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Frame
+                        Grid.Row="0"
+                        Margin="0,10,0,0"
+                        Padding="0,0,0,0"
+                        BackgroundColor="white"
+                        BorderColor="#D8D8D8"
+                        CornerRadius="0"
+                        HasShadow="False">
+                        <controls:CustomEditor
+                            x:Name="EditorView"
+                            Margin="5"
+                            BackgroundColor="White"
+                            Completed="EditorView_Completed"
+                            HeightRequest="30"
+                            Keyboard="Text"
+                            Placeholder="{x:Static Common:AppResources.WriteYourPost}"
+                            PlaceholderColor="Gray"
+                            Style="{StaticResource EditorRegular14}">
+                            <controls:CustomEditor.HeightRequest>
+                                <OnPlatform x:TypeArguments="x:Double">
+                                    <On Platform="iOS">30</On>
+                                    <On Platform="Android">40</On>
+                                </OnPlatform>
+                            </controls:CustomEditor.HeightRequest>
+                        </controls:CustomEditor>
+
+                    </Frame>
+                    <Frame
+                        x:Name="PickedImages"
+                        Grid.Row="1"
+                        Margin="0,5,0,0"
+                        Padding="0"
+                        BackgroundColor="White"
+                        BorderColor="White"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HeightRequest="120"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="EndAndExpand">
+                        <ScrollView
+                            Margin="0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="FillAndExpand"
+                            VerticalScrollBarVisibility="Never">
+                            <StackLayout
+                                x:Name="InterestList"
+                                BackgroundColor="White"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                Spacing="7"
+                                VerticalOptions="FillAndExpand">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid
+                                            x:Name="ItemGrid"
+                                            HeightRequest="120"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="FillAndExpand"
+                                            WidthRequest="180">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Image
+                                                Margin="0"
+                                                Aspect="AspectFill"
+                                                HeightRequest="120"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="FillAndExpand"
+                                                WidthRequest="180">
+                                                <Image.Source>
+                                                    <FileImageSource File="{Binding PreviewPath}" />
+                                                </Image.Source>
+
+                                            </Image>
+                                            <Image
+                                                x:Name="RemoveIcon"
+                                                Margin="5,5,0,0"
+                                                HorizontalOptions="Start"
+                                                Source="remove_pic"
+                                                VerticalOptions="Start">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="RemoveIcon_Tapped" />
+                                                </Image.GestureRecognizers>
+                                            </Image>
+                                            <Image
+                                                Aspect="AspectFit"
+                                                HeightRequest="35"
+                                                HorizontalOptions="Center"
+                                                IsVisible="{Binding IsVideo}"
+                                                Source="play"
+                                                VerticalOptions="Center"
+                                                WidthRequest="35">
+                                            </Image>
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="TapGestureRecognizer_Tapped" />
+                                            </Grid.GestureRecognizers>
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </ScrollView>
+                    </Frame>
+                    <StackLayout x:Name="MediaStack" Grid.Row="2" Orientation="Horizontal">
+                        <Label
+                            Margin="0,5,0,0"
+                            Style="{StaticResource BlackLabelRegular13}"
+                            Text="Add Media" />
+                        <Frame
+                            x:Name="MediacountFrame"
+                            Padding="4"
+                            BackgroundColor="LightGray"
+                            CornerRadius="10"
+                            HasShadow="False"
+                            IsVisible="false">
+                            <StackLayout Orientation="Horizontal">
+                                <Image Source="attach" />
+                                <Label x:Name="MediaCountText" Style="{StaticResource BlackLabelRegular13}" />
+                            </StackLayout>
+                        </Frame>
+
+
+                    </StackLayout>
+                    <StackLayout
+                        x:Name="FooterRight"
+                        Grid.Row="3"
+                        Margin="0,10,0,0"
+                        HorizontalOptions="StartAndExpand"
+                        IsVisible="true"
+                        Orientation="Horizontal"
+                        Spacing="30">
+                        <StackLayout Orientation="Horizontal">
+                            <Image x:Name="FromGallery" Source="image">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="FromGallery_Tapped" />
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Label
+                                Margin="0,3,0,0"
+                                Style="{StaticResource BlackLabelRegular13}"
+                                Text="From gallery"
+                                VerticalOptions="Center" />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="FromGallery_Tapped" />
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Image x:Name="FromCamera" Source="camera">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="FromCamera_Tapped" />
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Label
+                                Margin="0,3,0,0"
+                                Style="{StaticResource BlackLabelRegular13}"
+                                Text="Using camera"
+                                VerticalOptions="Center" />
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="FromCamera_Tapped" />
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+
+                    </StackLayout>
+                    <StackLayout
+                        x:Name="FooterLeft"
+                        Grid.Row="4"
+                        Margin="0,10,0,0"
+                        HorizontalOptions="Start"
+                        IsVisible="false"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <Image x:Name="MoreOptionImage" Source="share_post" />
+                        <Label
+                            x:Name="MoreOptionLabel"
+                            Style="{StaticResource PurpleLabelSemiBold15}"
+                            Text="{x:Static Common:AppResources.MoreOptions}"
+                            VerticalOptions="Center" />
+
+                    </StackLayout>
+                    <template:PurpleGradientButton
+                        x:Name="ShareNowButton"
+                        Grid.Row="4"
+                        Margin="0,10,0,0"
+                        ButtonText="{x:Static Common:AppResources.ShareNow}"
+                        HeightRequest="42"
+                        HorizontalOptions="End"
+                        IsVisible="false"
+                        VerticalOptions="Center"
+                        WidthRequest="111" />
+                    <StackLayout x:Name="HideCaptionStack" Grid.Row="5" Orientation="Horizontal" IsEnabled="{Binding IsHideCaptionEnabled}" >
+
+                        <Label HorizontalOptions="StartAndExpand" Text="{x:Static Common:AppResources.HideCaptionText}" Style="{StaticResource BlackLabelRegular13}" VerticalOptions="Center" ></Label>
+                        <Image HorizontalOptions="End" x:Name="CheckBoxView" Source="switch_off.png"/>
+
+
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="HideCaption_Tapped"></TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </Grid>
+            </controls:TailCustomFrame>
+        </Grid>
+
+    </ContentView.Content>
+</ContentView>

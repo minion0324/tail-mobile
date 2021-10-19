@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:PopupPage
+    x:Class="Tail.Views.SelectGamePopup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <Grid
+        x:Name="Maingrid"
+        BackgroundColor="Transparent"
+        ColumnSpacing="0"
+        HorizontalOptions="FillAndExpand"
+        RowSpacing="0"
+        VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <controls:CustomCurvedFrame
+            Padding="0"
+            BackgroundColor="White"
+            CornerRadius="20,20,0,0"
+            HasShadow="False"
+            VerticalOptions="End">
+            <Grid
+                x:Name="InnerGrid"
+                Margin="0,0,0,0"
+                BackgroundColor="Transparent"
+                ColumnSpacing="0"
+                HorizontalOptions="FillAndExpand"
+                RowSpacing="0"
+                VerticalOptions="EndAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="15" />
+                </Grid.ColumnDefinitions>
+                <StackLayout
+                    Grid.Column="1"
+                    Margin="0,20,0,0"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal">
+                    <Label Style="{StaticResource DarkBlackLabelMedium14}" Text="{x:Static Common:AppResources.SelectTheGame}" />
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        HasShadow="False"
+                        HeightRequest="50"
+                        HorizontalOptions="EndAndExpand"
+                        WidthRequest="50">
+                        <Image
+                            HorizontalOptions="EndAndExpand"
+                            Source="clear"
+                            VerticalOptions="StartAndExpand" />
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="DismissPopup_Clicked" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+
+                </StackLayout>
+                <controls:CustomListView
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0,0,0,20"
+                    BackgroundColor="Transparent"
+                    HasUnevenRows="False"
+                    HorizontalOptions="FillAndExpand"
+                    IsAllowSelection="False"
+                    IsVisible="true"
+                    ItemsSource="{Binding UpcomingGames[0].GameData}"
+                    RowHeight="220"
+                    ScrollEnabled="True"
+                    SeparatorColor="Transparent"
+                    VerticalOptions="FillAndExpand"
+                    VerticalScrollBarVisibility="Never">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <template:GameSelectionLayout IsRefresh="{Binding GameRefresh}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </controls:CustomListView>
+            </Grid>
+           <controls:CustomCurvedFrame.GestureRecognizers>
+               <TapGestureRecognizer Tapped="InsideFrame_Tapped"></TapGestureRecognizer>
+           </controls:CustomCurvedFrame.GestureRecognizers>
+        </controls:CustomCurvedFrame>
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="DismissPopup_Clicked" />
+        </Grid.GestureRecognizers>
+    </Grid>
+
+</pages:PopupPage>

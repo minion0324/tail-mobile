@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:Common="clr-namespace:Tail.Common" xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:template="clr-namespace:Tail.Views.Templates" xmlns:controls="clr-namespace:Tail.Controls" x:Class="Tail.Views.Templates.TendingPosts">
+    <ContentView.Content>
+        <StackLayout Orientation="Vertical" Spacing="0">
+            <Grid RowSpacing="0" ColumnSpacing="0" Margin="16,16,10,16" VerticalOptions="Start" HorizontalOptions="FillAndExpand">
+                <Label Text="{x:Static Common:AppResources.TrendingInPosts}" IsVisible="{Binding IsResult, Converter = {StaticResource InverseBooleanConverter}}" Style="{StaticResource PurplePoppinsLabelBold16}" HorizontalOptions="Start" VerticalOptions="Start" ></Label>
+                <Label Text="{x:Static Common:AppResources.SearchResultInPosts}" IsVisible="{Binding IsResult}" Style="{StaticResource PurplePoppinsLabelBold16}" HorizontalOptions="Start" VerticalOptions="Start" ></Label>
+                <StackLayout IsVisible="{Binding IsViewAllPostEnable}" Orientation="Horizontal" HorizontalOptions="End" Spacing="0" VerticalOptions="FillAndExpand">
+                    <Label Text="{x:Static Common:AppResources.ViewAll}"  Style="{StaticResource PurpleLabelBold14}" HorizontalOptions="Start"  VerticalOptions="Center" ></Label>
+                    <Image Source="right_arrow"></Image>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding ViewAllPost}" />
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+            </Grid>
+            <controls:StackView x:Name="PostStack" Orientation="Vertical" Spacing="8" ItemSource="{Binding PostDetailsList}" >
+                <controls:StackView.ItemTemplate>
+                    <DataTemplate>
+                        <controls:TailCustomFrame CornerRadius="0" HasShadow="False" Padding="0" BackgroundColor="White" >
+                            <Grid RowSpacing="0" ColumnSpacing="0" VerticalOptions="FillAndExpand" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Start" Spacing="0">
+                                    <Frame  Margin="16,10,16,10"  Padding="0" HeightRequest="40" WidthRequest="40" HorizontalOptions="Center" VerticalOptions="Center" HasShadow="False" BackgroundColor="Transparent">
+                                        <controls:CircleImage  Source="{Binding PostItem.UserImage}" WidthRequest="40" HeightRequest="40" >
+                                        </controls:CircleImage>
+
+                                    </Frame>
+                                    <StackLayout Margin="0,10,0,0" Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="Start" Spacing="0">
+                                        <Label  HorizontalOptions="Start" VerticalOptions="Center" Style="{StaticResource BlackLabelSemiBold13}" Text="{Binding PostItem.UserName}"></Label>
+                                        <Label Text="{Binding PostItem.DisplayPostDate}"  Style="{StaticResource BlackLabelLight11}"/>
+                                    </StackLayout>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer  Command="{Binding UserDetails}" CommandParameter="{Binding PostItem.UserId}" />
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                                <StackLayout Grid.Row="1" Orientation="Vertical" Spacing="0">
+                                    <Label  Text="{Binding PostItem.PostTextSmall}" Margin="16,10,16,10" Style="{StaticResource BlackLabelRegular13}" LineBreakMode="WordWrap" HorizontalTextAlignment="Start" HorizontalOptions="Start" ></Label>
+
+                                    <ffimageloading:CachedImage  Source="{Binding PostItem.ImageUrl}" Aspect="AspectFit"   HorizontalOptions="Center" VerticalOptions="Center" >
+                                    </ffimageloading:CachedImage>
+                                </StackLayout>
+                                <Grid.GestureRecognizers>
+                                   <TapGestureRecognizer  Command="{Binding CommentCommand}" CommandParameter="{Binding PostItem}" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </controls:TailCustomFrame>
+                    </DataTemplate>
+                </controls:StackView.ItemTemplate>
+            </controls:StackView>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

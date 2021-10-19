@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.ContactUs"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:converter="clr-namespace:Tail.Converters"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <views:AppPageBase.Resources>
+        <ResourceDictionary>
+            <converter:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <converter:FirstValidationErrorConverter x:Key="ValidationErrorConverter" />
+        </ResourceDictionary>
+    </views:AppPageBase.Resources>
+    <ContentPage.Content>
+        <Grid
+            x:Name="Maingrid"
+            BackgroundColor="#F1F1F1"
+            ColumnSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <template:HeaderView
+                Title="{x:Static Common:AppResources.ContactText}"
+                Grid.Row="0"
+                BackButtonCommand="{Binding Back}"
+                BackButtonVisible="True"
+                LogoVisible="False"
+                NotificationVisible="False"
+                TitleVisible="True"
+                WalletVisible="False" />
+            <ScrollView
+                x:Name="ContentScroll"
+                Grid.Row="1"
+                VerticalScrollBarVisibility="Never">
+                <Grid
+                    BackgroundColor="#F1F1F1"
+                    ColumnSpacing="0"
+                    HorizontalOptions="FillAndExpand"
+                    RowSpacing="0"
+                    VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="56" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="16" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource PurplePoppinsLabelBold16}"
+                        Text="{x:Static Common:AppResources.SendUsQuery}"
+                        VerticalOptions="Center" />
+                    <controls:TailCustomFrame
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Padding="0"
+                        BackgroundColor="White"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="StartAndExpand">
+                        <StackLayout
+                            Margin="0,0,0,10"
+                            Padding="0"
+                            Orientation="Vertical"
+                            Spacing="0">
+                            <Frame
+                                Margin="16,15,16,0"
+                                Padding="10,0,16,0"
+                                BorderColor="#D8D8D8"
+                                CornerRadius="0"
+                                HasShadow="False"
+                                HeightRequest="44">
+
+                                <controls:CustomEditor
+                                    x:Name="SubjectEntry"
+                                    Grid.Column="1"
+                                    Margin="0,5,0,0"
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="44"
+                                    HorizontalOptions="FillAndExpand"
+                                    Keyboard="Chat"
+                                    MaxLength="50"
+                                    Placeholder="{x:Static Common:AppResources.QuerySubject}"
+                                    Style="{StaticResource EditorRegular14}"
+                                    Text="{Binding TextSubject.Value}"
+                                    VerticalOptions="FillAndExpand" />
+                            </Frame>
+                            <Label
+                                Margin="16,10,0,0"
+                                IsVisible="{Binding TextSubject.IsValid, Converter={StaticResource InverseBooleanConverter}}"
+                                Style="{StaticResource RedLabelLight13}"
+                                Text="{Binding TextSubject.Errors, Converter={StaticResource ValidationErrorConverter}}" />
+                            <Frame
+                                Margin="16,10,16,0"
+                                Padding="10,0,16,0"
+                                BorderColor="#D8D8D8"
+                                CornerRadius="0"
+                                HasShadow="False"
+                                HeightRequest="160">
+                                <controls:CustomEditor
+                                    x:Name="ContentEntry"
+                                    Grid.Column="1"
+                                    Margin="0,10,0,0"
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="160"
+                                    HorizontalOptions="FillAndExpand"
+                                    Keyboard="Chat"
+                                    MaxLength="300"
+                                    Placeholder="{x:Static Common:AppResources.QueryContent}"
+                                    Style="{StaticResource EditorRegular14}"
+                                    Text="{Binding TextContent.Value}"
+                                    VerticalOptions="FillAndExpand" />
+                            </Frame>
+                            <Label
+                                Margin="16,10,0,0"
+                                IsVisible="{Binding TextContent.IsValid, Converter={StaticResource InverseBooleanConverter}}"
+                                Style="{StaticResource RedLabelLight13}"
+                                Text="{Binding TextContent.Errors, Converter={StaticResource ValidationErrorConverter}}" />
+                            <Label
+                                Margin="16,15,0,0"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource BlackLabelMedium13}"
+                                Text="{x:Static Common:AppResources.UploadScreenshot}"
+                                VerticalOptions="Start" />
+                            <StackLayout
+                                Margin="16,10,0,0"
+                                HorizontalOptions="Start"
+                                Orientation="Vertical"
+                                Spacing="0">
+                                <Image
+                                    HorizontalOptions="Start"
+                                    Source="image"
+                                    VerticalOptions="Start">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding GalleryCommand}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+      
+
+                                <Frame
+                                    x:Name="PickedImages"
+                                    Padding="0"
+                                    BackgroundColor="White"
+                                    BorderColor="#D8D8D8"
+                                    CornerRadius="0"
+                                    HasShadow="False"
+                                    HeightRequest="70"
+                                    HorizontalOptions="FillAndExpand"
+                                    IsVisible="{Binding AttachmentVisible}"
+                                    VerticalOptions="EndAndExpand">
+                                    <ScrollView
+                                        Margin="5"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        VerticalOptions="FillAndExpand"
+                                        VerticalScrollBarVisibility="Never">
+                                        <StackLayout
+                                            x:Name="InterestList"
+                                            BackgroundColor="White"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal"
+                                            Spacing="5"
+                                            VerticalOptions="FillAndExpand">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid
+                                                        x:Name="ItemGrid"
+                                                        HeightRequest="75"
+                                                        HorizontalOptions="Start"
+                                                        VerticalOptions="FillAndExpand"
+                                                        WidthRequest="75">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*" />
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Image
+                                                            Margin="5,10,5,10"
+                                                            Aspect="AspectFill"
+                                                            HeightRequest="40"
+                                                            HorizontalOptions="FillAndExpand"
+                                                            VerticalOptions="FillAndExpand"
+                                                            WidthRequest="60">
+                                                            <Image.Source>
+                                                                <FileImageSource File="{Binding PreviewPath}" />
+                                                            </Image.Source>
+
+                                                        </Image>
+                                                        <Image
+                                                            x:Name="RemoveIcon"
+                                                            HorizontalOptions="End"
+                                                            Source="remove_pic"
+                                                            VerticalOptions="Start">
+                                                            <Image.GestureRecognizers>
+                                                                <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="RemoveIcon_Tapped" />
+                                                            </Image.GestureRecognizers>
+                                                        </Image>
+                                                        <Image
+                                                            HeightRequest="15"
+                                                            HorizontalOptions="Center"
+                                                            IsVisible="{Binding IsVideo}"
+                                                            Source="play_small"
+                                                            VerticalOptions="Center"
+                                                            WidthRequest="15" />
+                                                       
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </StackLayout>
+                                    </ScrollView>
+                                </Frame>
+                            </StackLayout>
+                            <template:PurpleGradientButton
+                                Margin="16,20,16,0"
+                                ButtonText="{x:Static Common:AppResources.SendMessage}"
+                                Command="{Binding SendMessageCommand}"
+                                HeightRequest="42"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Start" />
+                        </StackLayout>
+                    </controls:TailCustomFrame>
+                </Grid>
+            </ScrollView>
+            <template:ProgressView
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                HorizontalOptions="Fill"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Fill" />
+            <template:ProgressView
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                HorizontalOptions="Fill"
+                IsProgressVisible="True"
+                IsRunning="{Binding ProgressVisible}"
+                IsVisible="{Binding ProgressVisible}"
+                ProgressCount="{Binding ProgressCountDisplay}"
+                ProgressPercentageValue="{Binding ProgressPercentage}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </ContentPage.Content>
+</views:AppPageBase>

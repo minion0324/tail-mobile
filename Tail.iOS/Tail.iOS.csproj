@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{07721272-1AEC-4F6C-8F9D-29B2E4874275}</ProjectGuid>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TemplateGuid>{6143fdea-f3c2-4a09-aafa-6e230626515e}</TemplateGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Tail.iOS</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>Tail.iOS</AssemblyName>
+    <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <PackOnBuild>true</PackOnBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchArch>x86_64</MtouchArch>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchDebug>true</MtouchDebug>
+    <CodesignKey>iPhone Distribution: Tail Network LLC (52Z3XGNF54)</CodesignKey>
+    <DeviceSpecificBuild>false</DeviceSpecificBuild>
+    <CodesignProvision>TailNetworkDistributionProfile</CodesignProvision>
+    <MtouchFloat32>true</MtouchFloat32>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchLink>None</MtouchLink>
+    <MtouchArch>x86_64</MtouchArch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchDebug>true</MtouchDebug>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchLink>SdkOnly</MtouchLink>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchArch>ARM64</MtouchArch>
+    <CodesignKey>iPhone Distribution: Tail Network LLC (52Z3XGNF54)</CodesignKey>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <MtouchExtraArgs>--optimize=experimental-xforms-product-type</MtouchExtraArgs>
+    <CodesignProvision>TailAdHoc</CodesignProvision>
+    <MtouchFloat32>true</MtouchFloat32>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <None Include="Entitlements.plist" />
+    <None Include="Info.plist" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataHelpers\DeviceHelper.cs" />
+    <Compile Include="DataHelpers\SQLite_iOS.cs" />
+    <Compile Include="Renderers\CustomListViewRenderer.cs" />
+    <Compile Include="Renderers\GradientColorStackRenderer.cs" />
+    <Compile Include="Renderers\CustomTabbedPage.cs" />
+    <Compile Include="Renderers\TailCustomEntryRenderer.cs" />
+    <Compile Include="Renderers\TailCustomDatePickerRenderer.cs" />
+    <Compile Include="Renderers\CustomEditorRenderer.cs" />
+    <Compile Include="Renderers\EntryWithoutBorderRenderer.cs" />
+    <Compile Include="Renderers\PickerWithoutBorderRenderer.cs" />
+    <Compile Include="DataHelpers\MultiMediaPickerService.cs" />
+    <Compile Include="DataHelpers\ImageResizeHelper.cs" />
+    <Compile Include="Renderers\TailCustomFrameRenderer.cs" />
+    <Compile Include="Renderers\ImageCircleRenderer.cs" />
+    <Compile Include="Renderers\FacebookLoginButtonRenderer.cs" />
+    <Compile Include="Services\AppleSignInService.cs" />
+    <Compile Include="Renderers\AutoFillEntryRenderer.cs" />
+    <Compile Include="DataHelpers\AWSBucketService.cs" />
+    <Compile Include="DataHelpers\ImageHelper.cs" />
+    <Compile Include="Renderers\TailWebviewRenderer_iOS.cs" />
+    <Compile Include="Renderers\CropViewRenderer.cs" />
+    <Compile Include="Services\KeyChainAccessService.cs" />
+    <Compile Include="Renderers\CustomStackLayoutRenderer.cs" />
+    <Compile Include="Renderers\CustomProgressBarRenderer.cs" />
+    <Compile Include="Renderers\AppPageBaseRenderer.cs" />
+    <Compile Include="Renderers\VideoPlayerRenderer.cs" />
+    <Compile Include="Renderers\CustomCurvedFrameRenderer.cs" />
+    <Compile Include="Services\AppRating_iOS.cs" />
+    <Compile Include="Renderers\TailPasswordEntryRenderer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-120.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-180.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-40.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-60.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-58.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-87.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-80.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-120-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-20.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-40-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-58-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-40-2.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-80-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-76.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-152.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-167.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-1024.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.iOS" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Xamarin.FFImageLoading">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Forms">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.Permissions">
+      <Version>6.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="GMImagePicker.Xamarin">
+      <Version>2.5.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugin.HtmlLabel">
+      <Version>5.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="AWSSDK.CognitoIdentity">
+      <Version>3.5.0.39</Version>
+    </PackageReference>
+    <PackageReference Include="AWSSDK.Core">
+      <Version>3.5.1.39</Version>
+    </PackageReference>
+    <PackageReference Include="AWSSDK.S3">
+      <Version>3.5.4.3</Version>
+    </PackageReference>
+    <PackageReference Include="AWSSDK.SecurityToken">
+      <Version>3.5.1.19</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugins.ImageCropper">
+      <Version>1.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugins.Forms.ProgressRing">
+      <Version>0.1.2</Version>
+    </PackageReference>
+
+    <PackageReference Include="Plugin.InAppBilling">
+      <Version>4.0.2</Version>
+</PackageReference>
+
+    <PackageReference Include="Xamarin.Forms">
+      <Version>5.0.0.2012</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.iOS.CloudMessaging">
+      <Version>4.7.1</Version>
+    </PackageReference>
+    <PackageReference Include="SonarAnalyzer.CSharp">
+      <Version>8.20.0.28934</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Facebook.LoginKit.iOS">
+      <Version>9.0.1.5</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Facebook.CoreKit.iOS">
+      <Version>9.0.1.5</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\Tail\Tail.csproj">
+      <Project>{A4820B88-C494-40E6-9D2B-BE2827E662F2}</Project>
+      <Name>Tail</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataHelpers\" />
+    <Folder Include="Renderers\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Splash.png" />
+    <BundleResource Include="Resources\Splash%402x.png" />
+    <BundleResource Include="Resources\Splash%403x.png" />
+    <BundleResource Include="Resources\bg_bottom.png" />
+    <BundleResource Include="Resources\bg_bottom%402x.png" />
+    <BundleResource Include="Resources\bg_bottom%403x.png" />
+    <BundleResource Include="Resources\bg_top.png" />
+    <BundleResource Include="Resources\bg_top%402x.png" />
+    <BundleResource Include="Resources\bg_top%403x.png" />
+    <BundleResource Include="Resources\icn_apple.png" />
+    <BundleResource Include="Resources\icn_apple%402x.png" />
+    <BundleResource Include="Resources\icn_apple%403x.png" />
+    <BundleResource Include="Resources\icn_facebook.png" />
+    <BundleResource Include="Resources\icn_facebook%402x.png" />
+    <BundleResource Include="Resources\icn_facebook%403x.png" />
+    <BundleResource Include="Resources\Logo_inside.png" />
+    <BundleResource Include="Resources\Logo_inside%402x.png" />
+    <BundleResource Include="Resources\Logo_inside%403x.png" />
+    <BundleResource Include="Resources\add_profile_pic.png" />
+    <BundleResource Include="Resources\add_profile_pic%402x.png" />
+    <BundleResource Include="Resources\add_profile_pic%403x.png" />
+    <BundleResource Include="Resources\baseball.png" />
+    <BundleResource Include="Resources\baseball%402x.png" />
+    <BundleResource Include="Resources\baseball%403x.png" />
+    <BundleResource Include="Resources\basketball.png" />
+    <BundleResource Include="Resources\basketball%402x.png" />
+    <BundleResource Include="Resources\basketball%403x.png" />
+    <BundleResource Include="Resources\football.png" />
+    <BundleResource Include="Resources\football%402x.png" />
+    <BundleResource Include="Resources\football%403x.png" />
+    <BundleResource Include="Resources\ice_hockey.png" />
+    <BundleResource Include="Resources\ice_hockey%402x.png" />
+    <BundleResource Include="Resources\ice_hockey%403x.png" />
+    <BundleResource Include="Resources\interest_box.png" />
+    <BundleResource Include="Resources\interest_box%402x.png" />
+    <BundleResource Include="Resources\interest_box%403x.png" />
+    <BundleResource Include="Resources\interest_selected_box.png" />
+    <BundleResource Include="Resources\interest_selected_box%402x.png" />
+    <BundleResource Include="Resources\interest_selected_box%403x.png" />
+    <BundleResource Include="Resources\mma.png" />
+    <BundleResource Include="Resources\mma%402x.png" />
+    <BundleResource Include="Resources\mma%403x.png" />
+    <BundleResource Include="Resources\alisa.png" />
+    <BundleResource Include="Resources\alisa%402x.png" />
+    <BundleResource Include="Resources\alisa%403x.png" />
+    <BundleResource Include="Resources\back_arrow.png" />
+    <BundleResource Include="Resources\back_arrow%402x.png" />
+    <BundleResource Include="Resources\back_arrow%403x.png" />
+    <BundleResource Include="Resources\baseball_follow.png" />
+    <BundleResource Include="Resources\baseball_follow%402x.png" />
+    <BundleResource Include="Resources\baseball_follow%403x.png" />
+    <BundleResource Include="Resources\basketball_follow.png" />
+    <BundleResource Include="Resources\basketball_follow%402x.png" />
+    <BundleResource Include="Resources\basketball_follow%403x.png" />
+    <BundleResource Include="Resources\ben.png" />
+    <BundleResource Include="Resources\ben%402x.png" />
+    <BundleResource Include="Resources\ben%403x.png" />
+    <BundleResource Include="Resources\football_follow.png" />
+    <BundleResource Include="Resources\football_follow%402x.png" />
+    <BundleResource Include="Resources\football_follow%403x.png" />
+    <BundleResource Include="Resources\ice_hockey_follow.png" />
+    <BundleResource Include="Resources\ice_hockey_follow%402x.png" />
+    <BundleResource Include="Resources\ice_hockey_follow%403x.png" />
+    <BundleResource Include="Resources\johndoe.png" />
+    <BundleResource Include="Resources\johndoe%402x.png" />
+    <BundleResource Include="Resources\johndoe%403x.png" />
+    <BundleResource Include="Resources\mark.png" />
+    <BundleResource Include="Resources\mark%402x.png" />
+    <BundleResource Include="Resources\mark%403x.png" />
+    <BundleResource Include="Resources\mike.png" />
+    <BundleResource Include="Resources\mike%402x.png" />
+    <BundleResource Include="Resources\mike%403x.png" />
+    <BundleResource Include="Resources\mma_follow.png" />
+    <BundleResource Include="Resources\mma_follow%402x.png" />
+    <BundleResource Include="Resources\mma_follow%403x.png" />
+    <BundleResource Include="Resources\next_arrow.png" />
+    <BundleResource Include="Resources\next_arrow%402x.png" />
+    <BundleResource Include="Resources\next_arrow%403x.png" />
+    <BundleResource Include="Resources\tomhardy.png" />
+    <BundleResource Include="Resources\tomhardy%402x.png" />
+    <BundleResource Include="Resources\tomhardy%403x.png" />
+    <BundleResource Include="Resources\baseball_home.png" />
+    <BundleResource Include="Resources\baseball_home%402x.png" />
+    <BundleResource Include="Resources\baseball_home%403x.png" />
+    <BundleResource Include="Resources\basketball_home.png" />
+    <BundleResource Include="Resources\basketball_home%402x.png" />
+    <BundleResource Include="Resources\basketball_home%403x.png" />
+    <BundleResource Include="Resources\Detroit_Pistons.png" />
+    <BundleResource Include="Resources\Detroit_Pistons%402x.png" />
+    <BundleResource Include="Resources\Detroit_Pistons%403x.png" />
+    <BundleResource Include="Resources\football_home.png" />
+    <BundleResource Include="Resources\football_home%402x.png" />
+    <BundleResource Include="Resources\football_home%403x.png" />
+    <BundleResource Include="Resources\heat.png" />
+    <BundleResource Include="Resources\heat%402x.png" />
+    <BundleResource Include="Resources\heat%403x.png" />
+    <BundleResource Include="Resources\ice_hockey_home.png" />
+    <BundleResource Include="Resources\ice_hockey_home%402x.png" />
+    <BundleResource Include="Resources\ice_hockey_home%403x.png" />
+    <BundleResource Include="Resources\lakers.png" />
+    <BundleResource Include="Resources\lakers%402x.png" />
+    <BundleResource Include="Resources\lakers%403x.png" />
+    <BundleResource Include="Resources\Milwaukee_Bucks.png" />
+    <BundleResource Include="Resources\Milwaukee_Bucks%402x.png" />
+    <BundleResource Include="Resources\Milwaukee_Bucks%403x.png" />
+    <BundleResource Include="Resources\mma_home.png" />
+    <BundleResource Include="Resources\mma_home%402x.png" />
+    <BundleResource Include="Resources\mma_home%403x.png" />
+    <BundleResource Include="Resources\NBA.png" />
+    <BundleResource Include="Resources\NBA%402x.png" />
+    <BundleResource Include="Resources\NBA%403x.png" />
+    <BundleResource Include="Resources\pacers.png" />
+    <BundleResource Include="Resources\pacers%402x.png" />
+    <BundleResource Include="Resources\pacers%403x.png" />
+    <BundleResource Include="Resources\play.png" />
+    <BundleResource Include="Resources\play%402x.png" />
+    <BundleResource Include="Resources\play%403x.png" />
+    <BundleResource Include="Resources\post_image.png" />
+    <BundleResource Include="Resources\post_image%402x.png" />
+    <BundleResource Include="Resources\post_image%403x.png" />
+    <BundleResource Include="Resources\suns.png" />
+    <BundleResource Include="Resources\suns%402x.png" />
+    <BundleResource Include="Resources\suns%403x.png" />
+    <BundleResource Include="Resources\hide_post.png" />
+    <BundleResource Include="Resources\hide_post%402x.png" />
+    <BundleResource Include="Resources\hide_post%403x.png" />
+    <BundleResource Include="Resources\report_post.png" />
+    <BundleResource Include="Resources\report_post%402x.png" />
+    <BundleResource Include="Resources\report_post%403x.png" />
+    <BundleResource Include="Resources\share_post.png" />
+    <BundleResource Include="Resources\share_post%402x.png" />
+    <BundleResource Include="Resources\share_post%403x.png" />
+    <BundleResource Include="Resources\unfollow.png" />
+    <BundleResource Include="Resources\unfollow%402x.png" />
+    <BundleResource Include="Resources\unfollow%403x.png" />
+    <BundleResource Include="Resources\baseball_user_profile.png" />
+    <BundleResource Include="Resources\baseball_user_profile%402x.png" />
+    <BundleResource Include="Resources\baseball_user_profile%403x.png" />
+    <BundleResource Include="Resources\basketball_user_profile.png" />
+    <BundleResource Include="Resources\basketball_user_profile%402x.png" />
+    <BundleResource Include="Resources\basketball_user_profile%403x.png" />
+    <BundleResource Include="Resources\football_user_profile.png" />
+    <BundleResource Include="Resources\football_user_profile%402x.png" />
+    <BundleResource Include="Resources\football_user_profile%403x.png" />
+    <BundleResource Include="Resources\ice_hockey_user_profile.png" />
+    <BundleResource Include="Resources\ice_hockey_user_profile%402x.png" />
+    <BundleResource Include="Resources\ice_hockey_user_profile%403x.png" />
+    <BundleResource Include="Resources\mma_user_profile.png" />
+    <BundleResource Include="Resources\mma_user_profile%402x.png" />
+    <BundleResource Include="Resources\mma_user_profile%403x.png" />
+    <BundleResource Include="Resources\make_a_post.png" />
+    <BundleResource Include="Resources\make_a_post%402x.png" />
+    <BundleResource Include="Resources\make_a_post%403x.png" />
+    <BundleResource Include="Resources\edit_black.png" />
+    <BundleResource Include="Resources\edit_black%402x.png" />
+    <BundleResource Include="Resources\edit_black%403x.png" />
+    <BundleResource Include="Resources\edit.png" />
+    <BundleResource Include="Resources\edit%402x.png" />
+    <BundleResource Include="Resources\edit%403x.png" />
+    <BundleResource Include="Resources\play_small.png" />
+    <BundleResource Include="Resources\play_small%402x.png" />
+    <BundleResource Include="Resources\play_small%403x.png" />
+    <BundleResource Include="Resources\account_selected.png" />
+    <BundleResource Include="Resources\account_selected%402x.png" />
+    <BundleResource Include="Resources\account_selected%403x.png" />
+    <BundleResource Include="Resources\account.png" />
+    <BundleResource Include="Resources\account%402x.png" />
+    <BundleResource Include="Resources\account%403x.png" />
+    <BundleResource Include="Resources\back.png" />
+    <BundleResource Include="Resources\back%402x.png" />
+    <BundleResource Include="Resources\back%403x.png" />
+    <BundleResource Include="Resources\calendar.png" />
+    <BundleResource Include="Resources\calendar%402x.png" />
+    <BundleResource Include="Resources\calendar%403x.png" />
+    <BundleResource Include="Resources\camera.png" />
+    <BundleResource Include="Resources\camera%402x.png" />
+    <BundleResource Include="Resources\camera%403x.png" />
+    <BundleResource Include="Resources\checkbox.png" />
+    <BundleResource Include="Resources\checkbox%402x.png" />
+    <BundleResource Include="Resources\checkbox%403x.png" />
+    <BundleResource Include="Resources\comment_tapped.png" />
+    <BundleResource Include="Resources\comment_tapped%402x.png" />
+    <BundleResource Include="Resources\comment_tapped%403x.png" />
+    <BundleResource Include="Resources\comment.png" />
+    <BundleResource Include="Resources\comment%402x.png" />
+    <BundleResource Include="Resources\comment%403x.png" />
+    <BundleResource Include="Resources\create_post.png" />
+    <BundleResource Include="Resources\create_post%402x.png" />
+    <BundleResource Include="Resources\create_post%403x.png" />
+    <BundleResource Include="Resources\dislike_selected.png" />
+    <BundleResource Include="Resources\dislike_selected%402x.png" />
+    <BundleResource Include="Resources\dislike_selected%403x.png" />
+    <BundleResource Include="Resources\dislike.png" />
+    <BundleResource Include="Resources\dislike%402x.png" />
+    <BundleResource Include="Resources\dislike%403x.png" />
+    <BundleResource Include="Resources\home_selected.png" />
+    <BundleResource Include="Resources\home_selected%402x.png" />
+    <BundleResource Include="Resources\home_selected%403x.png" />
+    <BundleResource Include="Resources\home.png" />
+    <BundleResource Include="Resources\home%402x.png" />
+    <BundleResource Include="Resources\home%403x.png" />
+    <BundleResource Include="Resources\image.png" />
+    <BundleResource Include="Resources\image%402x.png" />
+    <BundleResource Include="Resources\image%403x.png" />
+    <BundleResource Include="Resources\like_selected.png" />
+    <BundleResource Include="Resources\like_selected%402x.png" />
+    <BundleResource Include="Resources\like_selected%403x.png" />
+    <BundleResource Include="Resources\like.png" />
+    <BundleResource Include="Resources\like%402x.png" />
+    <BundleResource Include="Resources\like%403x.png" />
+    <BundleResource Include="Resources\menu_selected.png" />
+    <BundleResource Include="Resources\menu_selected%402x.png" />
+    <BundleResource Include="Resources\menu_selected%403x.png" />
+    <BundleResource Include="Resources\menu.png" />
+    <BundleResource Include="Resources\menu%402x.png" />
+    <BundleResource Include="Resources\menu%403x.png" />
+    <BundleResource Include="Resources\more.png" />
+    <BundleResource Include="Resources\more%402x.png" />
+    <BundleResource Include="Resources\more%403x.png" />
+    <BundleResource Include="Resources\notification.png" />
+    <BundleResource Include="Resources\notification%402x.png" />
+    <BundleResource Include="Resources\notification%403x.png" />
+    <BundleResource Include="Resources\radio.png" />
+    <BundleResource Include="Resources\radio%402x.png" />
+    <BundleResource Include="Resources\radio%403x.png" />
+    <BundleResource Include="Resources\search_selected.png" />
+    <BundleResource Include="Resources\search_selected%402x.png" />
+    <BundleResource Include="Resources\search_selected%403x.png" />
+    <BundleResource Include="Resources\search.png" />
+    <BundleResource Include="Resources\search%402x.png" />
+    <BundleResource Include="Resources\search%403x.png" />
+    <BundleResource Include="Resources\tail_logo.png" />
+    <BundleResource Include="Resources\tail_logo%402x.png" />
+    <BundleResource Include="Resources\tail_logo%403x.png" />
+    <BundleResource Include="Resources\time.png" />
+    <BundleResource Include="Resources\time%402x.png" />
+    <BundleResource Include="Resources\time%403x.png" />
+    <BundleResource Include="Resources\wallet.png" />
+    <BundleResource Include="Resources\wallet%402x.png" />
+    <BundleResource Include="Resources\wallet%403x.png" />
+    <BundleResource Include="Resources\Poppins-Black.ttf" />
+    <BundleResource Include="Resources\Poppins-BlackItalic.ttf" />
+    <BundleResource Include="Resources\Poppins-Bold.ttf" />
+    <BundleResource Include="Resources\Poppins-BoldItalic.ttf" />
+    <BundleResource Include="Resources\Poppins-ExtraBold.ttf" />
+    <BundleResource Include="Resources\Poppins-ExtraBoldItalic.ttf" />
+    <BundleResource Include="Resources\Poppins-ExtraLight.ttf" />
+    <BundleResource Include="Resources\Poppins-ExtraLightItalic.ttf" />
+    <BundleResource Include="Resources\Poppins-Italic.ttf" />
+    <BundleResource Include="Resources\Poppins-Light.ttf" />
+    <BundleResource Include="Resources\Poppins-LightItalic.ttf" />
+    <BundleResource Include="Resources\Poppins-Medium.ttf" />
+    <BundleResource Include="Resources\Poppins-MediumItalic.ttf" />
+    <BundleResource Include="Resources\Poppins-Regular.ttf" />
+    <BundleResource Include="Resources\Poppins-SemiBold.ttf" />
+    <BundleResource Include="Resources\Poppins-SemiBoldItalic.ttf" />
+    <BundleResource Include="Resources\Poppins-Thin.ttf" />
+    <BundleResource Include="Resources\Poppins-ThinItalic.ttf" />
+    <BundleResource Include="Resources\Roboto-Black.ttf" />
+    <BundleResource Include="Resources\Roboto-BlackItalic.ttf" />
+    <BundleResource Include="Resources\Roboto-Bold.ttf" />
+    <BundleResource Include="Resources\Roboto-BoldItalic.ttf" />
+    <BundleResource Include="Resources\Roboto-Italic.ttf" />
+    <BundleResource Include="Resources\Roboto-Light.ttf" />
+    <BundleResource Include="Resources\Roboto-LightItalic.ttf" />
+    <BundleResource Include="Resources\Roboto-Medium.ttf" />
+    <BundleResource Include="Resources\Roboto-MediumItalic.ttf" />
+    <BundleResource Include="Resources\Roboto-Regular.ttf" />
+    <BundleResource Include="Resources\Roboto-Thin.ttf" />
+    <BundleResource Include="Resources\Roboto-ThinItalic.ttf" />
+    <BundleResource Include="Resources\checkbox_selected.png" />
+    <BundleResource Include="Resources\checkbox_selected%402x.png" />
+    <BundleResource Include="Resources\checkbox_selected%403x.png" />
+    <BundleResource Include="Resources\radio_selected.png" />
+    <BundleResource Include="Resources\radio_selected%402x.png" />
+    <BundleResource Include="Resources\radio_selected%403x.png" />
+    <BundleResource Include="Resources\Rectangle_7.png" />
+    <BundleResource Include="Resources\Rectangle_7%402x.png" />
+    <BundleResource Include="Resources\Rectangle_7%403x.png" />
+    <BundleResource Include="Resources\send_btn.png" />
+    <BundleResource Include="Resources\send_btn%403x.png" />
+    <BundleResource Include="Resources\send_btn%402x.png" />
+    <BundleResource Include="Resources\baseball_game_search_result.png" />
+    <BundleResource Include="Resources\baseball_game_search_result%402x.png" />
+    <BundleResource Include="Resources\baseball_game_search_result%403x.png" />
+    <BundleResource Include="Resources\basketball_game_search_result.png" />
+    <BundleResource Include="Resources\basketball_game_search_result%402x.png" />
+    <BundleResource Include="Resources\basketball_game_search_result%403x.png" />
+    <BundleResource Include="Resources\football_game_search_result.png" />
+    <BundleResource Include="Resources\football_game_search_result%402x.png" />
+    <BundleResource Include="Resources\football_game_search_result%403x.png" />
+    <BundleResource Include="Resources\ice_hockey_game_search_result.png" />
+    <BundleResource Include="Resources\ice_hockey_game_search_result%402x.png" />
+    <BundleResource Include="Resources\ice_hockey_game_search_result%403x.png" />
+    <BundleResource Include="Resources\mma_game_search_result.png" />
+    <BundleResource Include="Resources\mma_game_search_result%402x.png" />
+    <BundleResource Include="Resources\mma_game_search_result%403x.png" />
+    <BundleResource Include="Resources\basesall_search_result.png" />
+    <BundleResource Include="Resources\basesall_search_result%402x.png" />
+    <BundleResource Include="Resources\basesall_search_result%403x.png" />
+    <BundleResource Include="Resources\basketball_search_result.png" />
+    <BundleResource Include="Resources\basketball_search_result%402x.png" />
+    <BundleResource Include="Resources\basketball_search_result%403x.png" />
+    <BundleResource Include="Resources\football_search_result.png" />
+    <BundleResource Include="Resources\football_search_result%402x.png" />
+    <BundleResource Include="Resources\football_search_result%403x.png" />
+    <BundleResource Include="Resources\hockey_search_result.png" />
+    <BundleResource Include="Resources\hockey_search_result%402x.png" />
+    <BundleResource Include="Resources\hockey_search_result%403x.png" />
+    <BundleResource Include="Resources\mma_search_result.png" />
+    <BundleResource Include="Resources\mma_search_result%402x.png" />
+    <BundleResource Include="Resources\mma_search_result%403x.png" />
+    <BundleResource Include="Resources\basketball_search.png" />
+    <BundleResource Include="Resources\basketball_search%402x.png" />
+    <BundleResource Include="Resources\basketball_search%403x.png" />
+    <BundleResource Include="Resources\basesall_search.png" />
+    <BundleResource Include="Resources\basesall_search%402x.png" />
+    <BundleResource Include="Resources\basesall_search%403x.png" />
+    <BundleResource Include="Resources\football_search.png" />
+    <BundleResource Include="Resources\football_search%402x.png" />
+    <BundleResource Include="Resources\football_search%403x.png" />
+    <BundleResource Include="Resources\hockey_search.png" />
+    <BundleResource Include="Resources\hockey_search%402x.png" />
+    <BundleResource Include="Resources\hockey_search%403x.png" />
+    <BundleResource Include="Resources\mma_search.png" />
+    <BundleResource Include="Resources\mma_search%402x.png" />
+    <BundleResource Include="Resources\mma_search%403x.png" />
+    <BundleResource Include="Resources\right_arrow.png" />
+    <BundleResource Include="Resources\right_arrow%402x.png" />
+    <BundleResource Include="Resources\right_arrow%403x.png" />
+    <BundleResource Include="Resources\logo.png" />
+    <BundleResource Include="Resources\logo%402x.png" />
+    <BundleResource Include="Resources\logo%403x.png" />
+    <BundleResource Include="Resources\delete.png" />
+    <BundleResource Include="Resources\delete%402x.png" />
+    <BundleResource Include="Resources\delete%403x.png" />
+    <BundleResource Include="Resources\mastercard.png" />
+    <BundleResource Include="Resources\mastercard%402x.png" />
+    <BundleResource Include="Resources\mastercard%403x.png" />
+    <BundleResource Include="Resources\visacard.png" />
+    <BundleResource Include="Resources\visacard%402x.png" />
+    <BundleResource Include="Resources\visacard%403x.png" />
+    <BundleResource Include="Resources\purchase_wallet.png" />
+    <BundleResource Include="Resources\purchase_wallet%402x.png" />
+    <BundleResource Include="Resources\purchase_wallet%403x.png" />
+    <BundleResource Include="Resources\about_menu_selected.png" />
+    <BundleResource Include="Resources\about_menu_selected%402x.png" />
+    <BundleResource Include="Resources\about_menu_selected%403x.png" />
+    <BundleResource Include="Resources\about_menu%402x.png" />
+    <BundleResource Include="Resources\about_menu%403x.png" />
+    <BundleResource Include="Resources\home_menu_selected.png" />
+    <BundleResource Include="Resources\home_menu_selected%402x.png" />
+    <BundleResource Include="Resources\home_menu_selected%403x.png" />
+    <BundleResource Include="Resources\home_menu%402x.png" />
+    <BundleResource Include="Resources\home_menu%403x.png" />
+    <BundleResource Include="Resources\interest_menu_selected.png" />
+    <BundleResource Include="Resources\interest_menu_selected%402x.png" />
+    <BundleResource Include="Resources\interest_menu_selected%403x.png" />
+    <BundleResource Include="Resources\interest_menu%402x.png" />
+    <BundleResource Include="Resources\interest_menu%403x.png" />
+    <BundleResource Include="Resources\logout_menu_selected.png" />
+    <BundleResource Include="Resources\logout_menu_selected%402x.png" />
+    <BundleResource Include="Resources\logout_menu_selected%403x.png" />
+    <BundleResource Include="Resources\logout_menu%402x.png" />
+    <BundleResource Include="Resources\logout_menu%403x.png" />
+    <BundleResource Include="Resources\profile_menu_selected.png" />
+    <BundleResource Include="Resources\profile_menu_selected%402x.png" />
+    <BundleResource Include="Resources\profile_menu_selected%403x.png" />
+    <BundleResource Include="Resources\profile_menu%402x.png" />
+    <BundleResource Include="Resources\profile_menu%403x.png" />
+    <BundleResource Include="Resources\settings_menu_selected.png" />
+    <BundleResource Include="Resources\settings_menu_selected%402x.png" />
+    <BundleResource Include="Resources\settings_menu_selected%403x.png" />
+    <BundleResource Include="Resources\settings_menu%402x.png" />
+    <BundleResource Include="Resources\settings_menu%403x.png" />
+    <BundleResource Include="Resources\support_menu_selected.png" />
+    <BundleResource Include="Resources\support_menu_selected%402x.png" />
+    <BundleResource Include="Resources\support_menu_selected%403x.png" />
+    <BundleResource Include="Resources\support_menu%402x.png" />
+    <BundleResource Include="Resources\support_menu%403x.png" />
+    <BundleResource Include="Resources\wallet_menu_selected.png" />
+    <BundleResource Include="Resources\wallet_menu_selected%402x.png" />
+    <BundleResource Include="Resources\wallet_menu_selected%403x.png" />
+    <BundleResource Include="Resources\wallet_menu%402x.png" />
+    <BundleResource Include="Resources\wallet_menu%403x.png" />
+    <BundleResource Include="Resources\about_menu.png" />
+    <BundleResource Include="Resources\home_menu.png" />
+    <BundleResource Include="Resources\interest_menu.png" />
+    <BundleResource Include="Resources\logout_menu.png" />
+    <BundleResource Include="Resources\profile_menu.png" />
+    <BundleResource Include="Resources\settings_menu.png" />
+    <BundleResource Include="Resources\support_menu.png" />
+    <BundleResource Include="Resources\wallet_menu.png" />
+    <BundleResource Include="Resources\radio-selected.png" />
+    <BundleResource Include="Resources\radio-selected%402x.png" />
+    <BundleResource Include="Resources\radio-selected%403x.png" />
+    <BundleResource Include="Resources\calendar_signup.png" />
+    <BundleResource Include="Resources\calendar_signup%402x.png" />
+    <BundleResource Include="Resources\calendar_signup%403x.png" />
+    <BundleResource Include="Resources\eye_signup.png" />
+    <BundleResource Include="Resources\eye_signup%402x.png" />
+    <BundleResource Include="Resources\eye_signup%403x.png" />
+    <BundleResource Include="Resources\arrow_down.png" />
+    <BundleResource Include="Resources\arrow_down%402x.png" />
+    <BundleResource Include="Resources\arrow_down%403x.png" />
+    <BundleResource Include="Resources\lost_badge.png" />
+    <BundleResource Include="Resources\lost_badge%402x.png" />
+    <BundleResource Include="Resources\lost_badge%403x.png" />
+    <BundleResource Include="Resources\lost.png" />
+    <BundleResource Include="Resources\lost%402x.png" />
+    <BundleResource Include="Resources\lost%403x.png" />
+    <BundleResource Include="Resources\won_badge.png" />
+    <BundleResource Include="Resources\won_badge%402x.png" />
+    <BundleResource Include="Resources\won_badge%403x.png" />
+    <BundleResource Include="Resources\won.png" />
+    <BundleResource Include="Resources\won%402x.png" />
+    <BundleResource Include="Resources\won%403x.png" />
+    <BundleResource Include="Resources\account_details_selected.png" />
+    <BundleResource Include="Resources\account_details_selected%402x.png" />
+    <BundleResource Include="Resources\account_details_selected%403x.png" />
+    <BundleResource Include="Resources\account_details.png" />
+    <BundleResource Include="Resources\account_details%402x.png" />
+    <BundleResource Include="Resources\account_details%403x.png" />
+    <BundleResource Include="Resources\add_icon.png" />
+    <BundleResource Include="Resources\add_icon%402x.png" />
+    <BundleResource Include="Resources\add_icon%403x.png" />
+    <BundleResource Include="Resources\filter.png" />
+    <BundleResource Include="Resources\filter%402x.png" />
+    <BundleResource Include="Resources\filter%403x.png" />
+    <BundleResource Include="Resources\select_all.png" />
+    <BundleResource Include="Resources\select_all%402x.png" />
+    <BundleResource Include="Resources\select_all%403x.png" />
+    <BundleResource Include="Resources\switch_off%403x.png" />
+    <BundleResource Include="Resources\switch_on.png" />
+    <BundleResource Include="Resources\switch_off.png" />
+    <BundleResource Include="Resources\switch_off%402x.png" />
+    <BundleResource Include="Resources\switch_on%402x.png" />
+    <BundleResource Include="Resources\switch_on%403x.png" />
+    <BundleResource Include="Resources\dummy2.jpeg" />
+    <BundleResource Include="Resources\dummy1.jpeg" />
+    <BundleResource Include="Resources\dummy3.jpg" />
+    <BundleResource Include="Resources\dummy4.jpg" />
+    <BundleResource Include="Resources\dummy5.jpg" />
+    <BundleResource Include="Resources\placeholder_small.png" />
+    <BundleResource Include="Resources\placeholder_small%402x.png" />
+    <BundleResource Include="Resources\placeholder_small%403x.png" />
+    <BundleResource Include="Resources\placeholder.png" />
+    <BundleResource Include="Resources\placeholder%402x.png" />
+    <BundleResource Include="Resources\placeholder%403x.png" />
+    <BundleResource Include="Resources\loader.gif" />
+    <BundleResource Include="Resources\loader.png" />
+    <BundleResource Include="Resources\coin_fifty.png" />
+    <BundleResource Include="Resources\coin_fifty%402x.png" />
+    <BundleResource Include="Resources\coin_fifty%403x.png" />
+    <BundleResource Include="Resources\coin_fourty.png" />
+    <BundleResource Include="Resources\coin_fourty%402x.png" />
+    <BundleResource Include="Resources\coin_fourty%403x.png" />
+    <BundleResource Include="Resources\coin_ten.png" />
+    <BundleResource Include="Resources\coin_ten%402x.png" />
+    <BundleResource Include="Resources\coin_ten%403x.png" />
+    <BundleResource Include="Resources\coin_thirty.png" />
+    <BundleResource Include="Resources\coin_thirty%402x.png" />
+    <BundleResource Include="Resources\coin_thirty%403x.png" />
+    <BundleResource Include="Resources\coin_twenty.png" />
+    <BundleResource Include="Resources\coin_twenty%402x.png" />
+    <BundleResource Include="Resources\coin_twenty%403x.png" />
+    <BundleResource Include="Resources\coins_details_selected.png" />
+    <BundleResource Include="Resources\coins_details_selected%402x.png" />
+    <BundleResource Include="Resources\coins_details_selected%403x.png" />
+    <BundleResource Include="Resources\coins_details.png" />
+    <BundleResource Include="Resources\coins_details%402x.png" />
+    <BundleResource Include="Resources\coins_details%403x.png" />
+    <BundleResource Include="Resources\eye_hide.png" />
+    <BundleResource Include="Resources\eye_hide%402x.png" />
+    <BundleResource Include="Resources\eye_hide%403x.png" />
+    <BundleResource Include="Resources\remove_pic.png" />
+    <BundleResource Include="Resources\remove_pic%402x.png" />
+    <BundleResource Include="Resources\remove_pic%403x.png" />
+    <BundleResource Include="Resources\Image_Loading.jpeg" />
+    <BundleResource Include="Resources\coin_topnav%402x.png" />
+    <BundleResource Include="Resources\coin_topnav%403x.png" />
+    <BundleResource Include="Resources\coin_topnav.png" />
+    <BundleResource Include="Resources\tail_coins.png" />
+    <BundleResource Include="Resources\tail_coins%402x.png" />
+    <BundleResource Include="Resources\tail_coins%403x.png" />
+
+    <BundleResource Include="GoogleService-Info.plist" />
+
+    <BundleResource Include="Resources\Logo1.png" />
+    <BundleResource Include="Resources\Logo2.png" />
+    <BundleResource Include="Resources\Logo3.png" />
+    <BundleResource Include="Resources\team_placeholder.png" />
+    <BundleResource Include="Resources\mma_or_boxing_placeholder.png" />
+    <BundleResource Include="Resources\lock.png" />
+    <BundleResource Include="Resources\lock%402x.png" />
+    <BundleResource Include="Resources\lock%403x.png" />
+    <BundleResource Include="Resources\clear.png" />
+    <BundleResource Include="Resources\clear%402x.png" />
+    <BundleResource Include="Resources\clear%403x.png" />
+    <BundleResource Include="Resources\post_pick.png" />
+    <BundleResource Include="Resources\post_pick%402x.png" />
+    <BundleResource Include="Resources\post_pick%403x.png" />
+    <BundleResource Include="Resources\post_something.png" />
+    <BundleResource Include="Resources\post_something%402x.png" />
+    <BundleResource Include="Resources\post_something%403x.png" />
+    <BundleResource Include="Resources\attach.png" />
+    <BundleResource Include="Resources\attach%402x.png" />
+    <BundleResource Include="Resources\attach%403x.png" />
+    <BundleResource Include="Resources\Default-Portrait%402x.png" />
+    <BundleResource Include="Resources\editNew.png" />
+    <BundleResource Include="Resources\Default-Portrait.png" />
+    <BundleResource Include="Resources\Default%402x.png" />
+    <BundleResource Include="Resources\Default-568h%402x.png" />
+    <BundleResource Include="Resources\editNew%402x.png" />
+    <BundleResource Include="Resources\Default.png" />
+    <BundleResource Include="Resources\editNew%403x.png" />
+    <BundleResource Include="Resources\mma_or_boxing_placeholder_small.png" />
+    <BundleResource Include="Resources\baseball_placeholder.png" />
+    <BundleResource Include="Resources\basketball_placeholder.png" />
+    <BundleResource Include="Resources\football_placeholder.png" />
+    <BundleResource Include="Resources\hocky_placeholder.png" />
+    <BundleResource Include="Resources\baseball_placeholder_small.png" />
+    <BundleResource Include="Resources\basketball_placeholder_small.png" />
+    <BundleResource Include="Resources\football_placeholder_small.png" />
+    <BundleResource Include="Resources\hocky_placeholder_small.png" />
+  </ItemGroup>
+</Project>

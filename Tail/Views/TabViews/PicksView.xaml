@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Tail.Views.TabViews.PicksView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <controls:FeedLineTemplateSelector x:Key="FeedLineTemplateSelector" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid
+            x:Name="Maingrid"
+            BackgroundColor="#F1F1F1"
+            ColumnSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="16" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="16" />
+            </Grid.ColumnDefinitions>
+            <StackLayout
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="0,10,0,0"
+                HorizontalOptions="End"
+                IsVisible="{Binding IsPickInfoLabelVisible}"
+                Orientation="Horizontal"
+                Spacing="10"
+                VerticalOptions="Center">
+                <Image Source="filter" />
+                <Label
+                    Style="{StaticResource PurpleLabelSemiBold12}"
+                    Text="{x:Static Common:AppResources.FilterSports}"
+                    VerticalOptions="Center" />
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FilterCommand}" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <Label
+                Grid.Row="2"
+                Grid.Column="1"
+                HorizontalOptions="Center"
+                IsVisible="{Binding InfoVisible}"
+                Style="{StaticResource BlackLabelMedium14}"
+                Text="{x:Static Common:AppResources.PicksInfo}"
+                VerticalOptions="Center" />
+            <controls:StackView
+                x:Name="PicksList"
+                Grid.Row="2"
+                Grid.Column="1"
+                BackgroundColor="Transparent"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="true"
+                ItemSource="{Binding PickDetailsList}"
+                VerticalOptions="StartAndExpand">
+                <controls:StackView.ItemTemplate>
+                    <DataTemplate >
+                        <template:PostPick CreateImage="{Binding PostItem.CreateImage}" IsPlayVisible="{Binding PostItem.IsPlayEnable}" ></template:PostPick>
+                    </DataTemplate>
+                </controls:StackView.ItemTemplate>
+            </controls:StackView>
+
+            <!--<controls:CustomListView Grid.Row="2" Grid.Column="1"  ItemsSource="{Binding PickDetailsList}" HasUnevenRows="True"  IsAllowSelection="False" BackgroundColor="Transparent" IsVisible="true" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" SeparatorColor="Transparent" VerticalScrollBarVisibility="Never" ItemTemplate="{StaticResource FeedLineTemplateSelector}"/>-->
+
+            <!--<controls:CustomListView Grid.Row="2" Grid.Column="1"  ItemsSource="{Binding PickDetailsList}" HasUnevenRows="True"  IsAllowSelection="False" BackgroundColor="Transparent" IsVisible="true" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" SeparatorColor="Transparent" VerticalScrollBarVisibility="Never" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <template:PostPickTemplate  CreateImage="{Binding PostItem.CreateImage}" ></template:PostPickTemplate>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </controls:CustomListView>-->
+            <!--<ActivityIndicator  Grid.Row="2" Grid.Column="1" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="#E5B59D" VerticalOptions="Center"  HorizontalOptions="Center" />-->
+
+        </Grid>
+    </ContentView.Content>
+</ContentView>

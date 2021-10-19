@@ -1,0 +1,679 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Tail.Views.Templates.PostPick"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:template="clr-namespace:Tail.Views.Templates">
+    <ContentView.Content>
+        <controls:TailCustomFrame
+            Margin="0,0,0,15"
+            Padding="0"
+            BackgroundColor="White"
+            CornerRadius="0"
+            HasShadow="True">
+            <controls:CustomStackLayout
+                x:Name="OuterStackView"
+                BackgroundColor="White"
+                Orientation="Vertical"
+                Spacing="0">
+                <template:UserDetailsHeader
+                    IsVisible="{Binding PostItem.IsShareNotAvailable, Converter = {StaticResource InverseBooleanConverter}}"
+                    HorizontalOptions="FillAndExpand"
+                    MoreOptionCommand="{Binding MoreOptionCommand}"
+                    MoreOptionCommandParameter="{Binding PostItem}"
+                    PickPurchase_Type="{Binding PostItem.PickInfo[0].PickPurchase_Type}"
+                    Pick_Type="{Binding PostItem.PickInfo[0].Pick_Type}"
+                    PostedTime="{Binding PostItem.DisplayPostDate}"
+                    PurchaseCount="{Binding PostItem.PuchaseCount}"
+                    Result_Type="{Binding PostItem.Result_Type}"
+                    UserDetailsCommand="{Binding UserDetails}"
+                    UserDetailsCommandParameter="{Binding PostItem.UserId}"
+                    UserImage="{Binding PostItem.UserImage}"
+                    UserName="{Binding PostItem.UserName}"
+                    UnitCount="{Binding PostItem.WagerUnit}"
+                    IsMoreOptionVisible="{Binding PostItem.IsShare, Converter = {StaticResource InverseBooleanConverter}}" 
+                    VerticalOptions="Center" />
+                <Label
+                    Margin="16,16,16,0"
+                     x:Name="LabelContentAvailable"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="WordWrap"
+                    IsVisible="false"
+                    Style="{StaticResource BlackLabelRegular13}"
+                    Text="{x:Static Common:AppResources.ContentNotAvailable}" />
+                <Label
+                    Margin="16,5,16,0"
+                    HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start"
+                    LineBreakMode="WordWrap"
+                    Style="{StaticResource BlackLabelRegular13}"
+                    IsVisible="{Binding PostItem.PickInfo[0].IsAttachmentEnable}"
+                    Text="{Binding PostItem.PostText}" />
+
+                <Grid x:Name="AttachmentView" RowSpacing="0" HeightRequest="{Binding PostItem.PickInfo[0].AttachmentHeight}"  IsVisible="{Binding PostItem.PickInfo[0].IsAttachmentEnable}" ColumnSpacing="0">
+
+                    <Grid IsVisible="{Binding PostItem.IsCarousal, Converter = {StaticResource InverseBooleanConverter}}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                        <ffimageloading:CachedImage  Source="{Binding PostItem.PostedAttachments[0].ImageUrl}" FadeAnimationEnabled="True" Aspect="AspectFit"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+
+                        </ffimageloading:CachedImage>
+                        <Image Source="play" x:Name="PlayButton" IsVisible="false" VerticalOptions="Center" HorizontalOptions="Center"></Image>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer  Command="{Binding PostItem.PostedAttachments[0].AttachmentTap}" CommandParameter="{Binding PostItem.PostedAttachments[0]}" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                    <CarouselView IsVisible="{Binding PostItem.IsCarousal}"  Margin="0,9,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" ItemsSource="{Binding PostItem.PostedAttachments}" HorizontalScrollBarVisibility="Never" IndicatorView="indicatorView" >
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                                    <ffimageloading:CachedImage  Source="{Binding ImageUrl}" FadeAnimationEnabled="True" Aspect="AspectFit"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+                                    </ffimageloading:CachedImage>
+                                    <Image Source="play" IsVisible="{Binding IsPlayEnable}" VerticalOptions="Center" HorizontalOptions="Center"></Image>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding AttachmentTap}" CommandParameter="{Binding}" />
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                </Grid>
+                <IndicatorView
+                    x:Name="indicatorView"
+                    Margin="0,5,0,5"
+                    HorizontalOptions="Center"
+                    IndicatorColor="#1E1A40"
+                    IndicatorSize="5"
+                    IsVisible="{Binding PostItem.IsCarouselVisible}"
+                    SelectedIndicatorColor="#CE60B6" />
+                <BoxView
+                    Margin="0,10,0,0"
+                    BackgroundColor="#EBEBEB"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand" />
+                <Grid
+                    ColumnSpacing="0"
+                    HorizontalOptions="FillAndExpand"
+                    RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout
+                        Grid.Column="0"
+                        Margin="0,5,0,5"
+                        HorizontalOptions="Center"
+                        Orientation="Horizontal"
+                        Spacing="7"
+                        VerticalOptions="FillAndExpand">
+                        <Image Source="{Binding PostItem.PickInfo[0].SelectedSpotImage}" />
+                        <Label
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource DarkBlackLabelRegular14}"
+                            Text="{Binding PostItem.PickInfo[0].SelectedSpotName}"
+                            VerticalOptions="FillAndExpand"
+                            VerticalTextAlignment="Center" />
+                    </StackLayout>
+                    <BoxView
+                        Grid.Column="0"
+                        BackgroundColor="#EBEBEB"
+                        HorizontalOptions="End"
+                        VerticalOptions="FillAndExpand"
+                        WidthRequest="1" />
+                    <StackLayout
+                        Grid.Column="1"
+                        Margin="0,5,0,5"
+                        HorizontalOptions="Center"
+                        Orientation="Horizontal"
+                        Spacing="7"
+                        VerticalOptions="FillAndExpand">
+                        <Image Source="{Binding PostItem.PickInfo[0].SelectedEventImage}" />
+                        <Label
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource DarkBlackLabelRegular14}"
+                            Text="{Binding PostItem.PickInfo[0].SelectedEventName}"
+                            VerticalOptions="FillAndExpand"
+                            VerticalTextAlignment="Center" />
+                    </StackLayout>
+                </Grid>
+                <BoxView
+                    BackgroundColor="#EBEBEB"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand" />
+
+                <Grid
+                    ColumnSpacing="0"
+                    HeightRequest="200"
+                    HorizontalOptions="FillAndExpand"
+                    IsVisible="{Binding PostItem.PickInfo[0].IsPickPurchase, Converter={StaticResource InverseBooleanConverter}}"
+                    RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackLayout Grid.Column="0" Margin="0,10,0,10" HeightRequest="120" HorizontalOptions="Center" VerticalOptions="Start" Orientation="Vertical"  Spacing="0">
+                        <Frame IsVisible="{Binding PostItem.PickInfo[0].IsDefaultLogoHome, Converter={StaticResource InverseBooleanConverter}}" HasShadow="False" Padding="0" CornerRadius="0" HorizontalOptions="Center" WidthRequest="120" BorderColor="#d9d9d9">
+                            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical"  Spacing="0">
+
+                                <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="64" WidthRequest="120" HorizontalOptions="Center" BackgroundColor="{Binding PostItem.PickInfo[0].FirstTeamColor}">
+                                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding PostItem.PickInfo[0].FirstTeamAbbr}" Style="{StaticResource WhiteLabelSemiBold18}" TextColor="#FFFFFF"></Label>
+                                </Grid>
+                                <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="16" WidthRequest="120" HorizontalOptions="Center" BackgroundColor="{Binding PostItem.PickInfo[0].FirstTeamSecondaryColor}">
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+                        <Image IsVisible="{Binding PostItem.PickInfo[0].IsDefaultLogoHome}" Aspect="AspectFit" Source="{Binding PostItem.PickInfo[0].TeamDefaultLogo}" ></Image>
+                        <Label Margin="0,10,0,0"  Text="{Binding PostItem.PickInfo[0].FirstTeamName}"  VerticalOptions="Start" VerticalTextAlignment="Start" Style="{StaticResource BlackLabelSemiBold13}" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" ></Label>
+                    </StackLayout>
+                    <BoxView Grid.Column="1" VerticalOptions="FillAndExpand" HorizontalOptions="Center" WidthRequest="1" BackgroundColor="#EBEBEB"/>
+                    <Frame HorizontalOptions="Center" VerticalOptions="Start" Margin="0,45,0,0" Grid.Column="1"  Padding="0" HeightRequest="30" WidthRequest="30"  HasShadow="False" CornerRadius="15" BackgroundColor="#152430" >
+                        <Label Text="{x:Static Common:AppResources.Vs}" Margin="0,5,0,0" HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource WhiteLabelSemiBold13}"></Label>
+                    </Frame>
+                    <StackLayout Grid.Column="2" Margin="0,10,0,10" HeightRequest="120" HorizontalOptions="Center" VerticalOptions="Start" Orientation="Vertical"  Spacing="0">
+                        <Frame IsVisible="{Binding PostItem.PickInfo[0].IsDefaultLogoAway, Converter={StaticResource InverseBooleanConverter}}" HasShadow="False" Padding="0" CornerRadius="0" HorizontalOptions="Center" WidthRequest="120" BorderColor="#d9d9d9">
+                            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical"  Spacing="0">
+
+                                <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="64" WidthRequest="120" HorizontalOptions="Center" BackgroundColor="{Binding PostItem.PickInfo[0].SecondTeamColor}">
+                                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding PostItem.PickInfo[0].SecondTeamAbbr}" Style="{StaticResource WhiteLabelSemiBold18}" TextColor="#FFFFFF"></Label>
+                                </Grid>
+                                <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="16" WidthRequest="120" HorizontalOptions="Center" BackgroundColor="{Binding PostItem.PickInfo[0].SecondTeamSecondaryColor}">
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+                         <Image IsVisible="{Binding PostItem.PickInfo[0].IsDefaultLogoAway}" Aspect="AspectFit" Source="{Binding PostItem.PickInfo[0].TeamDefaultLogo}" ></Image>
+                        <Label Margin="0,10,0,0" Text="{Binding PostItem.PickInfo[0].SecondTeamName}" VerticalOptions="Start" VerticalTextAlignment="Start" Style="{StaticResource BlackLabelSemiBold13}" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" ></Label>
+                    </StackLayout>
+                   
+                    <controls:GradientColorStack
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Padding="0"
+                        BorderColor="Transparent"
+                        CornerRadius="0"
+                        EndColor="#475964"
+                        GradientDirection="Bottom"
+                        HasShadow="False"
+                        HeightRequest="60"
+                        HorizontalOptions="FillAndExpand"
+                        IsShadowVisible="False"
+                        Opacity="0.8"
+                        StartColor="#ffffff"
+                        VerticalOptions="End">
+                        <controls:GradientColorStack.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PickPurchase}" CommandParameter="{Binding PostItem}" />
+                        </controls:GradientColorStack.GestureRecognizers>
+                    </controls:GradientColorStack>
+                    <Grid
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Margin="10,0,10,10"
+                        ColumnSpacing="0"
+                        HeightRequest="60"
+                        HorizontalOptions="FillAndExpand"
+                       
+                        RowSpacing="0"
+                        VerticalOptions="End">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="10" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            Grid.Column="0"
+                            Source="lock"
+                             IsVisible="{Binding PostItem.PickInfo[0].IsPaidPickPurchaseEnable}"
+                            VerticalOptions="End" />
+                        <Label
+                            Grid.Column="0"
+                            Grid.ColumnSpan="4"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Style="{StaticResource WhiteLabelMedium13}"
+                            IsVisible="{Binding PostItem.PickInfo[0].IsPaidPickPurchaseEnable, Converter={StaticResource InverseBooleanConverter}}"
+                            Text="{Binding PostItem.PickInfo[0].DisplyPickPrice}"
+                            Margin="0,0,0,10"
+                            VerticalOptions="End" />
+                        <Label
+                            Grid.Column="1"
+                            Margin="10,0,0,0"
+                            Style="{StaticResource WhiteLabelMedium13}"
+                            IsVisible="{Binding PostItem.PickInfo[0].IsPaidPickPurchaseEnable}"
+                            Text="{Binding PostItem.PickInfo[0].DisplyPickPrice}"
+                            VerticalOptions="End" />
+                        <template:PurpleGradientButton
+                            Grid.Column="3"
+                            ButtonText="{x:Static Common:AppResources.BuyNowText}"
+                            Command="{Binding PickPurchase}"
+                            CommandParameter="{Binding PostItem}"
+                            HeightRequest="28"
+                            HorizontalOptions="FillAndExpand"
+                            IsVisible="{Binding PostItem.PickInfo[0].IsPaidPickPurchaseEnable}"
+                            VerticalOptions="End" />
+                    </Grid>
+                    <Frame BackgroundColor="#672967" HasShadow="False" CornerRadius="0" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Start" Padding="5" IsVisible="{Binding PostItem.PickInfo[0].IsAttachmentEnable, Converter={StaticResource InverseBooleanConverter}}" >
+                        <Label Text="Media Hidden" Style="{StaticResource WhiteLabelSemiBold13}"></Label>
+                    </Frame>
+                </Grid>
+                <Grid IsVisible="{Binding PostItem.PickInfo[0].IsPickPurchase}" RowSpacing="0" HeightRequest="200"  HorizontalOptions="FillAndExpand" ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="150"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0" Opacity="{Binding PostItem.PickInfo[0].OpacityHome}" Grid.Column="0" Margin="0,10,0,10"  HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical"  Spacing="0">
+                        <Frame IsVisible="{Binding PostItem.PickInfo[0].IsDefaultLogoHome, Converter={StaticResource InverseBooleanConverter}}" HasShadow="False" Padding="0" CornerRadius="0" HorizontalOptions="Center" WidthRequest="120" BorderColor="#d9d9d9">
+                            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical"  Spacing="0">
+                                <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="64" WidthRequest="120" HorizontalOptions="Center" BackgroundColor="{Binding PostItem.PickInfo[0].FirstTeamColor}">
+                                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding PostItem.PickInfo[0].FirstTeamAbbr}" Style="{StaticResource WhiteLabelSemiBold18}" TextColor="#FFFFFF"></Label>
+                                </Grid>
+                                <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="16" WidthRequest="120" HorizontalOptions="Center" BackgroundColor="{Binding PostItem.PickInfo[0].FirstTeamSecondaryColor}">
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+                         <Image IsVisible="{Binding PostItem.PickInfo[0].IsDefaultLogoHome}" Aspect="AspectFit" Source="{Binding PostItem.PickInfo[0].TeamDefaultLogo}" ></Image>
+                        <Label Margin="0,10,0,0" Text="{Binding PostItem.PickInfo[0].FirstTeamName}"  VerticalOptions="Start" VerticalTextAlignment="Start" Style="{StaticResource BlackLabelSemiBold13}" HorizontalTextAlignment="Center" HorizontalOptions="Center" ></Label>
+                    </StackLayout>
+                    <Frame
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="0,0,16,0"
+                        BackgroundColor="Transparent"
+                        BorderColor="{Binding PostItem.PickInfo[0].HomeBackground}"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        IsVisible="{Binding PostItem.PickInfo[0].HomeBorderVisible}"
+                        VerticalOptions="FillAndExpand" />
+                    <BoxView
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        BackgroundColor="#EBEBEB"
+                        HorizontalOptions="Center"
+                        VerticalOptions="FillAndExpand"
+                        WidthRequest="1" />
+
+                    <StackLayout Grid.Row="0" Opacity="{Binding PostItem.PickInfo[0].OpacityAway}"  Grid.Column="2" Margin="0,10,0,10"  HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical"  Spacing="0">
+                        <Frame IsVisible="{Binding PostItem.PickInfo[0].IsDefaultLogoAway, Converter={StaticResource InverseBooleanConverter}}"  HasShadow="False" Padding="0" CornerRadius="0" HorizontalOptions="Center" WidthRequest="120" BorderColor="#d9d9d9">
+                            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical"  Spacing="0">
+                                <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="64" WidthRequest="120" HorizontalOptions="Center" BackgroundColor="{Binding PostItem.PickInfo[0].SecondTeamColor}">
+                                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding PostItem.PickInfo[0].SecondTeamAbbr}" Style="{StaticResource WhiteLabelSemiBold18}" TextColor="#FFFFFF"></Label>
+                                </Grid>
+                                <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="16" WidthRequest="120" HorizontalOptions="Center" BackgroundColor="{Binding PostItem.PickInfo[0].SecondTeamSecondaryColor}">
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+                         <Image IsVisible="{Binding PostItem.PickInfo[0].IsDefaultLogoAway}" Aspect="AspectFit" Source="{Binding PostItem.PickInfo[0].TeamDefaultLogo}" ></Image>
+                        <Label Margin="0,10,0,0" Text="{Binding PostItem.PickInfo[0].SecondTeamName}" VerticalOptions="Start" VerticalTextAlignment="Start" Style="{StaticResource BlackLabelSemiBold13}" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" ></Label>
+                    </StackLayout>
+                    <Frame
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Margin="15,0,0,0"
+                        BackgroundColor="Transparent"
+                        BorderColor="{Binding PostItem.PickInfo[0].AwayBackground}"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        IsVisible="{Binding PostItem.PickInfo[0].HomeBorderVisible, Converter={StaticResource InverseBooleanConverter}}"
+                        VerticalOptions="FillAndExpand" />
+                    <BoxView
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        BackgroundColor="#EBEBEB"
+                        HeightRequest="1"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="End" />
+                    <Frame
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="0,0,15,0"
+                        BackgroundColor="{Binding PostItem.PickInfo[0].HomeBackground}"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand" />
+                    <StackLayout
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalOptions="Center"
+                        Orientation="Horizontal"
+                        Spacing="20"
+                        VerticalOptions="Center">
+                        <Label
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource WhiteLabelBold14}"
+                            Text="{Binding PostItem.ResultTextHome}"
+                            IsVisible="{Binding PostItem.PickInfo[0].IsGameComplete}"
+                            VerticalOptions="FillAndExpand"
+                            VerticalTextAlignment="Center" />
+                        <StackLayout Orientation="Horizontal" Spacing="7">
+                            <Label
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource DarkBlackLabelRegular14}"
+                            Text="{Binding PostItem.PickInfo[0].BetPointHome}"
+                            TextColor="{Binding PostItem.PickInfo[0].HomeTextColor}"
+                            VerticalOptions="FillAndExpand"
+                            VerticalTextAlignment="Center" />
+                            <Label
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Opacity="{Binding PostItem.PickInfo[0].OpacityMoneyTextyHome}"
+                            Style="{StaticResource LightGrayLabelRegular13}"
+                            Text="{Binding PostItem.PickInfo[0].BetValueHome}"
+                            TextColor="{Binding PostItem.PickInfo[0].HomeMoneyTextColor}"
+                            VerticalOptions="FillAndExpand"
+                            VerticalTextAlignment="Center" />
+                        </StackLayout>
+                    </StackLayout>
+                    <BoxView
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        BackgroundColor="#EBEBEB"
+                        HorizontalOptions="Center"
+                        VerticalOptions="FillAndExpand"
+                        WidthRequest="1" />
+                    <Frame
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Margin="15,0,0,0"
+                        BackgroundColor="{Binding PostItem.PickInfo[0].AwayBackground}"
+                        CornerRadius="0"
+                        HasShadow="False"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand" />
+                    <StackLayout
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        HorizontalOptions="Center"
+                        Orientation="Horizontal"
+                        Spacing="20"
+                        VerticalOptions="Center">
+                        <Label
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource WhiteLabelBold14}"
+                            Text="{Binding PostItem.ResultTextAway}"
+                            IsVisible="{Binding PostItem.PickInfo[0].IsGameComplete}"
+                            VerticalOptions="FillAndExpand"
+                            VerticalTextAlignment="Center" />
+                        <StackLayout Orientation="Horizontal" Spacing="7">
+                            <Label
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource DarkBlackLabelRegular14}"
+                            Text="{Binding PostItem.PickInfo[0].BetPointAway}"
+                            TextColor="{Binding PostItem.PickInfo[0].AwayTextColor}"
+                            VerticalOptions="FillAndExpand"
+                            VerticalTextAlignment="Center" />
+                            <Label
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Opacity="{Binding PostItem.PickInfo[0].OpacityMoneyTextAway}"
+                            Style="{StaticResource LightGrayLabelRegular13}"
+                            Text="{Binding PostItem.PickInfo[0].BetValueAway}"
+                            TextColor="{Binding PostItem.PickInfo[0].AwayMoneyTextColor}"
+                            VerticalOptions="FillAndExpand"
+                            VerticalTextAlignment="Center" />
+                        </StackLayout>
+                    </StackLayout>
+                    <Frame
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Padding="0"
+                        BackgroundColor="#152430"
+                        CornerRadius="15"
+                        HasShadow="False"
+                        HeightRequest="30"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="30">
+                        <Label
+                            Margin="0,5,0,0"
+                            HorizontalOptions="Center"
+                            Style="{StaticResource WhiteLabelSemiBold13}"
+                            Text="{x:Static Common:AppResources.Vs}"
+                            VerticalOptions="Center" />
+                    </Frame>
+
+                </Grid>
+
+                <BoxView
+                    BackgroundColor="#EBEBEB"
+                    HeightRequest="1"
+                    IsVisible="{Binding PostItem.PickInfo[0].IsGameComplete}"
+                    HorizontalOptions="FillAndExpand" />
+
+                <Grid
+                    Margin="10,10,10,10"
+                    IsVisible="{Binding PostItem.PickInfo[0].IsGameComplete}"
+                    ColumnSpacing="0"
+                    HorizontalOptions="FillAndExpand"
+                    RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                            Grid.Column="0"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Style="{StaticResource PurpleLabelRegular12}"
+                            Text="{Binding PostItem.PickInfo[0].FinalScoreText}"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+
+                </Grid>
+
+
+                <BoxView
+                    BackgroundColor="#EBEBEB"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand" />
+
+                <Grid
+                    ColumnSpacing="0"
+                    HorizontalOptions="FillAndExpand"
+                    RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout
+                        Grid.Column="0"
+                        Margin="0,5,0,5"
+                        HorizontalOptions="Center"
+                        Orientation="Horizontal"
+                        Spacing="7"
+                        VerticalOptions="FillAndExpand">
+                        <Image Source="calendar" />
+                        <Label
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource BlackLabelBold13}"
+                            Text="{Binding PostItem.PickInfo[0].DisplayGameDateTime}"
+                            VerticalOptions="FillAndExpand"
+                            VerticalTextAlignment="Center" />
+                    </StackLayout>
+                </Grid>
+                <BoxView
+                    BackgroundColor="#EBEBEB"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand" />
+                <StackLayout
+                    Margin="16,0,16,0"
+                    Orientation="Horizontal"
+                    Spacing="15">
+                    <Label
+                        Margin="0,10,0,0"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        Style="{StaticResource DarkBlackLabelMedium12}"
+                        Text="{Binding PostItem.PickInfo[0].AccuracyText}" />
+                    <template:AccuracySlider
+                        Margin="0,10,0,0"
+                        HorizontalOptions="FillAndExpand"
+                        SliderRange="{Binding PostItem.Accuracy.AccuracySliderRange}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+                <BoxView
+                    Margin="0,10,0,0"
+                    BackgroundColor="#EBEBEB"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand" />
+                <Grid Margin="16,0,0,0" RowSpacing="0" ColumnSpacing="0" HeightRequest="30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource DarkBlackLabelMedium12}"
+                        Text="{Binding PostItem.PickInfo[0].Last10PredText}" />
+                    <BoxView
+                            Grid.Column="0"
+                            BackgroundColor="#EBEBEB"
+                            HorizontalOptions="End"
+                            VerticalOptions="FillAndExpand"
+                            WidthRequest="1" />
+                    <Label
+                        Grid.Column="1"
+                       VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource DarkBlackLabelMedium12}"
+                        Text="{x:Static Common:AppResources.UnitText}" />
+                </Grid>
+
+                <BoxView
+                    
+                    BackgroundColor="#EBEBEB"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand" />
+                <StackLayout
+                    Margin="16,0,0,0"
+                    HeightRequest="32"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <Grid
+                        ColumnSpacing="0"
+                        HorizontalOptions="FillAndExpand"
+                        RowSpacing="0"
+                        VerticalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout
+                            Grid.Column="0"
+                            Margin="0,10,0,0"
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal"
+                            Spacing="5">
+                            <Label
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource GreenLabelRegular12}"
+                                Text="{x:Static Common:AppResources.Good}" />
+                            <Label
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource GreenLabelBold12}"
+                                Text="{Binding PostItem.Accuracy.AccuracyInGoodPrediction}" />
+                            <Label
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource GreenLabelBold12}"
+                                Text="{Binding PostItem.Accuracy.AccuracyGoodValue}" />
+                        </StackLayout>
+                        <BoxView
+                            Grid.Column="0"
+                            BackgroundColor="#EBEBEB"
+                            HorizontalOptions="End"
+                            VerticalOptions="FillAndExpand"
+                            WidthRequest="1" />
+
+                        <StackLayout
+                            Grid.Column="1"
+                            Margin="0,10,0,0"
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal"
+                            Spacing="5">
+                            <Label
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource RedLabelRegular12}"
+                                Text="{x:Static Common:AppResources.Bad}" />
+                            <Label
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource RedLabelBold12}"
+                                Text="{Binding PostItem.Accuracy.AccuracyInBadPrediction}" />
+                            <Label
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource RedLabelBold12}"
+                                Text="{Binding PostItem.Accuracy.AccuracyBadValue}" />
+                        </StackLayout>
+                        <BoxView
+                            Grid.Column="1"
+                            BackgroundColor="#EBEBEB"
+                            HorizontalOptions="End"
+                            VerticalOptions="FillAndExpand"
+                            WidthRequest="1" />
+                        <StackLayout
+                            Grid.Column="2"
+                            Margin="0,10,0,0"
+                            HorizontalOptions="Center"
+                            Orientation="Horizontal"
+                            Spacing="5">
+                            <Label
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource PurpleLabelSemiBold13}"
+                                Text="{Binding PostItem.LastFewUnit}" />
+
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+                <template:LikeCommnetFooter
+                        IsVisible="{Binding PostItem.IsShareNotAvailable, Converter = {StaticResource InverseBooleanConverter}}"
+                    CommentBoxVisible="{Binding PostItem.PickInfo[0].IsPickPurchase}"
+                    CommentCommand="{Binding CommentCommand}"
+                    CommentCommandParameter="{Binding PostItem}"
+                    CommentCount="{Binding PostItem.CommentCount}"
+                    DisLikeCommand="{Binding DisLikeCommand}"
+                    DisLikeCommandParameter="{Binding PostItem}"
+                    DisLikeCount="{Binding PostItem.DisLikeCount}"
+                    DisLikeImage="{Binding PostItem.DisLikeImage}"
+                    LikeCommand="{Binding LikeCommand}"
+                    LikeCommandParameter="{Binding PostItem}"
+                    LikeCount="{Binding PostItem.LikeCount}"
+                    LikeImage="{Binding PostItem.LikeImage}" />
+                <controls:CustomStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CommentCommand}" CommandParameter="{Binding PostItem}" />
+                </controls:CustomStackLayout.GestureRecognizers>
+            </controls:CustomStackLayout>
+        </controls:TailCustomFrame>
+    </ContentView.Content>
+</ContentView>

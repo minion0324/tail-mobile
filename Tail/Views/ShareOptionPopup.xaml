@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:template="clr-namespace:Tail.Views.Templates" xmlns:Common="clr-namespace:Tail.Common"  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"  x:Class="Tail.Views.ShareOptionPopup">
+    <Grid  x:Name="MainGrid" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="0" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Frame BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="3" HorizontalOptions="Fill" VerticalOptions="Fill">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="DismissPopup_Clicked" />
+            </Frame.GestureRecognizers>
+        </Frame>
+        <Frame BackgroundColor="White" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" HorizontalOptions="Fill" VerticalOptions="Fill">
+        </Frame>
+
+        <template:CreateAPosteTemplate
+                x:Name="PostTemplate"
+                Grid.Row="1"
+                Grid.Column="1"
+                EditorText="{Binding ShareText, Mode=TwoWay}"
+                IsShare="True"
+                ProfileImage="{Binding PostItem.UserImage}"
+                ProfileName="{Binding  PostItem.UserName}"
+                ShareNowCommand="{Binding ShareNowCommand}"
+                MoreOptionsCommand="{Binding MoreOptionsCommand}"/>
+    </Grid>
+</pages:PopupPage>

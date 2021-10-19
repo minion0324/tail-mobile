@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ViewCell
+    x:Class="Tail.Views.Templates.GameSelectionLayout"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:ffTransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms">
+    <StackLayout
+        Margin="0,16,0,0"
+        Padding="0"
+        Orientation="Vertical"
+        Spacing="0">
+        <Label
+            x:Name="GameDateLabel"
+            HorizontalOptions="Start"
+            Style="{StaticResource BlackLabelPopinsRegular13}"
+            Text="{Binding Games[0].GameDateHeader}"
+            VerticalOptions="Start" />
+        <ScrollView
+            x:Name="ScrollViewControl"
+            Margin="0,0,0,0"
+            HorizontalScrollBarVisibility="Never"
+            Orientation="Horizontal">
+            <controls:StackView
+                x:Name="GameStack"
+                Padding="10"
+                ItemSource="{Binding Games}"
+                Orientation="Horizontal"
+                Spacing="10">
+                <controls:StackView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Frame
+                                Padding="0"
+                                BackgroundColor="White"
+                                BorderColor="{Binding Selected, Converter={StaticResource FrameBorderColorConverter}}"
+                                CornerRadius="0"
+                                HasShadow="False">
+                                <Grid
+                                    BackgroundColor="Transparent"
+                                    ColumnSpacing="0"
+                                    HeightRequest="180"
+                                    RowSpacing="0"
+                                    WidthRequest="293">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="40" />
+                                    </Grid.RowDefinitions>
+                                    <Grid
+                                        Grid.Row="0"
+                                        Margin="0,0,0,0"
+                                        ColumnSpacing="0"
+                                        HorizontalOptions="FillAndExpand"
+                                        RowSpacing="0"
+                                        VerticalOptions="FillAndExpand">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Column="0"
+                                            Margin="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Vertical"
+                                            Spacing="10"
+                                            VerticalOptions="Start">
+                                            <Frame IsVisible="{Binding HomeTeamDetails.IsDefaultLogo, Converter={StaticResource InverseBooleanConverter}}"  HasShadow="False" Padding="0" CornerRadius="0" VerticalOptions="Start" HorizontalOptions="Center" HeightRequest="60" WidthRequest="90" BorderColor="#d9d9d9">
+                                                <StackLayout   HorizontalOptions="Center" VerticalOptions="Start" Orientation="Vertical"  Spacing="0">
+                                                    <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="45" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding HomeTeamDetails.TeamColor}">
+                                                        <Label HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding HomeTeamDetails.TeamNameShort}" Style="{StaticResource WhiteLabelSemiBold18}" TextColor="#FFFFFF"></Label>
+                                                    </Grid>
+                                                    <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="15" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding HomeTeamDetails.TeamSecondaryColor}">
+                                                    </Grid>
+                                                </StackLayout>
+                                            </Frame>
+
+                                            <Image IsVisible="{Binding HomeTeamDetails.IsDefaultLogo}" Aspect="AspectFit" Source="{Binding HomeTeamDetails.TeamDefaultLogo}" ></Image>
+                                            <Label
+                                                HorizontalOptions="FillAndExpand"
+                                                HorizontalTextAlignment="Center"
+                                                Style="{StaticResource BlackLabelSemiBold13}"
+                                                Text="{Binding HomeTeamDetails.TeamName}"
+                                                VerticalOptions="Start"
+                                                VerticalTextAlignment="Start" />
+                                        </StackLayout>
+              
+                                        <Frame
+                                            Grid.Column="1"
+                                            Padding="0"
+                                            BackgroundColor="#152430"
+                                            CornerRadius="15"
+                                            HasShadow="False"
+                                            HeightRequest="30"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            WidthRequest="30">
+                                            <Label
+                                                Margin="0,5,0,0"
+                                                HorizontalOptions="Center"
+                                                Style="{StaticResource WhiteLabelSemiBold13}"
+                                                Text="{x:Static Common:AppResources.Vs}"
+                                                VerticalOptions="Center" />
+                                        </Frame>
+                                        <StackLayout
+                                            Grid.Column="2"
+                                            Margin="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Vertical"
+                                            Spacing="10"
+                                            VerticalOptions="Start">
+                                            <Frame IsVisible="{Binding AwayTeamDetails.IsDefaultLogo, Converter={StaticResource InverseBooleanConverter}}"  HasShadow="False"  Padding="0" CornerRadius="0" HorizontalOptions="Center" VerticalOptions="Start" HeightRequest="60" WidthRequest="90" BorderColor="#d9d9d9">
+                                                <StackLayout  HorizontalOptions="Center" VerticalOptions="Start" Orientation="Vertical"  Spacing="0">
+                                                    <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="45" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding AwayTeamDetails.TeamColor}">
+                                                        <Label HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding AwayTeamDetails.TeamNameShort}" Style="{StaticResource WhiteLabelSemiBold18}" TextColor="#FFFFFF"></Label>
+                                                    </Grid>
+                                                    <Grid RowSpacing="0" ColumnSpacing="0" HeightRequest="15" WidthRequest="90" HorizontalOptions="Center" BackgroundColor="{Binding AwayTeamDetails.TeamSecondaryColor}">
+                                                    </Grid>
+                                                </StackLayout>
+                                            </Frame>
+                                            <Image IsVisible="{Binding AwayTeamDetails.IsDefaultLogo}" Aspect="AspectFit" Source="{Binding AwayTeamDetails.TeamDefaultLogo}" ></Image>
+                                            <Label
+                                                HorizontalOptions="FillAndExpand"
+                                                HorizontalTextAlignment="Center"
+                                                Style="{StaticResource BlackLabelSemiBold13}"
+                                                Text="{Binding AwayTeamDetails.TeamName}"
+                                                VerticalOptions="Start"
+                                                VerticalTextAlignment="Start" />
+                                        </StackLayout>
+                                    </Grid>
+                                    <BoxView
+                                        Grid.Row="0"
+                                        BackgroundColor="#EBEBEB"
+                                        HeightRequest="1"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="End" />
+                                    <Grid
+                                        Grid.Row="1"
+                                        ColumnSpacing="0"
+                                        HeightRequest="40"
+                                        HorizontalOptions="FillAndExpand"
+                                        RowSpacing="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="2"
+                                            Margin="0,5,0,5"
+                                            HorizontalOptions="Center"
+                                            Orientation="Horizontal"
+                                            Spacing="7"
+                                            VerticalOptions="FillAndExpand">
+                                            <Image Source="time" />
+                                            <Label
+                                                HorizontalOptions="Start"
+                                                HorizontalTextAlignment="Start"
+                                                Style="{StaticResource BlackLabelBold13}"
+                                                Text="{Binding GameTime}"
+                                                VerticalOptions="FillAndExpand"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+                                      
+                                    </Grid>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SelectedCommand}" CommandParameter="{Binding EventID}" />
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+
+                            </Frame>
+                            <Image
+                                Margin="0,-5,-5,0"
+                                HorizontalOptions="End"
+                                IsVisible="{Binding Selected}"
+                                Source="radio_selected"
+                                VerticalOptions="Start" />
+                        </Grid>
+                    </DataTemplate>
+                </controls:StackView.ItemTemplate>
+            </controls:StackView>
+        </ScrollView>
+    </StackLayout>
+</ViewCell>

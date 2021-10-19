@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Tail.Views.Templates.AccuracySlider" xmlns:controls="clr-namespace:Tail.Controls">
+    <ContentView.Content>
+        <Grid RowSpacing="0" VerticalOptions="Center" ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="13"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand" Orientation="Horizontal" Spacing="20">
+                <Frame  x:Name="OuterFrame" HorizontalOptions="FillAndExpand" BackgroundColor="#EEEBEB" HeightRequest="12" CornerRadius="6" Padding="0" HasShadow="False">
+                    <Grid x:Name="RangeGrid" RowSpacing="0" ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <controls:GradientColorStack x:Name="RangeFrame" ButtonRadius="6"  Grid.Column="0" HasShadow="False" CornerRadius="6" Padding="0"   HorizontalOptions="FillAndExpand" IsShadowVisible="False" GradientDirection="Right" />
+                    </Grid>
+                </Frame>
+                <Label x:Name="RangeLabel" Text="NA" Style="{StaticResource GreenLabelBold12}"></Label>
+            </StackLayout>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

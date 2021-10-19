@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Tail.Views.TabViews.PurchaseView" xmlns:views="clr-namespace:Tail.Views" xmlns:Common="clr-namespace:Tail.Common" xmlns:controls="clr-namespace:Tail.Controls"  xmlns:template="clr-namespace:Tail.Views.Templates" >
+     <ContentView.Resources>
+        <ResourceDictionary>
+            <controls:FeedLineTemplateSelector x:Key="FeedLineTemplateSelector"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid x:Name="Maingrid" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" BackgroundColor="#F1F1F1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="16"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="16"/>
+            </Grid.ColumnDefinitions>
+       <Button Style="{StaticResource WhiteButtonWithPurpleBorder}" Grid.Row="1" WidthRequest="150" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center"
+                          Text="{x:Static Common:AppResources.AccountDetailsText}"
+                            Command="{Binding AccountDetailsCommand}"
+                            HeightRequest="42" 
+                            />
+            <Label Grid.Row="3" Grid.Column="1" IsVisible="{Binding IsPurchaseInfoLabelVisible}" Text="{x:Static Common:AppResources.PurchaseInfo}" Style="{StaticResource BlackLabelMedium14}" HorizontalOptions="Center" VerticalOptions="Center" ></Label>
+            <controls:StackView x:Name="PurchaseList" Grid.Row="3" Grid.Column="1" ItemSource="{Binding PurchaseDetailsList}"  BackgroundColor="Transparent" IsVisible="true" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"  >
+                <controls:StackView.ItemTemplate>
+                    <DataTemplate >
+                        <template:PostPick IsPlayVisible="{Binding PostItem.IsPlayEnable}"></template:PostPick>
+                    </DataTemplate>
+                </controls:StackView.ItemTemplate>
+            </controls:StackView>
+    <!--<ContentView.Content>
+        <Grid x:Name="Maingrid" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" BackgroundColor="#F1F1F1">
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="16"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="16"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="16"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="16"/>
+            </Grid.ColumnDefinitions>
+            <Button Style="{StaticResource WhiteButtonWithPurpleBorder}" WidthRequest="122" Grid.Row="1" Grid.Column="1"  Command="{Binding AccountDetailsCommand}" Text="{x:Static Common:AppResources.AccountDetails}" VerticalOptions="Center" HorizontalOptions="End" CornerRadius="0"></Button>
+            <controls:StackView x:Name="PurchaseList" Grid.Row="3" Grid.Column="1" ItemSource="{Binding PurchaseDetailsList}"  BackgroundColor="Transparent" IsVisible="true" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  >
+                <controls:StackView.ItemTemplate>
+                    <DataTemplate >
+                        <template:PostPick></template:PostPick>
+                    </DataTemplate>
+                </controls:StackView.ItemTemplate>
+            </controls:StackView>
+             <Label Grid.Row="3" Grid.Column="1" IsVisible="true" Text="{x:Static Common:AppResources.NotImplemented}" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Center" Style="{StaticResource BlackLabelMedium14}"></Label>
+       --> </Grid>
+    </ContentView.Content>
+</ContentView>

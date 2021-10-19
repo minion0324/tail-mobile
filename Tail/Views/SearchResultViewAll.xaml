@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:AppPageBase xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:Common="clr-namespace:Tail.Common"  xmlns:controls="clr-namespace:Tail.Controls" xmlns:views="clr-namespace:Tail.Views" xmlns:template="clr-namespace:Tail.Views.Templates"   x:Class="Tail.Views.SearchResultViewAll">
+    <views:AppPageBase.Resources>
+        <ResourceDictionary>
+            <controls:SearchAllTemplateSelector x:Key="SearchAllTemplateSelector"/>
+        </ResourceDictionary>
+    </views:AppPageBase.Resources>
+    <ContentPage.Content>
+        <Grid x:Name="Maingrid" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" RowSpacing="0" ColumnSpacing="0" BackgroundColor="#F1F1F1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="16"/>
+            </Grid.ColumnDefinitions>
+            <template:HeaderView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BackButtonVisible="True" NotificationVisible="False" LogoVisible="False" WalletVisible="False" TitleVisible="True" Title="{Binding TitleText}" BackButtonCommand="{Binding Back}" ></template:HeaderView>
+            <Label Grid.Row="4" Grid.Column="1" IsVisible="{Binding InfoVisible}" Text="{x:Static Common:AppResources.PicksInfo}" Style="{Binding BlackLabelMedium12}" HorizontalOptions="Center" VerticalOptions="Center" ></Label>
+            <controls:CustomListView  Grid.Row="4" Grid.Column="1" ItemsSource="{Binding TrendList}" HasUnevenRows="True"  IsAllowSelection="False" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" SeparatorColor="Transparent" VerticalScrollBarVisibility="Never" ItemTemplate="{StaticResource SearchAllTemplateSelector}"/>
+
+        </Grid>
+    </ContentPage.Content>
+</views:AppPageBase>

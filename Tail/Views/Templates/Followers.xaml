@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:Common="clr-namespace:Tail.Common" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:Tail.Controls;assembly=Tail"  xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:ffTransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"  x:Class="Tail.Views.Templates.Followers">
+    <Frame CornerRadius="0" HasShadow="False" Padding="0" Margin="0,0,0,8" BackgroundColor="White" >
+        <Grid RowSpacing="0" ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+            
+            <OnPlatform x:TypeArguments="View">
+                <OnPlatform.iOS>
+                    <Frame Grid.Column="0"  Grid.Row="1"   Padding="0" HeightRequest="50" WidthRequest="50" HorizontalOptions="Center" VerticalOptions="Center" HasShadow="False" BackgroundColor="Transparent">
+                        <controls:CircleImage  Source="{Binding UserImage}" WidthRequest="50" HeightRequest="50" >
+                        </controls:CircleImage>
+                    </Frame>
+                </OnPlatform.iOS>
+                <OnPlatform.Android>
+                    <ffimageloading:CachedImage Grid.Column="0"  Grid.Row="1"   Source="{Binding UserImage}" Aspect="AspectFit" HeightRequest="50" WidthRequest="50" HorizontalOptions="Center" VerticalOptions="Center" >
+                        <ffimageloading:CachedImage.Transformations>
+                            <ffTransformations:CircleTransformation />
+                        </ffimageloading:CachedImage.Transformations>
+                    </ffimageloading:CachedImage>
+                </OnPlatform.Android>
+            </OnPlatform>
+
+            <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Start" >
+                <Label x:Name="UserNameLabel" Style="{StaticResource BlackLabelSemiBold13}" Text="{Binding UserName}"  />
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="followersLabel"  Style="{StaticResource BlackLabelRegular12}" Text="{Binding DisplayFollowers}"/>
+                    <Label x:Name="followeingmLabel"  Style="{StaticResource BlackLabelRegular12}" Text="{Binding DisplayFollowing}"/>
+                </StackLayout>
+            </StackLayout>
+            <Button Style="{StaticResource WhiteButtonWithPurpleBorder}" x:Name="FollowButton" TextColor="{Binding IsFollowedBack, Converter={StaticResource TabSelectionColorConverter}}"  Command="{Binding FolloUnFollowCommand}" CommandParameter="{Binding UserId}"   Text="{Binding IsFollowedBack,Converter={StaticResource FollowTextConverter}}" BackgroundColor="{Binding IsFollowedBack, Converter={StaticResource FollowButtonColorConverter}}"  Grid.Row="1" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="{Binding FollowButtonVisible}" ></Button>
+            <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Start" Margin="0,0,0,5" Grid.Row="3" Grid.ColumnSpan="4" BackgroundColor="#E6E6E6"></BoxView>
+            <controls:StackView x:Name="predictionList"  Grid.Row="3" Grid.ColumnSpan="4" Orientation="Horizontal"   ItemSource="{Binding MySports}" BackgroundColor="Transparent" IsVisible="true" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" IsRefreshing="{Binding IsDataRefresh}"  >
+                <controls:StackView.ItemTemplate>
+                    <DataTemplate >
+                        <Grid RowSpacing="0" ColumnSpacing="0"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="5"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                            </Grid.ColumnDefinitions>
+                            <Image  HorizontalOptions="Center" HeightRequest="33" WidthRequest="37" Grid.Column="0" Grid.Row="1" Source="{Binding SportIcon}" VerticalOptions="Center" />
+                            <Label  Grid.Column="2" Grid.Row="1" Style="{StaticResource Medium13DisabledLabel}"  Text="{Binding PickByPrediction}"  HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                            <BoxView WidthRequest="1" Margin="2,0,2,0" Grid.Column="3" Grid.RowSpan="3"  HorizontalOptions="Center" VerticalOptions="FillAndExpand"  BackgroundColor="#E6E6E6"></BoxView>
+                        </Grid>
+                    </DataTemplate>
+                </controls:StackView.ItemTemplate>
+            </controls:StackView>
+            <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" Margin="0,5,0,0"  Grid.Row="3" Grid.ColumnSpan="4" BackgroundColor="#E6E6E6"></BoxView>
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer  Command="{Binding UserDetails}" CommandParameter="{Binding UserId}" />
+            </Grid.GestureRecognizers>
+        </Grid>
+    </Frame>
+</ContentView>
+
+

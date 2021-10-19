@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Tail.Views.Templates.HeaderView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls">
+    <ContentView.Content>
+        <Grid
+            x:Name="OuterGrid"
+            BackgroundColor="Transparent"
+            ColumnSpacing="0"
+            HeightRequest="88"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <controls:GradientColorStack
+                x:Name="ButtonFrame"
+                Padding="0"
+                CornerRadius="0"
+                EndColor="#341232"
+                GradientDirection="TopRightToBottomLeft"
+                HasShadow="False"
+                HorizontalOptions="FillAndExpand"
+                IsShadowVisible="False"
+                StartColor="#1E1A40" />
+            <Image
+                x:Name="Logo"
+                Margin="15,0,0,15"
+                HorizontalOptions="Start"
+                Source="tail_logo"
+                VerticalOptions="End" />
+            <Image
+                x:Name="BackButton"
+                Margin="20,0,0,20"
+                HorizontalOptions="Start"
+                IsVisible="false"
+                Source="back"
+                VerticalOptions="End" />
+            <Label
+                x:Name="TitleLabel"
+                Margin="0,0,0,15"
+                HorizontalOptions="Center"
+                IsVisible="false"
+                Style="{StaticResource WhiteLabelMedium18}"
+                VerticalOptions="End" />
+            <StackLayout
+                x:Name="WalletStack"
+                Margin="0,0,20,12"
+                HorizontalOptions="End"
+                Orientation="Horizontal"
+                Spacing="0"
+                VerticalOptions="End">
+                <Grid x:Name="NotificationMainGrid"  Margin="27,0,15,0" RowSpacing="0" ColumnSpacing="0" HeightRequest="50" WidthRequest="50" BackgroundColor="Transparent">
+                    <RelativeLayout IsEnabled="False"   Margin="15,10,0,0" x:Name="NotificatioLayOut">
+                    <Image
+                    x:Name="NotificationButton"
+                    Source="notification"  HeightRequest="30"  WidthRequest="30"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+            Property=Width,Factor=0,Constant=0}" 
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+            Property=Height,Factor=0,Constant=0}" />
+                    <Grid RowSpacing="0" ColumnSpacing="0" x:Name="NotificationGrid" IsVisible="{Binding NotificationCount,Converter={StaticResource NotificationBadgeConverter}}" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView,
+            Property=Width,Factor=0.5,Constant=0,ElementName=NotificationButton}" 
+			RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
+            Property=Height,Factor=0,Constant=-9,ElementName=NotificationButton}" HorizontalOptions="End" VerticalOptions="Start">
+                        <Button x:Name="notification" BackgroundColor="White"  CornerRadius="12" WidthRequest="25" HeightRequest="25" HorizontalOptions="Center" VerticalOptions="Center" >
+                        </Button>
+                        <Label x:Name="notificationLabel"  Style="{StaticResource PurpleLabelPoppinsMedium13}" Text="{Binding NotificationCount}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Grid>
+                </RelativeLayout>
+
+                </Grid>
+                
+                <Image x:Name="WalletButton" Source="coin_topnav" HeightRequest="30"  WidthRequest="30" />
+
+
+            </StackLayout>
+            <Label
+                x:Name="SkipButton"
+                Margin="0,0,20,15"
+                HorizontalOptions="End"
+                IsVisible="false"
+                Style="{StaticResource WhiteLabelMedium16}"
+                Text="{Binding Resources[SkipText]}"
+                VerticalOptions="End" />
+            <Label
+                x:Name="ClearButton"
+                Margin="0,0,20,15"
+                HorizontalOptions="End"
+                IsVisible="false"
+                Style="{StaticResource WhiteLabelMedium16}"
+                Text="{Binding Resources[ClearText]}"
+                VerticalOptions="End" />
+            <Frame
+                x:Name="SearchControl"
+                Margin="0,0,0,15"
+                Padding="0"
+                BackgroundColor="#9A7994"
+                CornerRadius="16"
+                HasShadow="False"
+                HeightRequest="32"
+                HorizontalOptions="Center"
+                IsVisible="false"
+                VerticalOptions="End"
+                WidthRequest="300">
+                <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="0"
+                    VerticalOptions="FillAndExpand">
+                    <controls:EntryWithoutBorder
+                        Margin="16,0,0,0"
+                        HorizontalOptions="FillAndExpand"
+                        Placeholder="{x:Static Common:AppResources.SearchPlaceHolder}"
+                        PlaceholderColor="#CCB2CA"
+                        Style="{StaticResource SearchEntry}"
+                        TextChanged="SearchText_TextChanged"
+                        VerticalOptions="FillAndExpand" />
+                    <Image Margin="0,0,10,0" Source="search_selected" />
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Tail.Views.Templates.ProgressView" xmlns:control="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin" xmlns:controls="clr-namespace:Tail.Controls" >
+    <ContentView.Content>
+        <Grid>
+            <Frame CornerRadius="0" BackgroundColor="#F4F4F4" Opacity="0.8" HorizontalOptions="Fill" VerticalOptions="Fill" HasShadow="false" />
+            <StackLayout Orientation="Vertical" Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
+                <ActivityIndicator x:Name="activity" Color="#E85810" VerticalOptions="Center" HorizontalOptions="Center" />
+                <Frame HasShadow="False" BackgroundColor="Transparent" x:Name="ProgressStack" IsVisible="false"  CornerRadius="0" HorizontalOptions="Center" Padding="0" >
+                    <Grid RowSpacing="0" ColumnSpacing="0" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label x:Name="ProgressCountLabel" HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource PurpleLabelSemiBold15}"></Label>
+                        <control:ProgressRing x:Name="ProgressPercentageBar" HorizontalOptions="Center" VerticalOptions="Center" RingThickness="10" RingBaseColor="#DDDDDE" RingProgressColor="#2CC880" HeightRequest="100" WidthRequest="100" />
+                    </Grid>
+                </Frame>
+               
+            </StackLayout>
+
+        </Grid>
+    </ContentView.Content>
+</ContentView>

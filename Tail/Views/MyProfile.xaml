@@ -1,0 +1,95 @@
+﻿<views:AppPageBase xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  xmlns:Common="clr-namespace:Tail.Common"  xmlns:controls="clr-namespace:Tail.Controls;assembly=Tail" xmlns:views="clr-namespace:Tail.Views" xmlns:template="clr-namespace:Tail.Views.Templates" xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:ffTransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"  x:Class="Tail.Views.MyProfile">
+    <ContentPage.Content>
+        <Grid RowSpacing="0" ColumnSpacing="0" BackgroundColor="#F1F1F1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" RowSpacing="0" ColumnSpacing="0" BackgroundColor="White" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="109"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                </Grid.ColumnDefinitions>
+                <template:HeaderView x:Name="HeaderControl"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" WalletVisible="False" NotificationVisible="True"  WalletCommand="{Binding WalletCommand}" NotificationCommand="{Binding NotificationCommand}" BackButtonCommand="{Binding Back}"></template:HeaderView>
+                <controls:GradientColorStack x:Name="ButtonFrame" Grid.Row="1" CornerRadius="0" HasShadow="False"  Padding="0" StartColor="#1E1A40" EndColor="#341232" HorizontalOptions="FillAndExpand" IsShadowVisible="False" GradientDirection="TopRightToBottomLeft" Grid.ColumnSpan="4" Grid.RowSpan="2" />
+                <OnPlatform x:TypeArguments="View">
+                    <OnPlatform.iOS>
+                        <Frame  Padding="0" Grid.Row="2" Grid.RowSpan="2"  Grid.Column="1" HeightRequest="90" WidthRequest="90" CornerRadius="45" HorizontalOptions="Center" VerticalOptions="Center" HasShadow="False" BackgroundColor="Transparent">
+                            <controls:CircleImage x:Name="UserImageView" Source="{Binding UserProfileDetails.UserImage}" WidthRequest="90" HeightRequest="90" >
+
+                            </controls:CircleImage>
+                        </Frame>
+                    </OnPlatform.iOS>
+                    <OnPlatform.Android>
+                        <ffimageloading:CachedImage  Grid.Row="2" Grid.RowSpan="2"  Grid.Column="1"  Source="{Binding UserProfileDetails.UserImage}" Aspect="AspectFit" HeightRequest="90" WidthRequest="90" HorizontalOptions="Center" VerticalOptions="Center" >
+                            <ffimageloading:CachedImage.Transformations>
+                                <ffTransformations:CircleTransformation />
+                            </ffimageloading:CachedImage.Transformations>
+                        </ffimageloading:CachedImage>
+                    </OnPlatform.Android>
+                </OnPlatform>
+                <StackLayout Grid.Row="2" Margin="0,0,0,10"  Grid.Column="2" Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Start" >
+                    <Label x:Name="UserNameLabel" Style="{StaticResource WhiteLabelSemiBold18}"  Text="{Binding UserProfileDetails.UserName}" />
+                </StackLayout>
+                <StackLayout x:Name="BannerLayout" Margin="0,10,0,0"  Grid.Row="3" Grid.Column="2" Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Start" >
+                    <Button Style="{StaticResource WhiteButtonWithPurpleBorder}" Command="{Binding FollowUnfollow}" IsVisible="{Binding IsFullDataLoaded}" TextColor="{Binding IsFollowing, Converter={StaticResource TabSelectionColorConverter}}" Text="{Binding IsFollowing,Converter={StaticResource FollowTextConverter}}" BackgroundColor="{Binding IsFollowing, Converter={StaticResource FollowButtonColorConverter}}" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="0"></Button>
+                    <Button  Style="{StaticResource PurpleButton}" Command="{Binding EditProfileCommand}" IsVisible="{Binding IsOtherProfile ,Converter={StaticResource InverseBooleanConverter}}" Text="{x:Static Common:AppResources.EditProfileText}"  VerticalOptions="Center"  HorizontalOptions="Center" ></Button>
+                </StackLayout>
+            </Grid>
+            <ScrollView  Grid.Row="1" VerticalScrollBarVisibility="Never" Scrolled="ScrollView_Scrolled" >
+                <Grid  x:Name="mainGrid"
+                    ColumnSpacing="0"
+                    HorizontalOptions="FillAndExpand"
+                    RowSpacing="0"
+                    VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="16"/>
+
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="16"/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout  Grid.Column="0" Grid.ColumnSpan="3" BackgroundColor="White"  Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Spacing="3" Padding="0,0,0,10">
+                        <Label  Margin="16,0,0,0" HorizontalOptions="Start" Text="{x:Static Common:AppResources.AboutMe}" Style="{StaticResource PurpleLabelSemiBold14}"  />
+                        <Label x:Name="AboutMe"  Margin="16,0,0,0" HorizontalOptions="Start"   Style="{StaticResource BlackLabelRegular13}" Text="{Binding UserProfileDetails.AboutMe}"/>
+                    </StackLayout>
+                    <BoxView BackgroundColor="#E6E6E6" HeightRequest="5" HorizontalOptions="FillAndExpand" Grid.Row="1" Grid.ColumnSpan="3"></BoxView>
+                    <StackLayout Grid.Row="2" Grid.ColumnSpan="3"   Spacing="0" Orientation="Vertical" VerticalOptions="Start">
+                        <controls:CustomTabViewControl 
+                x:Name="predictionTabControl"
+                HorizontalOptions="FillAndExpand"                
+                VerticalOptions="FillAndExpand" />
+                        <BoxView HeightRequest="2" HorizontalOptions="FillAndExpand" VerticalOptions="End"  BackgroundColor="#E6E6E6"></BoxView>
+                    </StackLayout>
+                    <StackLayout Grid.Row="3" Grid.ColumnSpan="3"   Spacing="0" Orientation="Vertical" VerticalOptions="Start">
+                        <controls:CustomTabViewControl 
+                x:Name="UserTabControl" 
+                HorizontalOptions="FillAndExpand"            
+                VerticalOptions="FillAndExpand"   />
+                    </StackLayout>
+
+                </Grid>
+            </ScrollView>
+            <ActivityIndicator Grid.Row="0" Grid.RowSpan="2"  IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="#E5B59D" VerticalOptions="Center"  HorizontalOptions="Center" />
+            <template:ProgressView Grid.Row="0" Grid.RowSpan="2" IsVisible="{Binding InitialLoad}" IsRunning="{Binding InitialLoad}" HorizontalOptions="Fill" VerticalOptions="Fill" />
+        </Grid>
+    </ContentPage.Content>
+</views:AppPageBase>
+
+
+
+

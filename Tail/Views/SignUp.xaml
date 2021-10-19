@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.SignUp"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <views:AppPageBase.Content>
+        <Grid
+            BackgroundColor="#fffff"
+            ColumnSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+
+            </Grid.RowDefinitions>
+            <Image
+                Grid.Row="0"
+                Grid.Column="0"
+                Aspect="AspectFill"
+                HorizontalOptions="FillAndExpand"
+                Source="bg_top"
+                VerticalOptions="Start" />
+            <ScrollView
+                Grid.Row="0"
+                Margin="0,59,0,0"
+                BackgroundColor="Transparent"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Grid
+                    ColumnSpacing="0"
+                    HorizontalOptions="FillAndExpand"
+                    RowSpacing="0"
+                    VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="30" />
+                    </Grid.ColumnDefinitions>
+                   
+                    <Image
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Margin="0,59,0,0"
+                        Aspect="AspectFit"
+                        Source="Logo_inside" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,30,0,22"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource GreyLabelRegular16}"
+                        Text="{x:Static Common:AppResources.SignUpTitleText}" />
+                    <Grid
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        BackgroundColor="#3F63AD"
+                        ColumnSpacing="0"
+                        HeightRequest="42"
+                        HorizontalOptions="FillAndExpand"
+                        RowSpacing="0"
+                        VerticalOptions="FillAndExpand">
+                        <Image
+                            Margin="20,0,0,0"
+                            HorizontalOptions="Start"
+                            Source="icn_facebook"
+                            VerticalOptions="Center" />
+
+                        <controls:FacebookLoginButton
+                            BorderWidth="0"
+                            HorizontalOptions="CenterAndExpand"
+                            Style="{StaticResource WhiteButtonRegular16}"
+                            Text="{x:Static Common:AppResources.FacebookSignUpText}"
+                            VerticalOptions="CenterAndExpand" />
+                      
+                    </Grid>
+                    <Grid
+                        x:Name="AppleLoginStack"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Margin="0,10,0,0"
+                        BackgroundColor="#060709"
+                        RowSpacing="0"
+                        ColumnSpacing="0"
+                        HeightRequest="42"
+                        HorizontalOptions="FillAndExpand"
+                        >
+                        <Grid.BackgroundColor>
+                            <OnPlatform x:TypeArguments="Color">
+                                <OnPlatform.Platforms>
+                                    <On Platform="iOS" Value="#060709" />
+                                    <On Platform="Android" Value="#4285f4" />
+                                </OnPlatform.Platforms>
+                            </OnPlatform>
+                        </Grid.BackgroundColor>
+                        <Image
+                            Margin="20,0,0,0"
+                            HorizontalOptions="Start"
+                            Source="icn_apple"
+                            VerticalOptions="Center">
+                            <Image.Margin>
+                                <OnPlatform x:TypeArguments="Thickness">
+                                    <OnPlatform.Platforms>
+                                        <On Platform="iOS" Value="20,0,0,0" />
+                                        <On Platform="Android" Value="1,0,0,0" />
+                                    </OnPlatform.Platforms>
+                                </OnPlatform>
+                            </Image.Margin>
+                        </Image>
+                        <Label
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Style="{StaticResource WhiteLabelRegular16}"
+                            VerticalOptions="Center">
+                            <Label.Text>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <OnPlatform.Platforms>
+                                        <On Platform="iOS" Value="{x:Static Common:AppResources.AppleSignUpText}" />
+                                        <On Platform="Android" Value="{x:Static Common:AppResources.GoogleSignUpText}" />
+                                    </OnPlatform.Platforms>
+                                </OnPlatform>
+                            </Label.Text>
+                            <Label.Margin>
+                                <OnPlatform x:TypeArguments="Thickness">
+                                    <OnPlatform.Platforms>
+                                        <On Platform="iOS" Value="0,0,0,0" />
+                                        <On Platform="Android" Value="-6,0,0,0" />
+                                    </OnPlatform.Platforms>
+                                </OnPlatform>
+                            </Label.Margin>
+                        </Label>
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SignUpWithAppleCommand}" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                    <BoxView
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Margin="0,30,0,30"
+                        BackgroundColor="#D8D8D8"
+                        HeightRequest="1"
+                        HorizontalOptions="FillAndExpand"
+                        Opacity="0.43"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Margin="0,30,0,30"
+                        Padding="10,0,10,0"
+                        BackgroundColor="White"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource GreyLabelRegular18}"
+                        Text="{x:Static Common:AppResources.OrText}"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center" />
+                    <template:PurpleGradientButton
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        ButtonText="{x:Static Common:AppResources.EmailSignUpText}"
+                        Command="{Binding SignUpWithEmailCommand}"
+                        HeightRequest="42" />
+
+                    <Image
+                        Grid.Row="7"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Aspect="Fill"
+                        HorizontalOptions="FillAndExpand"
+                        Source="bg_bottom"
+                        VerticalOptions="EndAndExpand" />
+                    <StackLayout
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        Margin="0,0,0,50"
+                        Orientation="Vertical"
+                        Spacing="5"
+                        VerticalOptions="End">
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource BlackLabelRegular14}"
+                            Text="{x:Static Common:AppResources.AlreadyHaveAccountText}"
+                            VerticalOptions="Start" />
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource PurpleLabelBold16}"
+                            Text="{x:Static Common:AppResources.LoginText}"
+                            VerticalOptions="Start">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LoginCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </views:AppPageBase.Content>
+</views:AppPageBase>

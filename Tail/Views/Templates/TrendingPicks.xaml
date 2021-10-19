@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:Common="clr-namespace:Tail.Common" xmlns:template="clr-namespace:Tail.Views.Templates" xmlns:controls="clr-namespace:Tail.Controls"  x:Class="Tail.Views.Templates.TrendingPicks">
+    <ContentView.Content>
+        <StackLayout Orientation="Vertical" Spacing="0">
+            <Grid RowSpacing="0" ColumnSpacing="0" Margin="16,16,10,16" VerticalOptions="Start" HorizontalOptions="FillAndExpand">
+                <Label Text="{x:Static Common:AppResources.TrendingInPicks}" IsVisible="{Binding IsResult, Converter = {StaticResource InverseBooleanConverter}}" Style="{StaticResource PurplePoppinsLabelBold16}" HorizontalOptions="Start" VerticalOptions="Start" ></Label>
+                <Label Text="{x:Static Common:AppResources.SearchResultInPicks}" IsVisible="{Binding IsResult}" Style="{StaticResource PurplePoppinsLabelBold16}" HorizontalOptions="Start" VerticalOptions="Start" ></Label>
+                <StackLayout IsVisible="{Binding IsViewAllPickEnable}" Orientation="Horizontal" HorizontalOptions="End" Spacing="0" VerticalOptions="FillAndExpand">
+                    <Label Text="{x:Static Common:AppResources.ViewAll}" Style="{StaticResource PurpleLabelBold14}" HorizontalOptions="Start"  VerticalOptions="Center" ></Label>
+                    <Image Source="right_arrow"></Image>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding ViewAllPicks}" />
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+            </Grid>
+            <controls:StackView x:Name="PicksStack" Orientation="Vertical" Spacing="8" ItemSource="{Binding PickDetailsList}" >
+                <controls:StackView.ItemTemplate>
+                    <DataTemplate>
+                        <controls:TailCustomFrame CornerRadius="0" HasShadow="False" Padding="0" BackgroundColor="White" >
+                            <Grid RowSpacing="0" ColumnSpacing="0" VerticalOptions="FillAndExpand" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Start" Spacing="0">
+                                    <Frame  Margin="16,10,16,10"  Padding="0" HeightRequest="40" WidthRequest="40" HorizontalOptions="Center" VerticalOptions="Center" HasShadow="False" BackgroundColor="Transparent">
+                                        <controls:CircleImage  Source="{Binding PostItem.UserImage}" WidthRequest="40" HeightRequest="40" >
+                                        </controls:CircleImage>
+
+                                    </Frame>
+                                    <StackLayout Margin="0,10,0,0" Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="Start" Spacing="0">
+                                        <Label  HorizontalOptions="Start" VerticalOptions="Center" Style="{StaticResource BlackLabelSemiBold13}" Text="{Binding PostItem.UserName}"></Label>
+                                        <Label Text="{Binding PostItem.DisplayPostDate}"  Style="{StaticResource BlackLabelLight11}"/>
+                                    </StackLayout>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer  Command="{Binding UserDetails}" CommandParameter="{Binding PostItem.UserId}" />
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                                <BoxView Grid.Row="0" VerticalOptions="End" HeightRequest="1" HorizontalOptions="FillAndExpand" BackgroundColor="#EBEBEB" ></BoxView>
+                                <StackLayout Grid.Row="1" Margin="0,10,0,10" HorizontalOptions="Center" Orientation="Horizontal" Spacing="5">
+                                    <Label  HorizontalOptions="Start" VerticalOptions="Center" Style="{StaticResource BlackLabelSemiBold13}" Text="{Binding PostItem.PostText}"></Label>
+                                </StackLayout>
+                                <BoxView Grid.Row="1" VerticalOptions="End" HeightRequest="1" HorizontalOptions="FillAndExpand" BackgroundColor="#EBEBEB" ></BoxView>
+                                <Grid Grid.Row="2" RowSpacing="0"    HorizontalOptions="FillAndExpand" ColumnSpacing="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Grid.Column="0" Margin="0,5,0,5"  HorizontalOptions="Center" VerticalOptions="FillAndExpand" Orientation="Horizontal"  Spacing="7">
+                                        <Image Source="calendar"></Image>
+                                        <Label Text="{Binding PostItem.GameDateDisplay}" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" Style="{StaticResource BlackLabelBold13}" HorizontalTextAlignment="Start" HorizontalOptions="Start" ></Label>
+                                    </StackLayout>
+                                    <BoxView Grid.Column="0"   VerticalOptions="FillAndExpand" HorizontalOptions="End" WidthRequest="1" BackgroundColor="#EBEBEB"/>
+                                    <StackLayout Margin="0,5,0,5" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="FillAndExpand" Orientation="Horizontal"  Spacing="7">
+                                        <Image Source="time"></Image>
+                                        <Label Text="{Binding PostItem.GameTimeDisplay}" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center" Style="{StaticResource BlackLabelBold13}" HorizontalTextAlignment="Start" HorizontalOptions="Start" ></Label>
+                                    </StackLayout>
+                                </Grid>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer  Command="{Binding CommentCommand}" CommandParameter="{Binding PostItem}" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </controls:TailCustomFrame>
+                    </DataTemplate>
+                </controls:StackView.ItemTemplate>
+            </controls:StackView>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
