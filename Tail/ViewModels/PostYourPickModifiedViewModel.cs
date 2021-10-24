@@ -447,6 +447,7 @@ namespace Tail.ViewModels
         private void BetTypeDropdown_Change()
         {
             StepsDataList[1].SelectedTabIndex = BetTypeSelectedIndex + 1;
+
             if (BetTypeSelectedIndex == 0)
             {
                 IsMoneyLineVisible = true;
@@ -891,8 +892,18 @@ namespace Tail.ViewModels
                     if (previousSelectedItem != null)
                         previousSelectedItem.IsSelected = false;
                     item.IsSelected = true;
-                
-                await PopupNavigation.Instance.PushAsync(new PostPickPickerPopUp(NewBetOptions, AppResources.SelectBetTypeText, () => Handle_BetSelected()));
+
+                List<NewPickerItem> filterNewBitOptions = new List<NewPickerItem>(NewBetOptions);
+
+                if (StepsDataList[1].BettingDetails.SelectedGame.UnMoney == null)
+                {
+                    filterNewBitOptions.RemoveAt(2);
+                }
+                if (StepsDataList[1].BettingDetails.SelectedGame.OverScore == null)
+                {
+                    filterNewBitOptions.RemoveAt(1);
+                }
+                await PopupNavigation.Instance.PushAsync(new PostPickPickerPopUp(filterNewBitOptions, AppResources.SelectBetTypeText, () => Handle_BetSelected()));
             }
         }
 
@@ -902,6 +913,7 @@ namespace Tail.ViewModels
             SelectedBet = NewBetOptions[index].ItemName;
             BetTypeSelectedIndex = index;
             BetTypeDropdown_Change();
+
         }
 
         private async Task Handle_SelectLeagueCommand()

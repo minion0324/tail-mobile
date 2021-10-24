@@ -1,7 +1,15 @@
 ﻿<Properties HasIOSDesignerOverlayBeenDismissed="True" StartupConfiguration="{07721272-1AEC-4F6C-8F9D-29B2E4874275}|Default">
-  <MonoDevelop.Ide.ItemProperties.Tail.iOS automaticSigning="False" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.1472F02D-EF2F-43BD-83A9-A7803D80092D" />
+  <MonoDevelop.Ide.ItemProperties.Tail.iOS automaticSigning="False" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.F755776E-9FCB-43C6-A512-454DE261B8A9" />
   <MonoDevelop.Ide.ItemProperties.Tail.Android AndroidDesignerPreferredDevice="Nexus 4" TriggeredFromHotReload="False" PreferredExecutionTarget="Android.Android_Accelerated_Oreo" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Tail/Common/Constants.cs">
+    <Files>
+      <File FileName="Tail/Views/PostYourPickModified.xaml" Line="37" Column="8" />
+      <File FileName="Tail/Views/PostYourPickModified.xaml.cs" />
+      <File FileName="Tail/ViewModels/PostYourPickModifiedViewModel.cs" />
+      <File FileName="Tail/Models/GameSchedule.cs" />
+      <File FileName="Tail/Views/PostPickPickerPopUp.xaml.cs" />
+      <File FileName="Tail/Common/Constants.cs" Line="1" Column="1" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
@@ -10,10 +18,15 @@
               <Node name="Common" expanded="True">
                 <Node name="Constants.cs" selected="True" />
               </Node>
+              <Node name="Models" expanded="True" />
               <Node name="Services" expanded="True">
                 <Node name="OnlineServices" expanded="True" />
               </Node>
               <Node name="ViewModels" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="PostPickPickerPopUp.xaml" expanded="True" />
+                <Node name="PostYourPickModified.xaml" expanded="True" />
+              </Node>
             </Node>
             <Node name="Tail.iOS" expanded="True" />
           </Node>
