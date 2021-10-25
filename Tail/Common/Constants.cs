@@ -1,16 +1,15 @@
-﻿
-namespace Tail.Common
+﻿namespace Tail.Common
 {
     public static class Constants
     {
-        public const string BaseUrl = "https://api.tailnetwork.com";
-        public const string S3Path = "https://tail-s3.s3.us-east-2.amazonaws.com";
-        public const string S3BucketForProfileImage = "tail-s3/users";
-        public const string S3BucketForPostImage = "tail-s3/posts/images";
-        public const string S3BucketForPostVideo = "tail-s3/posts/videos";
-        public const string AWSCredential = "us-east-2:66865fb9-c45a-42e6-aa6a-d51a77c4466c";
-        public const string ApiKey = "X-Api-Key";
-        public const string ApiKeyValue = "59A894FB1C129E152412ED7E9FAF67DD";
+        public const string BaseUrl = "{Enter Base Url here}";
+        public const string S3Path = "{Enter S3 Url here}";
+        public const string S3BucketForProfileImage = "{Enter S3 Bucket Path For ProfileImage here}";
+        public const string S3BucketForPostImage = "{Enter S3 Bucket Path For PostImage here}";
+        public const string S3BucketForPostVideo = "{Enter S3 Bucket Path For PostVideo here}";
+        public const string AWSCredential = "{Enter AWS Pool ID here}";
+        public const string ApiKey = "{Enter API Key here}";
+        public const string ApiKeyValue = "{Enter API key Value here}";
         public const string BaseIpAddress = BaseUrl;
         public const string FAQ_URL = BaseUrl + "/web/faq";
         public const string TERMS_AND_CONDITION_URL = BaseUrl + "/web/termsCondition";

@@ -319,7 +319,6 @@ namespace Tail.ViewModels
         public PostYourPickModifiedViewModel()
         {
             Media = new ObservableCollection<MediaFile>();
-
             OnSpotIndexChanged += SportDropDown_Changed;
             OnLeagueIndexChanged += LeagueDropdown_Change;
             OnBetTypeIndexChanged += BetTypeDropdown_Change;
@@ -885,7 +884,6 @@ namespace Tail.ViewModels
 
         private async Task Handle_SelectBetOptionCommand()
         {
-            //reset NewBetOptions depending On th?e game informations
             resetNewbetOptions(NewBetOptions, _SelectedGameInfo);
             if (NewBetOptions.Count > 0)
             {
@@ -1642,7 +1640,6 @@ namespace Tail.ViewModels
 
             if (selectedGame != null)
             {
-                //reset betoptions for UnOv
                 if (selectedGame.OvMoney == null || selectedGame.UnMoney == null)
                 {
                     betOptions.RemoveAll(g => g.ItemName.Equals("Over/Under"));
@@ -1652,8 +1649,7 @@ namespace Tail.ViewModels
                     if (betOptions.Find(i => i.ItemName.Equals("Over/Under")) == null)
                         betOptions.Add(new NewPickerItem() { IsSelected = false, ItemName = "Over/Under" });
                 }
-                //reset betoptions for MoneyLine
-                if (selectedGame.HomeTeamDetails.SpMoney == null)
+                if (selectedGame.HomeTeamDetails.SpMoney == null || selectedGame.AwayTeamDetails.SpMoney == null)
                 {
                     betOptions.RemoveAll(g => g.ItemName.Equals("Spread"));
                 }
@@ -1662,9 +1658,8 @@ namespace Tail.ViewModels
                     if (betOptions.Find(i => i.ItemName.Equals("Spread")) == null)
                         betOptions.Add(new NewPickerItem() { IsSelected = false, ItemName = "Spread" });
                 }
-                //reset betoptions for Spread
 
-                if (selectedGame.HomeTeamDetails.Moneyline == null)
+                if (selectedGame.HomeTeamDetails.Moneyline == null || selectedGame.HomeTeamDetails.Moneyline == null)
                 {
                     betOptions.RemoveAll(g => g.ItemName.Equals("Moneyline"));
                 }
