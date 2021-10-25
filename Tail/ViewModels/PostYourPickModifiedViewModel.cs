@@ -1638,9 +1638,10 @@ namespace Tail.ViewModels
             if (selectedGame == null) return;
 
 
+
             if (selectedGame != null)
             {
-                if (selectedGame.OvMoney == null || selectedGame.UnMoney == null)
+                if (selectedGame.OvMoney == null && selectedGame.UnMoney == null)
                 {
                     betOptions.RemoveAll(g => g.ItemName.Equals("Over/Under"));
                 }
@@ -1649,7 +1650,7 @@ namespace Tail.ViewModels
                     if (betOptions.Find(i => i.ItemName.Equals("Over/Under")) == null)
                         betOptions.Add(new NewPickerItem() { IsSelected = false, ItemName = "Over/Under" });
                 }
-                if (selectedGame.HomeTeamDetails.SpMoney == null || selectedGame.AwayTeamDetails.SpMoney == null)
+                if (selectedGame.HomeTeamDetails.SpMoney == null && selectedGame.AwayTeamDetails.SpMoney == null)
                 {
                     betOptions.RemoveAll(g => g.ItemName.Equals("Spread"));
                 }
@@ -1659,7 +1660,7 @@ namespace Tail.ViewModels
                         betOptions.Add(new NewPickerItem() { IsSelected = false, ItemName = "Spread" });
                 }
 
-                if (selectedGame.HomeTeamDetails.Moneyline == null || selectedGame.HomeTeamDetails.Moneyline == null)
+                if (selectedGame.HomeTeamDetails.Moneyline == null && selectedGame.HomeTeamDetails.Moneyline == null)
                 {
                     betOptions.RemoveAll(g => g.ItemName.Equals("Moneyline"));
                 }
@@ -1669,10 +1670,6 @@ namespace Tail.ViewModels
                         betOptions.Add(new NewPickerItem() { IsSelected = false, ItemName = "Moneyline" });
                 }
             }
-
-
-
-
         }
         ///<summary>
         ///Override back button to correct tab navigation.
