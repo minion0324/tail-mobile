@@ -816,7 +816,6 @@ namespace Tail.ViewModels
                     StepsDataList[1].BettingDetails.SelectedGame = _updateItem;
                     BetTypeSelectedIndex = 0;
                     BetTypeDropdown_Change();
-                    //todo check if new betOptions not empty  
                     SelectedBet = NewBetOptions[0].ItemName;
                     var alreadySelectedItem = NewBetOptions.FirstOrDefault(i => i.IsSelected);
                     if (alreadySelectedItem != null)
@@ -1639,37 +1638,35 @@ namespace Tail.ViewModels
 
 
 
-            if (selectedGame != null)
+            if (selectedGame.OvMoney == null && selectedGame.UnMoney == null)
             {
-                if (selectedGame.OvMoney == null && selectedGame.UnMoney == null)
-                {
-                    betOptions.RemoveAll(g => g.ItemName.Equals("Over/Under"));
-                }
-                else
-                {
-                    if (betOptions.Find(i => i.ItemName.Equals("Over/Under")) == null)
-                        betOptions.Add(new NewPickerItem() { IsSelected = false, ItemName = "Over/Under" });
-                }
-                if (selectedGame.HomeTeamDetails.SpMoney == null && selectedGame.AwayTeamDetails.SpMoney == null)
-                {
-                    betOptions.RemoveAll(g => g.ItemName.Equals("Spread"));
-                }
-                else
-                {
-                    if (betOptions.Find(i => i.ItemName.Equals("Spread")) == null)
-                        betOptions.Add(new NewPickerItem() { IsSelected = false, ItemName = "Spread" });
-                }
-
-                if (selectedGame.HomeTeamDetails.Moneyline == null && selectedGame.HomeTeamDetails.Moneyline == null)
-                {
-                    betOptions.RemoveAll(g => g.ItemName.Equals("Moneyline"));
-                }
-                else
-                {
-                    if (betOptions.Find(i => i.ItemName.Equals("Moneyline")) == null)
-                        betOptions.Add(new NewPickerItem() { IsSelected = false, ItemName = "Moneyline" });
-                }
+                betOptions.RemoveAll(g => g.ItemName.Equals("Over/Under"));
             }
+            else
+            {
+                if (betOptions.Find(i => i.ItemName.Equals("Over/Under")) == null)
+                    betOptions.Add(new NewPickerItem() { IsSelected = false, ItemName = "Over/Under" });
+            }
+            if (selectedGame.HomeTeamDetails.SpMoney == null && selectedGame.AwayTeamDetails.SpMoney == null)
+            {
+                betOptions.RemoveAll(g => g.ItemName.Equals("Spread"));
+            }
+            else
+            {
+                if (betOptions.Find(i => i.ItemName.Equals("Spread")) == null)
+                    betOptions.Add(new NewPickerItem() { IsSelected = false, ItemName = "Spread" });
+            }
+
+            if (selectedGame.HomeTeamDetails.Moneyline == null && selectedGame.HomeTeamDetails.Moneyline == null)
+            {
+                betOptions.RemoveAll(g => g.ItemName.Equals("Moneyline"));
+            }
+            else
+            {
+                if (betOptions.Find(i => i.ItemName.Equals("Moneyline")) == null)
+                    betOptions.Add(new NewPickerItem() { IsSelected = false, ItemName = "Moneyline" });
+            }
+
         }
         ///<summary>
         ///Override back button to correct tab navigation.
