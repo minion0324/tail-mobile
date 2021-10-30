@@ -20,13 +20,14 @@ namespace Tail.ViewModels
 {
     public class PostYourPickModifiedViewModel : PageViewModelBase
     {
+        GameInfo _SelectedGameInfo;
         string _postContent;
         int _sportSelectedIndex;
         int _leagueSelectedIndex;
         int _betTypeSelectedIndex;
         int _setBetTypeSelectedIndex;
         int _currentProgressCount = 1;
-        int _WageringUnitValue=1;
+        int _WageringUnitValue = 1;
         decimal _progressPercentage = 0;
         string _progressCountDisplay;
         string _progressPercentageDisplay;
@@ -107,7 +108,7 @@ namespace Tail.ViewModels
             get => _isOverUnder1Selected;
             set => SetProperty(ref _isOverUnder1Selected, value);
         }
-        bool _leagueEnable=false;
+        bool _leagueEnable = false;
         public bool LeagueEnable
         {
             get => _leagueEnable;
@@ -318,7 +319,6 @@ namespace Tail.ViewModels
         public PostYourPickModifiedViewModel()
         {
             Media = new ObservableCollection<MediaFile>();
-
             OnSpotIndexChanged += SportDropDown_Changed;
             OnLeagueIndexChanged += LeagueDropdown_Change;
             OnBetTypeIndexChanged += BetTypeDropdown_Change;
@@ -510,7 +510,7 @@ namespace Tail.ViewModels
         async void SportDropDown_Changed()
         {
             IsGameSelected = false;
-           
+
             if (StepsDataList[0] != null && StepsDataList[0].SpotSelectedIndex != -1)
             {
                 LeagueEnable = false;
@@ -604,7 +604,7 @@ namespace Tail.ViewModels
                             SelectGameText = AppResources.GameInfo;
                             StepsDataList[0].InformationText = AppResources.GameInfo;
                         }
-                        
+
 
                         if (StepsDataList[1].BettingDetails.Sport_Type == SportType.MMA)
                         {
@@ -638,7 +638,7 @@ namespace Tail.ViewModels
                                     foreach (var itemToRemove in AwayTeamitemsToRemove)
                                         gamesData.Games.Remove(itemToRemove);
                                 }
-                                
+
                                 var HomeTeamitemsToRemove = gamesData.Games.Where(x => x.HomeTeamDetails == null).ToList();
                                 if (HomeTeamitemsToRemove != null)
                                 {
@@ -662,7 +662,7 @@ namespace Tail.ViewModels
                             }
                         }
 
-                            if (IsGameSelectionEnabled)
+                        if (IsGameSelectionEnabled)
                         {
                             await PopupNavigation.Instance.PushAsync(new SelectGamePopup(StepsDataList[0].UpcomingGames, () => Handle_SelectGamePopupClosed()));
                         }
@@ -697,7 +697,7 @@ namespace Tail.ViewModels
                     List<GameInfo> _pendingGames = new List<GameInfo>();
                     foreach (ScheduleInfo gameInfo in StepsDataList[0].UpcomingGames[0].GameData)
                     {
-                       
+
                         List<GameInfo> _tempGames = new List<GameInfo>();
                         if (_pendingGames.Count != 0)
                         {
@@ -729,7 +729,7 @@ namespace Tail.ViewModels
                             {
                                 gameItem.HomeTeamDetails.TeamColor = "#" + gameItem.HomeTeamDetails.TeamColor;
                             }
-                     
+
                             if (!string.IsNullOrEmpty(gameItem.AwayTeamDetails.TeamColor) && gameItem.AwayTeamDetails.TeamColor.Substring(0, 1) != "#")
                             {
                                 gameItem.AwayTeamDetails.TeamColor = "#" + gameItem.AwayTeamDetails.TeamColor;
@@ -745,9 +745,9 @@ namespace Tail.ViewModels
 
                             if (_tempGameData.Count != 0 && _tempGameData[_tempGameData.Count - 1].Games[0].GameDate == gameItem.GameDate)
                             {
-                                    gameItem.SelectedCommand = new Command<string>((item) => Handle_GameSelected(item));
-                                    _tempGameData[_tempGameData.Count - 1].Games.Add(gameItem);
-                                    continue;
+                                gameItem.SelectedCommand = new Command<string>((item) => Handle_GameSelected(item));
+                                _tempGameData[_tempGameData.Count - 1].Games.Add(gameItem);
+                                continue;
                             }
                             gameItem.SelectedCommand = new Command<string>((item) => Handle_GameSelected(item));
                             if (_tempGames.Count != 0)
@@ -821,7 +821,7 @@ namespace Tail.ViewModels
                     if (alreadySelectedItem != null)
                         alreadySelectedItem.IsSelected = false;
                     NewBetOptions[0].IsSelected = true;
-
+                    _SelectedGameInfo = _updateItem;
                     IsGameSelected = true;
 
                 }
@@ -852,13 +852,13 @@ namespace Tail.ViewModels
                 {
                     hasSuccessResponse = true;
                     LeagueList = new List<LeagueDetails>(leagueResponse.ResponseData.SportsDetails);
-                    if(leagueResponse.ResponseData.Price!=null && leagueResponse.ResponseData.Price.Count != 0)
+                    if (leagueResponse.ResponseData.Price != null && leagueResponse.ResponseData.Price.Count != 0)
                     {
                         CommonSingletonUtility.SharedInstance.MaxPrice = leagueResponse.ResponseData.Price[0].MaxPrice;
                         CommonSingletonUtility.SharedInstance.MinPrice = leagueResponse.ResponseData.Price[0].MinPrice;
                         StepsDataList[1].BettingDetails.PickPriceHint = string.Format(AppResources.PriceHintText, CommonSingletonUtility.SharedInstance.MaxPrice);
                     }
-                    
+
                 }
                 else
                 {
@@ -883,15 +883,16 @@ namespace Tail.ViewModels
 
         private async Task Handle_SelectBetOptionCommand()
         {
+            resetNewbetOptions(NewBetOptions, _SelectedGameInfo);
             if (NewBetOptions.Count > 0)
             {
-                
-                    var item = NewBetOptions.FirstOrDefault(i => i.ItemName == SelectedBet);
-                    var previousSelectedItem = NewBetOptions.FirstOrDefault(i => i.IsSelected);
-                    if (previousSelectedItem != null)
-                        previousSelectedItem.IsSelected = false;
-                    item.IsSelected = true;
-                
+
+                var item = NewBetOptions.FirstOrDefault(i => i.ItemName == SelectedBet);
+                var previousSelectedItem = NewBetOptions.FirstOrDefault(i => i.IsSelected);
+                if (previousSelectedItem != null)
+                    previousSelectedItem.IsSelected = false;
+                item.IsSelected = true;
+
                 await PopupNavigation.Instance.PushAsync(new PostPickPickerPopUp(NewBetOptions, AppResources.SelectBetTypeText, () => Handle_BetSelected()));
             }
         }
@@ -949,8 +950,8 @@ namespace Tail.ViewModels
                     previousSelectedItem.IsSelected = false;
                 item.IsSelected = true;
             }
-               
-            await PopupNavigation.Instance.PushAsync(new PostPickPickerPopUp(NewSportOptions,AppResources.SelectYourSpot,async () => await Handle_SportSelected()));
+
+            await PopupNavigation.Instance.PushAsync(new PostPickPickerPopUp(NewSportOptions, AppResources.SelectYourSpot, async () => await Handle_SportSelected()));
 
         }
         private async Task Handle_SportSelected()
@@ -1004,7 +1005,7 @@ namespace Tail.ViewModels
                     StepsDataList[0].LeagueOptions = new List<PickerItem>();
                     LeagueOptions = new List<PickerItem>();
                 }
-               
+
 
             }
         }
@@ -1012,205 +1013,176 @@ namespace Tail.ViewModels
         private void Handle_DiscardCommand()
         {
             Back.Execute(null);
-           
+
         }
 
         private async Task Handle_Post()
         {
-                if (IsBusy)
-                    return;
-                if (StepsDataList[1].BettingDetails.Sport_Type == SportType.None)
-                {
-                    await ShowAlert(AppResources.AppName, StepsDataList[0].InformationText);
-                    IsBusy = false;
-                    return;
-                }
-                if (StepsDataList[1].BettingDetails.SelectedEventName == null)
-                {
-                    await ShowAlert(AppResources.AppName, StepsDataList[0].InformationText);
-                    IsBusy = false;
-                    return;
-                }
-                if (StepsDataList[1].BettingDetails.SelectedGame == null)
-                {
-                    await ShowAlert(AppResources.AppName, StepsDataList[0].InformationText);
-                    IsBusy = false;
-                    return;
-                }
+            if (IsBusy)
+                return;
+            if (StepsDataList[1].BettingDetails.Sport_Type == SportType.None)
+            {
+                await ShowAlert(AppResources.AppName, StepsDataList[0].InformationText);
+                IsBusy = false;
+                return;
+            }
+            if (StepsDataList[1].BettingDetails.SelectedEventName == null)
+            {
+                await ShowAlert(AppResources.AppName, StepsDataList[0].InformationText);
+                IsBusy = false;
+                return;
+            }
+            if (StepsDataList[1].BettingDetails.SelectedGame == null)
+            {
+                await ShowAlert(AppResources.AppName, StepsDataList[0].InformationText);
+                IsBusy = false;
+                return;
+            }
 
-                TimeSpan _timeSpan = DateTime.Now.Subtract(Convert.ToDateTime(StepsDataList[1].BettingDetails.SelectedGame.GameDateTime));
-                if (_timeSpan.Seconds > 0)
-                {
-                    await ShowAlert(AppResources.AppName, AppResources.GameStarted);
-                    IsBusy = false;
-                    return;
-                }
+            TimeSpan _timeSpan = DateTime.Now.Subtract(Convert.ToDateTime(StepsDataList[1].BettingDetails.SelectedGame.GameDateTime));
+            if (_timeSpan.Seconds > 0)
+            {
+                await ShowAlert(AppResources.AppName, AppResources.GameStarted);
+                IsBusy = false;
+                return;
+            }
 
 
-                AddPickRequestInfo addPickRequestInfo = new AddPickRequestInfo();
-                addPickRequestInfo.imageUrl = new List<ImageData>();
-                addPickRequestInfo.videoUrl = new List<VideoData>();
-                addPickRequestInfo.postContent = PostContent;
+            AddPickRequestInfo addPickRequestInfo = new AddPickRequestInfo();
+            addPickRequestInfo.imageUrl = new List<ImageData>();
+            addPickRequestInfo.videoUrl = new List<VideoData>();
+            addPickRequestInfo.postContent = PostContent;
 
-                addPickRequestInfo.userId = SettingsService.Instance.LoggedUserDetails.UserId;
-                addPickRequestInfo.mainSportId = (int)StepsDataList[1].BettingDetails.Sport_Type;
-                addPickRequestInfo.sportId = StepsDataList[1].BettingDetails.SelectedEventID;
-                addPickRequestInfo.sName = StepsDataList[1].BettingDetails.SelectedEventName;
-                addPickRequestInfo.eventId = StepsDataList[1].BettingDetails.SelectedGame.EventID;
-                addPickRequestInfo.eventDate = StepsDataList[1].BettingDetails.SelectedGame.GameDateTime;
-                addPickRequestInfo.htName = StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamName;
-                addPickRequestInfo.htAbbr = StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamNameShort;
-                addPickRequestInfo.htLogo = (string.IsNullOrEmpty(StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.Tlogo)) ? "No Image" : StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.Tlogo;
-                addPickRequestInfo.atName = StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamName;
-                addPickRequestInfo.atAbbr = StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamNameShort;
-                addPickRequestInfo.atLogo = (string.IsNullOrEmpty(StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.Tlogo)) ? "No Image" : StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.Tlogo;
-                addPickRequestInfo.pickFee = StepsDataList[1].BettingDetails.PickPrice;
-                addPickRequestInfo.betType = StepsDataList[1].SelectedTabIndex;
-                addPickRequestInfo.wagerUnit = WageringUnitValue;
-                addPickRequestInfo.isContent = HideCaption;
-                addPickRequestInfo.htHomeColorCode = StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamColor;
-                addPickRequestInfo.htAwayColorCode = StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamSecondaryColor;
+            addPickRequestInfo.userId = SettingsService.Instance.LoggedUserDetails.UserId;
+            addPickRequestInfo.mainSportId = (int)StepsDataList[1].BettingDetails.Sport_Type;
+            addPickRequestInfo.sportId = StepsDataList[1].BettingDetails.SelectedEventID;
+            addPickRequestInfo.sName = StepsDataList[1].BettingDetails.SelectedEventName;
+            addPickRequestInfo.eventId = StepsDataList[1].BettingDetails.SelectedGame.EventID;
+            addPickRequestInfo.eventDate = StepsDataList[1].BettingDetails.SelectedGame.GameDateTime;
+            addPickRequestInfo.htName = StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamName;
+            addPickRequestInfo.htAbbr = StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamNameShort;
+            addPickRequestInfo.htLogo = (string.IsNullOrEmpty(StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.Tlogo)) ? "No Image" : StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.Tlogo;
+            addPickRequestInfo.atName = StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamName;
+            addPickRequestInfo.atAbbr = StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamNameShort;
+            addPickRequestInfo.atLogo = (string.IsNullOrEmpty(StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.Tlogo)) ? "No Image" : StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.Tlogo;
+            addPickRequestInfo.pickFee = StepsDataList[1].BettingDetails.PickPrice;
+            addPickRequestInfo.betType = StepsDataList[1].SelectedTabIndex;
+            addPickRequestInfo.wagerUnit = WageringUnitValue;
+            addPickRequestInfo.isContent = HideCaption;
+            addPickRequestInfo.htHomeColorCode = StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamColor;
+            addPickRequestInfo.htAwayColorCode = StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamSecondaryColor;
 
-                addPickRequestInfo.atHomeColorCode = StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamColor;
-                addPickRequestInfo.atAwayColorCode = StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamSecondaryColor;
+            addPickRequestInfo.atHomeColorCode = StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamColor;
+            addPickRequestInfo.atAwayColorCode = StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamSecondaryColor;
             if (StepsDataList[1].SelectedTabIndex == 1)
+            {
+                if (StepsDataList[1].BettingDetails.MoneyLineSelection == 0)
                 {
-                    if (StepsDataList[1].BettingDetails.MoneyLineSelection == 0)
-                    {
-                        await ShowAlert(AppResources.AppName, AppResources.SelectABet);
-                        IsBusy = false;
-                        return;
-                    }
-
-                    addPickRequestInfo.teamIdToWin = (StepsDataList[1].BettingDetails.MoneyLineSelection == 1) ? StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamId : StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamId;
-                    addPickRequestInfo.tNameToWin = (StepsDataList[1].BettingDetails.MoneyLineSelection == 1) ? StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamName : StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamName;
-
-                    addPickRequestInfo.hMoScore = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.MoneylineDisply);
-                    addPickRequestInfo.aMoScore = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.MoneylineDisply);
-                    addPickRequestInfo.hSpScore = 0;
-                    addPickRequestInfo.aSpScore = 0;
-                    addPickRequestInfo.oScore = 0;
-                    addPickRequestInfo.uScore = 0;
-
-                    addPickRequestInfo.hPtSpMoney = 0;
-                    addPickRequestInfo.aPtSpMoney = 0;
-                    addPickRequestInfo.tlOvMoney = 0;
-                    addPickRequestInfo.tlUnMoney = 0;
-
-                    addPickRequestInfo.tTypeToWin = (StepsDataList[1].BettingDetails.MoneyLineSelection == 1) ? 2 : 1;
-
-                }
-                else if (StepsDataList[1].SelectedTabIndex == 2)
-                {
-                    if (StepsDataList[1].BettingDetails.SpreadSelection == 0)
-                    {
-                        await ShowAlert(AppResources.AppName, AppResources.SelectABet);
-                        IsBusy = false;
-                        return;
-                    }
-                    addPickRequestInfo.teamIdToWin = (StepsDataList[1].BettingDetails.SpreadSelection == 1) ? StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamId : StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamId;
-                    addPickRequestInfo.tNameToWin = (StepsDataList[1].BettingDetails.SpreadSelection == 1) ? StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamName : StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamName;
-
-                    addPickRequestInfo.hMoScore = 0;
-                    addPickRequestInfo.aMoScore = 0;
-                    addPickRequestInfo.hSpScore = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.Spread);
-                    addPickRequestInfo.aSpScore = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.Spread);
-                    addPickRequestInfo.oScore = 0;
-                    addPickRequestInfo.uScore = 0;
-
-                    addPickRequestInfo.hPtSpMoney = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.SpMoney);
-                    addPickRequestInfo.aPtSpMoney = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.SpMoney);
-                    addPickRequestInfo.tlOvMoney = 0;
-                    addPickRequestInfo.tlUnMoney = 0;
-
-                    addPickRequestInfo.tTypeToWin = (StepsDataList[1].BettingDetails.SpreadSelection == 1) ? 2 : 1;
-                }
-                else if (StepsDataList[1].SelectedTabIndex == 3)
-                {
-                    if (StepsDataList[1].BettingDetails.OverUnderSelection == 0)
-                    {
-                        await ShowAlert(AppResources.AppName, AppResources.SelectABet);
-                        IsBusy = false;
-                        return;
-                    }
-                    addPickRequestInfo.teamIdToWin = (StepsDataList[1].BettingDetails.OverUnderSelection == 1) ? StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamId : StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamId;
-                    addPickRequestInfo.tNameToWin = (StepsDataList[1].BettingDetails.OverUnderSelection == 1) ? StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamName : StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamName;
-
-                    addPickRequestInfo.hMoScore = 0;
-                    addPickRequestInfo.aMoScore = 0;
-                    addPickRequestInfo.hSpScore = 0;
-                    addPickRequestInfo.aSpScore = 0;
-                    addPickRequestInfo.oScore = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.OverScore);
-                    addPickRequestInfo.uScore = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.UnderScore);
-
-                    addPickRequestInfo.hPtSpMoney = 0;
-                    addPickRequestInfo.aPtSpMoney = 0;
-                    addPickRequestInfo.tlOvMoney = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.OvMoney);
-                    addPickRequestInfo.tlUnMoney = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.UnMoney);
-
-                    addPickRequestInfo.tTypeToWin = (StepsDataList[1].BettingDetails.OverUnderSelection == 1) ? 2 : 1;
-                }
-
-                if (Media?.Count > 0)
-                {
-                    IsBusy = true;
-                    ProgressPercentageDisplay = "0%";
-                    if (await UploadImages())
-                    {
-                        var imagesArray = Media.Where(x => x.Type == MediaFileType.Image).ToList();
-                        var videosArray = Media.Where(x => x.Type == MediaFileType.Video).ToList();
-
-                        if (imagesArray.Count > 0)
-                        {
-                            foreach (var imgItem in imagesArray)
-                            {
-                                ImageData imgData = new ImageData();
-                                imgData.fileUrl = imgItem.UploadedName;
-                                imgData.fileText = string.Empty;
-                                addPickRequestInfo.imageUrl.Add(imgData);
-                            }
-                        }
-                        if (videosArray.Count > 0)
-                        {
-                            foreach (var vidItem in videosArray)
-                            {
-                                VideoData vidData = new VideoData();
-                                vidData.fileUrl = vidItem.UploadedName;
-                                vidData.fileText = string.Empty;
-                                addPickRequestInfo.videoUrl.Add(vidData);
-                            }
-                        }
-                        // Call final Post Webservice from here
-                        var Response = await TailDataServiceProvider.Instance.AddPick(addPickRequestInfo);
-                        if (Response.ErrorCode != 200)
-                            await ShowAlert(AppResources.AppName, Response.Message);
-                        else
-                        {
-                            CommonSingletonUtility.SharedInstance.IsNewPostAdded = true;
-                            Handle_BackCommand();
-
-                        }
-
-                        IsBusy = false;
-                    }
-                    else
-                    {
-                        IsBusy = false;
-
-                        // Show error message here 
-                        await ShowAlert(AppResources.AppName, AppResources.UploadFailedText);
-                        foreach (MediaFile image in Media)
-                        {
-                            image.IsUploading = false;
-                        }
-                    }
-                }
-                else
-                {
-                    IsNormalIndicator = true;
-                    var Response = await TailDataServiceProvider.Instance.AddPick(addPickRequestInfo);
+                    await ShowAlert(AppResources.AppName, AppResources.SelectABet);
                     IsBusy = false;
-                    IsNormalIndicator = false;
+                    return;
+                }
+
+                addPickRequestInfo.teamIdToWin = (StepsDataList[1].BettingDetails.MoneyLineSelection == 1) ? StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamId : StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamId;
+                addPickRequestInfo.tNameToWin = (StepsDataList[1].BettingDetails.MoneyLineSelection == 1) ? StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamName : StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamName;
+
+                addPickRequestInfo.hMoScore = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.MoneylineDisply);
+                addPickRequestInfo.aMoScore = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.MoneylineDisply);
+                addPickRequestInfo.hSpScore = 0;
+                addPickRequestInfo.aSpScore = 0;
+                addPickRequestInfo.oScore = 0;
+                addPickRequestInfo.uScore = 0;
+
+                addPickRequestInfo.hPtSpMoney = 0;
+                addPickRequestInfo.aPtSpMoney = 0;
+                addPickRequestInfo.tlOvMoney = 0;
+                addPickRequestInfo.tlUnMoney = 0;
+
+                addPickRequestInfo.tTypeToWin = (StepsDataList[1].BettingDetails.MoneyLineSelection == 1) ? 2 : 1;
+
+            }
+            else if (StepsDataList[1].SelectedTabIndex == 2)
+            {
+                if (StepsDataList[1].BettingDetails.SpreadSelection == 0)
+                {
+                    await ShowAlert(AppResources.AppName, AppResources.SelectABet);
+                    IsBusy = false;
+                    return;
+                }
+                addPickRequestInfo.teamIdToWin = (StepsDataList[1].BettingDetails.SpreadSelection == 1) ? StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamId : StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamId;
+                addPickRequestInfo.tNameToWin = (StepsDataList[1].BettingDetails.SpreadSelection == 1) ? StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamName : StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamName;
+
+                addPickRequestInfo.hMoScore = 0;
+                addPickRequestInfo.aMoScore = 0;
+                addPickRequestInfo.hSpScore = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.Spread);
+                addPickRequestInfo.aSpScore = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.Spread);
+                addPickRequestInfo.oScore = 0;
+                addPickRequestInfo.uScore = 0;
+
+                addPickRequestInfo.hPtSpMoney = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.SpMoney);
+                addPickRequestInfo.aPtSpMoney = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.SpMoney);
+                addPickRequestInfo.tlOvMoney = 0;
+                addPickRequestInfo.tlUnMoney = 0;
+
+                addPickRequestInfo.tTypeToWin = (StepsDataList[1].BettingDetails.SpreadSelection == 1) ? 2 : 1;
+            }
+            else if (StepsDataList[1].SelectedTabIndex == 3)
+            {
+                if (StepsDataList[1].BettingDetails.OverUnderSelection == 0)
+                {
+                    await ShowAlert(AppResources.AppName, AppResources.SelectABet);
+                    IsBusy = false;
+                    return;
+                }
+                addPickRequestInfo.teamIdToWin = (StepsDataList[1].BettingDetails.OverUnderSelection == 1) ? StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamId : StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamId;
+                addPickRequestInfo.tNameToWin = (StepsDataList[1].BettingDetails.OverUnderSelection == 1) ? StepsDataList[1].BettingDetails.SelectedGame.HomeTeamDetails.TeamName : StepsDataList[1].BettingDetails.SelectedGame.AwayTeamDetails.TeamName;
+
+                addPickRequestInfo.hMoScore = 0;
+                addPickRequestInfo.aMoScore = 0;
+                addPickRequestInfo.hSpScore = 0;
+                addPickRequestInfo.aSpScore = 0;
+                addPickRequestInfo.oScore = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.OverScore);
+                addPickRequestInfo.uScore = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.UnderScore);
+
+                addPickRequestInfo.hPtSpMoney = 0;
+                addPickRequestInfo.aPtSpMoney = 0;
+                addPickRequestInfo.tlOvMoney = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.OvMoney);
+                addPickRequestInfo.tlUnMoney = Convert.ToDouble(StepsDataList[1].BettingDetails.SelectedGame.UnMoney);
+
+                addPickRequestInfo.tTypeToWin = (StepsDataList[1].BettingDetails.OverUnderSelection == 1) ? 2 : 1;
+            }
+
+            if (Media?.Count > 0)
+            {
+                IsBusy = true;
+                ProgressPercentageDisplay = "0%";
+                if (await UploadImages())
+                {
+                    var imagesArray = Media.Where(x => x.Type == MediaFileType.Image).ToList();
+                    var videosArray = Media.Where(x => x.Type == MediaFileType.Video).ToList();
+
+                    if (imagesArray.Count > 0)
+                    {
+                        foreach (var imgItem in imagesArray)
+                        {
+                            ImageData imgData = new ImageData();
+                            imgData.fileUrl = imgItem.UploadedName;
+                            imgData.fileText = string.Empty;
+                            addPickRequestInfo.imageUrl.Add(imgData);
+                        }
+                    }
+                    if (videosArray.Count > 0)
+                    {
+                        foreach (var vidItem in videosArray)
+                        {
+                            VideoData vidData = new VideoData();
+                            vidData.fileUrl = vidItem.UploadedName;
+                            vidData.fileText = string.Empty;
+                            addPickRequestInfo.videoUrl.Add(vidData);
+                        }
+                    }
+                    // Call final Post Webservice from here
+                    var Response = await TailDataServiceProvider.Instance.AddPick(addPickRequestInfo);
                     if (Response.ErrorCode != 200)
                         await ShowAlert(AppResources.AppName, Response.Message);
                     else
@@ -1220,10 +1192,39 @@ namespace Tail.ViewModels
 
                     }
 
+                    IsBusy = false;
+                }
+                else
+                {
+                    IsBusy = false;
 
+                    // Show error message here 
+                    await ShowAlert(AppResources.AppName, AppResources.UploadFailedText);
+                    foreach (MediaFile image in Media)
+                    {
+                        image.IsUploading = false;
+                    }
+                }
+            }
+            else
+            {
+                IsNormalIndicator = true;
+                var Response = await TailDataServiceProvider.Instance.AddPick(addPickRequestInfo);
+                IsBusy = false;
+                IsNormalIndicator = false;
+                if (Response.ErrorCode != 200)
+                    await ShowAlert(AppResources.AppName, Response.Message);
+                else
+                {
+                    CommonSingletonUtility.SharedInstance.IsNewPostAdded = true;
+                    Handle_BackCommand();
 
                 }
-                IsBusy = false;
+
+
+
+            }
+            IsBusy = false;
         }
         void InitUpload()
         {
@@ -1236,7 +1237,7 @@ namespace Tail.ViewModels
         async Task<bool> UploadImages()
         {
             int numberOfBatch = Constants.IMAGE_UPLOAD_BATCH_COUNT;
-           
+
             int numberOfItemsInBatch = Media.Count / numberOfBatch;
             List<Task<bool>> uploadTasks = new List<Task<bool>>();
 
@@ -1321,7 +1322,7 @@ namespace Tail.ViewModels
                     if (await DependencyService.Get<IAwsBucketService>().UploadImageFromFileToAmazonBucketAsync(_orginalImageName, _thumbImageName, images[i].Path, Constants.S3BucketForPostImage, false))
                     {
                         images[i].UploadedName = _orginalImageName;
-                        
+
                     }
                     else
                         batchStatus = false;
@@ -1342,7 +1343,7 @@ namespace Tail.ViewModels
                         if (await DependencyService.Get<IAwsBucketService>().UploadLargeSizeVideoFromFileToAmazonBucketAsync(_orginalVideoName, _thumbImageName, images[i].Path, images[i].PreviewPath, Constants.S3BucketForPostVideo))
                         {
                             images[i].UploadedName = _orginalVideoName;
-                           
+
 
                         }
                         else
@@ -1353,7 +1354,7 @@ namespace Tail.ViewModels
                         if (await DependencyService.Get<IAwsBucketService>().UploadVideoFromFileToAmazonBucketAsync(_orginalVideoName, _thumbImageName, images[i].Path, images[i].PreviewPath, Constants.S3BucketForPostVideo))
                         {
                             images[i].UploadedName = _orginalVideoName;
-                           
+
 
                         }
                         else
@@ -1368,7 +1369,7 @@ namespace Tail.ViewModels
                 }
 
             }
-          
+
 
             return batchStatus;
         }
@@ -1393,7 +1394,7 @@ namespace Tail.ViewModels
                     if (await DependencyService.Get<IAwsBucketService>().UploadImageFromFileToAmazonBucketAsync(_orginalImageName, _thumbImageName, images[i].Path, Constants.S3BucketForPostImage, false))
                     {
                         images[i].UploadedName = _orginalImageName;
-                      
+
                     }
                     else
                         batchStatus = false;
@@ -1414,7 +1415,7 @@ namespace Tail.ViewModels
                         if (await DependencyService.Get<IAwsBucketService>().UploadLargeSizeVideoFromFileToAmazonBucketAsync(_orginalVideoName, _thumbImageName, images[i].Path, images[i].PreviewPath, Constants.S3BucketForPostVideo))
                         {
                             images[i].UploadedName = _orginalVideoName;
-                        
+
 
                         }
                         else
@@ -1425,7 +1426,7 @@ namespace Tail.ViewModels
                         if (await DependencyService.Get<IAwsBucketService>().UploadVideoFromFileToAmazonBucketAsync(_orginalVideoName, _thumbImageName, images[i].Path, images[i].PreviewPath, Constants.S3BucketForPostVideo))
                         {
                             images[i].UploadedName = _orginalVideoName;
-                          
+
 
                         }
                         else
@@ -1440,7 +1441,7 @@ namespace Tail.ViewModels
                 }
 
             }
-           
+
 
             return batchStatus;
         }
@@ -1465,7 +1466,7 @@ namespace Tail.ViewModels
                     if (await DependencyService.Get<IAwsBucketService>().UploadImageFromFileToAmazonBucketAsync(_orginalImageName, _thumbImageName, images[i].Path, Constants.S3BucketForPostImage, false))
                     {
                         images[i].UploadedName = _orginalImageName;
-                      
+
                     }
                     else
                         batchStatus = false;
@@ -1486,7 +1487,7 @@ namespace Tail.ViewModels
                         if (await DependencyService.Get<IAwsBucketService>().UploadLargeSizeVideoFromFileToAmazonBucketAsync(_orginalVideoName, _thumbImageName, images[i].Path, images[i].PreviewPath, Constants.S3BucketForPostVideo))
                         {
                             images[i].UploadedName = _orginalVideoName;
-                           
+
 
                         }
                         else
@@ -1497,7 +1498,7 @@ namespace Tail.ViewModels
                         if (await DependencyService.Get<IAwsBucketService>().UploadVideoFromFileToAmazonBucketAsync(_orginalVideoName, _thumbImageName, images[i].Path, images[i].PreviewPath, Constants.S3BucketForPostVideo))
                         {
                             images[i].UploadedName = _orginalVideoName;
-                          
+
                         }
                         else
                             batchStatus = false;
@@ -1511,12 +1512,12 @@ namespace Tail.ViewModels
                 }
 
             }
-           
+
 
             return batchStatus;
         }
 
-     
+
 
         async Task<bool> UploadImageOne(MediaFile image)
         {
@@ -1631,6 +1632,42 @@ namespace Tail.ViewModels
             Debug.WriteLine("Game Popup Close");
         }
 
+        void resetNewbetOptions(List<NewPickerItem> betOptions, GameInfo selectedGame)
+        {
+            if (selectedGame == null) return;
+
+
+
+            if (selectedGame.OvMoney == null && selectedGame.UnMoney == null)
+            {
+                betOptions.RemoveAll(g => g.ItemName.Equals("Over/Under"));
+            }
+            else
+            {
+                if (betOptions.Find(i => i.ItemName.Equals("Over/Under")) == null)
+                    betOptions.Add(new NewPickerItem() { IsSelected = false, ItemName = "Over/Under" });
+            }
+            if (selectedGame.HomeTeamDetails.SpMoney == null && selectedGame.AwayTeamDetails.SpMoney == null)
+            {
+                betOptions.RemoveAll(g => g.ItemName.Equals("Spread"));
+            }
+            else
+            {
+                if (betOptions.Find(i => i.ItemName.Equals("Spread")) == null)
+                    betOptions.Add(new NewPickerItem() { IsSelected = false, ItemName = "Spread" });
+            }
+
+            if (selectedGame.HomeTeamDetails.Moneyline == null && selectedGame.HomeTeamDetails.Moneyline == null)
+            {
+                betOptions.RemoveAll(g => g.ItemName.Equals("Moneyline"));
+            }
+            else
+            {
+                if (betOptions.Find(i => i.ItemName.Equals("Moneyline")) == null)
+                    betOptions.Add(new NewPickerItem() { IsSelected = false, ItemName = "Moneyline" });
+            }
+
+        }
         ///<summary>
         ///Override back button to correct tab navigation.
         ///</summary>
