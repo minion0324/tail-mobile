@@ -1,10 +1,7 @@
-﻿
-namespace Tail.Common
+﻿namespace Tail.Common
 {
     public static class Constants
     {
-
-
         public const string BaseUrl = "{Enter Base Url here}";
         public const string S3Path = "{Enter S3 Url here}";
         public const string S3BucketForProfileImage = "{Enter S3 Bucket Path For ProfileImage here}";
@@ -13,10 +10,8 @@ namespace Tail.Common
         public const string AWSCredential = "{Enter AWS Pool ID here}";
         public const string ApiKey = "{Enter API Key here}";
         public const string ApiKeyValue = "{Enter API key Value here}";
-
-
         public const string BaseIpAddress = BaseUrl;
-        public const string FAQ_URL = BaseUrl+ "/web/faq";
+        public const string FAQ_URL = BaseUrl + "/web/faq";
         public const string TERMS_AND_CONDITION_URL = BaseUrl + "/web/termsCondition";
         public const string ABOUT_US_URL = BaseUrl + "/web/aboutUs";
         public const string TEAM_LOGO_PATH = S3Path;
@@ -64,6 +59,6 @@ namespace Tail.Common
         public const string NotificationMessage = "NotificationMessage";
         public const string AppstoreLink = "https://itunes.apple.com/in/app/id1534173808";
         public const string PlayStoreLink = "https://play.google.com/store/apps/details?id=com.tailnetwork.tailapp";
-        
+
     }
 }
