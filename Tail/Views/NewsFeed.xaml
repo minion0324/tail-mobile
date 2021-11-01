@@ -7,7 +7,8 @@
     xmlns:controls="clr-namespace:Tail.Controls"
     xmlns:models="clr-namespace:Tail.Models"
     xmlns:template="clr-namespace:Tail.Views.Templates"
-    xmlns:views="clr-namespace:Tail.Views">
+    xmlns:views="clr-namespace:Tail.Views"
+    x:Name="NewsFeedPage">
     <views:AppPageBase.Resources>
         <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -63,9 +64,11 @@
                                 HorizontalScrollBarVisibility="Never"
                                 IndicatorView="indicatorView"
                                 ItemsSource="{Binding TodayNews}"
-                                Loop="False">
+                                Loop="False"
+                                PositionChangedCommand="{Binding PositionChangedCommand}"
+                                PositionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=Position}">
                                 <CarouselView.ItemTemplate>
-                                    <DataTemplate>
+                                    <DataTemplate x:DataType="models:Data">
                                         <Grid
                                             Margin="20"
                                             ColumnDefinitions="*,*,*,*,*"
@@ -73,20 +76,25 @@
                                             <Label
                                                 Grid.ColumnSpan="5"
                                                 HorizontalOptions="Center"
-                                                Text="some sport headline" />
-                                            <BoxView
+                                                MaxLines="1"
+                                                Text="{Binding Title}" />
+                                            <Image
                                                 Grid.Row="1"
                                                 Grid.Column="1"
                                                 Grid.ColumnSpan="3"
                                                 HorizontalOptions="Fill"
-                                                Color="Gray" />
+                                                Source="{Binding Image}" />
                                             <Label
                                                 Grid.Row="2"
                                                 Grid.Column="1"
                                                 Grid.ColumnSpan="3"
                                                 HorizontalOptions="Center"
+                                                MaxLines="3"
                                                 Style="{x:StaticResource BlackLabelBold13}"
-                                                Text="orem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat augue aliquet lectus congue euismod at ac lacus." />
+                                                Text="{Binding Description}" />
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference NewsFeedPage}, Path=BindingContext.SelectedCommand}" CommandParameter="{Binding .}" />
+                                            </Grid.GestureRecognizers>
                                         </Grid>
                                     </DataTemplate>
                                 </CarouselView.ItemTemplate>
@@ -107,11 +115,11 @@
                     Grid.Row="1"
                     Margin="10"
                     ItemSizingStrategy="MeasureFirstItem"
-                    ItemsSource="{Binding TodayNews}"
+                    ItemsSource="{Binding DayBeforeNews}"
                     RemainingItemsThreshold="0"
                     RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}"
-                    SelectedItem="{Binding SelectedItem}"
                     SelectionChangedCommand="{Binding SelectedCommand}"
+                    SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem}"
                     SelectionMode="Single">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout
