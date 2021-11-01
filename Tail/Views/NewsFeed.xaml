@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<views:AppPageBase
+    x:Class="Tail.Views.NewsFeed"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Common="clr-namespace:Tail.Common"
+    xmlns:controls="clr-namespace:Tail.Controls"
+    xmlns:models="clr-namespace:Tail.Models"
+    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:views="clr-namespace:Tail.Views">
+    <views:AppPageBase.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Transparent" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </views:AppPageBase.Resources>
+    <ContentPage.Content>
+        <Grid
+            x:Name="Maingrid"
+            BackgroundColor="#F1F1F1"
+            ColumnSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <template:HeaderView
+                Grid.Row="0"
+                NotificationCommand="{Binding NotificationCommand}"
+                NotificationVisible="True"
+                WalletCommand="{Binding WalletCommand}"
+                WalletVisible="True" />
+            <Grid
+                Grid.Row="1"
+                RowDefinitions="*,*"
+                RowSpacing="10">
+                <Grid RowDefinitions="auto,*">
+                    <Label
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource BlackLabelRegular17}"
+                        Text="Tail News" />
+
+                    <Frame
+                        Grid.Row="1"
+                        Margin="30,0,30,0"
+                        BackgroundColor="#fdfdfd "
+                        HasShadow="False">
+                        <StackLayout>
+                            <CarouselView
+                                BackgroundColor="#fdfdfd "
+                                HorizontalScrollBarVisibility="Never"
+                                IndicatorView="indicatorView"
+                                ItemsSource="{Binding TodayNews}"
+                                Loop="False">
+                                <CarouselView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid
+                                            Margin="20"
+                                            ColumnDefinitions="*,*,*,*,*"
+                                            RowDefinitions="auto,*,*">
+                                            <Label
+                                                Grid.ColumnSpan="5"
+                                                HorizontalOptions="Center"
+                                                Text="some sport headline" />
+                                            <BoxView
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="3"
+                                                HorizontalOptions="Fill"
+                                                Color="Gray" />
+                                            <Label
+                                                Grid.Row="2"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="3"
+                                                HorizontalOptions="Center"
+                                                Style="{x:StaticResource BlackLabelBold13}"
+                                                Text="orem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas feugiat augue aliquet lectus congue euismod at ac lacus." />
+                                        </Grid>
+                                    </DataTemplate>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
+
+                            <IndicatorView
+                                x:Name="indicatorView"
+                                HorizontalOptions="Center"
+                                IndicatorColor="LightGray"
+                                IndicatorSize="10"
+                                IndicatorsShape="Circle"
+                                SelectedIndicatorColor="DarkGray" />
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+
+                <CollectionView
+                    Grid.Row="1"
+                    Margin="10"
+                    ItemSizingStrategy="MeasureFirstItem"
+                    ItemsSource="{Binding TodayNews}"
+                    RemainingItemsThreshold="0"
+                    RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}"
+                    SelectedItem="{Binding SelectedItem}"
+                    SelectionChangedCommand="{Binding SelectedCommand}"
+                    SelectionMode="Single">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            HorizontalItemSpacing="20"
+                            Orientation="Vertical"
+                            Span="2"
+                            VerticalItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Data">
+                            <Grid
+                                Margin="10,5"
+                                BackgroundColor="White"
+                                ColumnDefinitions="15,*,auto,auto,15"
+                                RowDefinitions="20,30,50,50,20">
+                                <Label
+                                    Grid.ColumnSpan="5"
+                                    BackgroundColor="#dab9fc"
+                                    HorizontalOptions="FillAndExpand"
+                                    Style="{x:StaticResource BlackLabelBold13}"
+                                    Text="1 day ago"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    MaxLines="1"
+                                    Style="{x:StaticResource BlackLabelBold13}"
+                                    Text="{Binding Title}" />
+                                <Image
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="3"
+                                    Aspect="AspectFit"
+                                    Source="{Binding Image}" />
+                                <Label
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="3"
+                                    MaxLines="3"
+                                    Style="{x:StaticResource BlackLabelBold13}"
+                                    Text="{Binding Description}" />
+                                <Label
+                                    Grid.Row="4"
+                                    Grid.ColumnSpan="5"
+                                    Padding="10"
+                                    HorizontalOptions="EndAndExpand"
+                                    MaxLines="1"
+                                    Style="{x:StaticResource BlackLabelBold13}"
+                                    Text="{Binding Author}" />
+                            </Grid>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+            </Grid>
+            <ActivityIndicator
+                HorizontalOptions="Center"
+                IsRunning="{Binding IsInitialLoading}"
+                IsVisible="{Binding IsInitialLoading}"
+                VerticalOptions="Center"
+                Color="#E5B59D" />
+
+            <template:ProgressView
+                Grid.RowSpan="2"
+                HorizontalOptions="Fill"
+                IsRunning="{Binding IsInitialLoading}"
+                IsVisible="{Binding IsInitialLoading}"
+                VerticalOptions="Fill" />
+
+        </Grid>
+    </ContentPage.Content>
+</views:AppPageBase>

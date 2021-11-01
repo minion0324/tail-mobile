@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <controls:CustomTab
     x:Class="Tail.Views.Home"
-    x:Name="MainTabControl"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
     xmlns:controls="clr-namespace:Tail.Controls"
     xmlns:local="clr-namespace:Tail.Views"
+    x:Name="MainTabControl"
     android:TabbedPage.IsSwipePagingEnabled="false"
+    android:TabbedPage.OffscreenPageLimit="5"
     android:TabbedPage.ToolbarPlacement="Bottom"
     BarBackgroundColor="#26173B"
-    android:TabbedPage.OffscreenPageLimit="5"
     CurrentPageChanged="CustomTab_CurrentPageChanged"
     NavigationPage.HasNavigationBar="False">
 
     <NavigationPage x:Name="TabHome" IconImageSource="home">
         <x:Arguments>
-            <local:Home_Feeds />
+            <local:NewsFeed />
         </x:Arguments>
     </NavigationPage>
     <NavigationPage x:Name="TabSearch" IconImageSource="search">

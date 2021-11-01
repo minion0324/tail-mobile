@@ -1,96 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>portable</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
-    <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
-    <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
-    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
-    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
-    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.11" />
-    <PackageReference Include="Plugin.Permissions" Version="6.0.1" />
-    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
-    <PackageReference Include="Xam.Plugin.HtmlLabel" Version="5.0.0" />
-    <PackageReference Include="XamarinFastEntry.Behaviors" Version="1.1.1" />
-    <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="AWSSDK.SecurityToken" Version="3.5.1.19" />
-    <PackageReference Include="AWSSDK.S3" Version="3.5.4.3" />
-    <PackageReference Include="AWSSDK.Core" Version="3.5.1.39" />
-    <PackageReference Include="AWSSDK.CognitoIdentity" Version="3.5.0.39" />
-    <PackageReference Include="libphonenumber-csharp" Version="8.12.21" />
-    <PackageReference Include="Xam.Plugins.Forms.ProgressRing" Version="0.1.2" />
-    <PackageReference Include="Plugin.InAppBilling" Version="4.0.2" />
-    <PackageReference Include="PCLCrypto" Version="2.0.147" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.20.0.28934">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Behaviors\" />
-    <Folder Include="Common\" />
-    <Folder Include="Controls\" />
-    <Folder Include="Converters\" />
-    <Folder Include="Models\" />
-    <Folder Include="Services\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
-    <Folder Include="Services\ApplicationServices\" />
-    <Folder Include="Services\Helper\" />
-    <Folder Include="Services\Interfaces\" />
-    <Folder Include="Services\LocalStorage\" />
-    <Folder Include="Services\MockServices\" />
-    <Folder Include="Services\OnlineServices\" />
-    <Folder Include="Services\Responses\" />
-    <Folder Include="Services\ServiceProviders\" />
-    <Folder Include="Services\LocalStorage\Helpers\" />
-    <Folder Include="Services\MockServices\Helpers\" />
-    <Folder Include="Views\Templates\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="Controls\CustomVideoPlayer\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Remove="Controls\Home_Feeds.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Common\AppResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Controls\Home_Feeds.xaml.cs" />
-    <Compile Remove="Views\Templates\AppResources.Designer.cs" />
-    <Compile Remove="Controls\CustomTabView.xaml.cs" />
-    <Compile Remove="Views\TabViews\ParchaseView.xaml.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Home_Feeds.xaml.cs">
-      <DependentUpon>..\Controls\Home_Feeds.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Templates\UserDetailsHeader.xaml.cs">
-      <DependentUpon>..\UserDetailsHeader.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\OTPVerification.xaml.cs">
-      <DependentUpon>OTPVerification.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Common\AppResources.Designer.cs">
-      <DependentUpon>AppResources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+		<NoWarn>NU1701</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DebugType>portable</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
+		<PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
+		<PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+		<PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
+		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.11" />
+		<PackageReference Include="Plugin.Permissions" Version="6.0.1" />
+		<PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
+		<PackageReference Include="Xam.Plugin.HtmlLabel" Version="5.0.0" />
+		<PackageReference Include="XamarinFastEntry.Behaviors" Version="1.1.1" />
+		<PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="AWSSDK.SecurityToken" Version="3.5.1.19" />
+		<PackageReference Include="AWSSDK.S3" Version="3.5.4.3" />
+		<PackageReference Include="AWSSDK.Core" Version="3.5.1.39" />
+		<PackageReference Include="AWSSDK.CognitoIdentity" Version="3.5.0.39" />
+		<PackageReference Include="libphonenumber-csharp" Version="8.12.21" />
+		<PackageReference Include="Plugin.InAppBilling" Version="4.0.2" />
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.20.0.28934">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+		<PackageReference Include="Xam.Plugins.Forms.ProgressRing" Version="0.1.2" />
+		<PackageReference Include="PCLCrypto" Version="2.0.147" />
+		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+		<PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Behaviors\" />
+		<Folder Include="Common\" />
+		<Folder Include="Controls\" />
+		<Folder Include="Converters\" />
+		<Folder Include="Models\" />
+		<Folder Include="Services\" />
+		<Folder Include="ViewModels\" />
+		<Folder Include="Views\" />
+		<Folder Include="Services\ApplicationServices\" />
+		<Folder Include="Services\Helper\" />
+		<Folder Include="Services\Interfaces\" />
+		<Folder Include="Services\LocalStorage\" />
+		<Folder Include="Services\MockServices\" />
+		<Folder Include="Services\OnlineServices\" />
+		<Folder Include="Services\Responses\" />
+		<Folder Include="Services\ServiceProviders\" />
+		<Folder Include="Services\LocalStorage\Helpers\" />
+		<Folder Include="Services\MockServices\Helpers\" />
+		<Folder Include="Views\Templates\" />
+		<Folder Include="Helpers\" />
+		<Folder Include="Controls\CustomVideoPlayer\" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Remove="Controls\Home_Feeds.xaml" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Common\AppResources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Controls\Home_Feeds.xaml.cs" />
+		<Compile Remove="Views\Templates\AppResources.Designer.cs" />
+		<Compile Remove="Controls\CustomTabView.xaml.cs" />
+		<Compile Remove="Views\TabViews\ParchaseView.xaml.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Home_Feeds.xaml.cs">
+			<DependentUpon>..\Controls\Home_Feeds.xaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Templates\UserDetailsHeader.xaml.cs">
+			<DependentUpon>..\UserDetailsHeader.xaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\OTPVerification.xaml.cs">
+			<DependentUpon>OTPVerification.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Common\AppResources.Designer.cs">
+			<DependentUpon>AppResources.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="Xam.Plugins.Forms.ProgressRing" />
+		<None Remove="PCLCrypto" />
+		<None Remove="Microsoft.AspNet.WebApi.Client" />
+		<None Remove="Xamarin.CommunityToolkit" />
+	</ItemGroup>
 </Project>
