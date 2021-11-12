@@ -16,12 +16,12 @@
 
     <NavigationPage x:Name="TabHome" IconImageSource="home">
         <x:Arguments>
-            <local:NewsFeed />
+            <local:Home_Feeds />
         </x:Arguments>
     </NavigationPage>
     <NavigationPage x:Name="TabSearch" IconImageSource="search">
         <x:Arguments>
-            <local:Search />
+            <local:NewsFeed />
         </x:Arguments>
     </NavigationPage>
     <NavigationPage x:Name="TabCreatePost" IconImageSource="create_post">
