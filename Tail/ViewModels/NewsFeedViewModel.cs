@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http;
@@ -78,7 +78,7 @@ namespace Tail.ViewModels
         private async Task LoadMore()
         {
             dayBeforeOffset += 1;
-            var response = await GetMediaStack(dayBeforeOffset, limit, DateTimeOffset.Now);
+            var response = await GetMediaStack(dayBeforeOffset, limit, DateTimeOffset.Now.AddDays(-1));
             DayBeforeNews.AddRange(response.ListData);
         }
         async Task<MediaStackResponse> GetMediaStack(int offset, int limit, DateTimeOffset dateTimeOffset)
@@ -89,7 +89,8 @@ namespace Tail.ViewModels
             {
                 try
                 {
-                    return await res.Content.ReadAsAsync<MediaStackResponse>();
+                    var response =  await res.Content.ReadAsAsync<MediaStackResponse>();
+                    return response;
                 }
                 catch (Exception e)
                 {

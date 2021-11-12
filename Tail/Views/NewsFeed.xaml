@@ -1,15 +1,14 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <views:AppPageBase
     x:Class="Tail.Views.NewsFeed"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Common="clr-namespace:Tail.Common"
     xmlns:controls="clr-namespace:Tail.Controls"
-    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:models="clr-namespace:Tail.Models"
     xmlns:template="clr-namespace:Tail.Views.Templates"
-    xmlns:views="clr-namespace:Tail.Views"
-    x:Name="NewsFeedPage">
+    xmlns:converter="clr-namespace:Tail.Converters"
+    xmlns:views="clr-namespace:Tail.Views">
     <views:AppPageBase.Resources>
         <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -25,6 +24,7 @@
                 </VisualStateGroupList>
             </Setter>
         </Style>
+        <converter:PublishedDayConverter x:Key="publishedDayConverter"/>
     </views:AppPageBase.Resources>
     <ContentPage.Content>
         <Grid
@@ -46,7 +46,7 @@
                 WalletVisible="True" />
             <Grid
                 Grid.Row="1"
-                RowDefinitions="*,1.5*"
+                RowDefinitions="*,*"
                 RowSpacing="10">
                 <Grid RowDefinitions="auto,*">
                     <Label
@@ -56,7 +56,7 @@
 
                     <Frame
                         Grid.Row="1"
-                        Margin="50,0,50,0"
+                        Margin="30,0,30,0"
                         BackgroundColor="#fdfdfd "
                         HasShadow="False">
                         <StackLayout>
@@ -65,73 +65,36 @@
                                 HorizontalScrollBarVisibility="Never"
                                 IndicatorView="indicatorView"
                                 ItemsSource="{Binding TodayNews}"
-                                Loop="False"
-                                PositionChangedCommand="{Binding PositionChangedCommand}"
-                                PositionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=Position}">
+                                Loop="False">
                                 <CarouselView.ItemTemplate>
-                                    <DataTemplate x:DataType="models:Data">
+                                    <DataTemplate>
                                         <Grid
                                             Margin="20"
                                             ColumnDefinitions="*,*,*,*,*"
-                                            RowDefinitions="auto,auto,*">
+                                            RowDefinitions="auto,*,*">
                                             <Label
-                                                Grid.Column="1"
-                                                Grid.ColumnSpan="3"
+                                                Grid.ColumnSpan="5"
                                                 HorizontalOptions="Center"
-                                                LineBreakMode="TailTruncation"
                                                 Text="{Binding Title}" />
-                                            <FlexLayout
+                                            <!--<BoxView
                                                 Grid.Row="1"
                                                 Grid.Column="1"
                                                 Grid.ColumnSpan="3"
-                                                AlignContent="SpaceEvenly"
-                                                Direction="Column">
-                                                <Image
-                                                    Aspect="AspectFill"
-                                                    IsVisible="{Binding Image, Converter={StaticResource IsNullConverter}}"
-                                                    Source="{Binding Image.AbsolutePath}">
-
-                                                    <Image.Triggers>
-                                                        <DataTrigger
-                                                            Binding="{Binding Image, Converter={StaticResource IsNullConverter}}"
-                                                            TargetType="Image"
-                                                            Value="true">
-
-                                                            <Setter Property="IsVisible" Value="false" />
-                                                        </DataTrigger>
-                                                    </Image.Triggers>
-                                                </Image>
-
-                                                <Label
-                                                    FontSize="10"
-                                                    HorizontalTextAlignment="Center"
-                                                    LineBreakMode="TailTruncation"
-                                                    MaxLines="7"
-                                                    Style="{x:StaticResource BlackLabelBold13}"
-                                                    Text="{Binding Description}"
-                                                    VerticalOptions="FillAndExpand"
-                                                    VerticalTextAlignment="Center">
-                                                    <Label.Triggers>
-                                                        <DataTrigger
-                                                            Binding="{Binding Image, Converter={StaticResource IsNullConverter}}"
-                                                            TargetType="Label"
-                                                            Value="true">
-                                                            <Setter Property="MaxLines" Value="3" />
-                                                        </DataTrigger>
-                                                    </Label.Triggers>
-                                                </Label>
-                                                <FlexLayout.Triggers>
-                                                    <DataTrigger
-                                                        Binding="{Binding Image, Converter={StaticResource IsNullConverter}}"
-                                                        TargetType="FlexLayout"
-                                                        Value="true">
-                                                        <Setter Property="AlignContent" Value="Start" />
-                                                    </DataTrigger>
-                                                </FlexLayout.Triggers>
-                                            </FlexLayout>
-                                            <Grid.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={x:Reference NewsFeedPage}, Path=BindingContext.SelectedCommand}" CommandParameter="{Binding .}" />
-                                            </Grid.GestureRecognizers>
+                                                HorizontalOptions="Fill"
+                                                Color="Gray" />-->
+                                            <Image
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="3"
+                                                Aspect="AspectFit"
+                                                Source="{Binding Image}" />
+                                            <Label
+                                                Grid.Row="2"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="3"
+                                                HorizontalOptions="Center"
+                                                Style="{x:StaticResource BlackLabelBold13}"
+                                                Text="{Binding Description}" LineBreakMode="TailTruncation"/>
                                         </Grid>
                                     </DataTemplate>
                                 </CarouselView.ItemTemplate>
@@ -155,12 +118,12 @@
                     ItemsSource="{Binding DayBeforeNews}"
                     RemainingItemsThreshold="0"
                     RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}"
+                    SelectedItem="{Binding SelectedItem}"
                     SelectionChangedCommand="{Binding SelectedCommand}"
-                    SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem}"
                     SelectionMode="Single">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout
-                            HorizontalItemSpacing="20"
+                            HorizontalItemSpacing="10"
                             Orientation="Vertical"
                             Span="2"
                             VerticalItemSpacing="10" />
@@ -168,83 +131,47 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Data">
                             <Grid
-                                Margin="10,5"
+                                Margin="10,5" HorizontalOptions="Fill"
                                 BackgroundColor="White"
-                                ColumnDefinitions="15,*,*,15"
-                                RowDefinitions="20,20,70,20">
+                                ColumnDefinitions="15,*,auto,auto,15"
+                                RowDefinitions="30,30,50,50,40">
                                 <Label
-                                    Grid.ColumnSpan="4"
-                                    Padding="20,0,0,0"
+                                    Grid.ColumnSpan="5"
+                                    BackgroundColor="#dab9fc"
                                     HorizontalOptions="FillAndExpand"
                                     Style="{x:StaticResource BlackLabelBold13}"
-                                    Text="1 day ago"
-                                    VerticalTextAlignment="Center" />
+                                    Text="{Binding PublishedAt.DateTime, Converter={StaticResource publishedDayConverter}}"
+                                    VerticalTextAlignment="Center" Padding="15,0,0,0"/>
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="3"
-                                    LineBreakMode="TailTruncation"
                                     MaxLines="1"
                                     Style="{x:StaticResource BlackLabelBold13}"
-                                    Text="{Binding Title}"
-                                    VerticalTextAlignment="Center" />
-                                <StackLayout
+                                    Text="{Binding Title}" HorizontalTextAlignment="Center"/>
+                                <Image
                                     Grid.Row="2"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="2"
-                                    VerticalOptions="FillAndExpand">
-                                    <Image
-                                        Aspect="AspectFill"
-                                        HeightRequest="30"
-                                        Source="{Binding Image.AbsolutePath}">
-                                        <Image.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding Image, Converter={StaticResource IsNullConverter}}"
-                                                TargetType="Image"
-                                                Value="true">
-
-                                                <Setter Property="IsVisible" Value="false" />
-                                            </DataTrigger>
-                                        </Image.Triggers>
-                                    </Image>
-                                    <Label
-                                        FontSize="10"
-                                        HorizontalTextAlignment="Center"
-                                        LineBreakMode="TailTruncation"
-                                        MaxLines="7"
-                                        Style="{x:StaticResource BlackLabelBold13}"
-                                        Text="{Binding Description}"
-                                        VerticalOptions="FillAndExpand"
-                                        VerticalTextAlignment="Center">
-                                        <Label.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding Image, Converter={StaticResource IsNullConverter}}"
-                                                TargetType="Label"
-                                                Value="true">
-                                                <Setter Property="MaxLines" Value="3" />
-                                            </DataTrigger>
-                                        </Label.Triggers>
-                                    </Label>
-
-                                </StackLayout>
+                                    Grid.ColumnSpan="3"
+                                    Aspect="AspectFit"
+                                    Source="{Binding Image}" />
                                 <Label
                                     Grid.Row="3"
                                     Grid.Column="1"
-                                    Grid.ColumnSpan="2"
-                                    Margin="0,5,0,0"
-                                    Padding="0,0,5,0"
-                                    FontSize="8"
-                                    HorizontalOptions="End"
-                                    LineBreakMode="TailTruncation"
+                                    Grid.ColumnSpan="3"
+                                    MaxLines="3"
+                                    Style="{x:StaticResource BlackLabelBold13}"
+                                    Text="{Binding Description}" />
+                                <Label
+                                    Grid.Row="4"
+                                    Grid.ColumnSpan="5"
+                                    Padding="10"
+                                    HorizontalOptions="EndAndExpand"
                                     MaxLines="1"
                                     Style="{x:StaticResource BlackLabelBold13}"
-                                    Text="{Binding Source}"
-                                    VerticalTextAlignment="Center" />
+                                    Text="{Binding Source}" />
                             </Grid>
-
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-
                 </CollectionView>
             </Grid>
             <ActivityIndicator
