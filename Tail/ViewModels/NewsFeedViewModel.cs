@@ -20,24 +20,28 @@ namespace Tail.ViewModels
         int limit = 6;
         DateTimeOffset currentDate;
         HttpClient httpclient;
-        public ObservableRangeCollection<Data> _todayNews;
+        private ObservableRangeCollection<Data> _todayNews;
         public ObservableRangeCollection<Data> TodayNews { get { return _todayNews; } set { SetProperty(ref _todayNews, value); } }
-        public ObservableRangeCollection<Data> _dayBeforeNews;
+        private ObservableRangeCollection<Data> _dayBeforeNews;
         public ObservableRangeCollection<Data> DayBeforeNews { get { return _dayBeforeNews; } set { SetProperty(ref _dayBeforeNews, value); } }
-        public bool _isInitialLoading;
+        private bool _isInitialLoading;
         public bool IsInitialLoading { get { return _isInitialLoading; } set { SetProperty(ref _isInitialLoading, value); } }
         public ICommand LoadMoreCommand { get; set; }
         public ICommand PositionChangedCommand { get; set; }
         public ICommand SelectedCommand { get; set; }
+        public ICommand HideTodayPanelCommand { get; set; }
+        public ICommand ExpandCollapseCommand { get; set; }
         public NewsFeedViewModel()
         {
             httpclient = new HttpClient();
             currentDate = DateTimeOffset.Now;
             LoadMoreCommand = new Command(async (list) => await LoadMore());
-            SelectedCommand = new Command<Data>(async (data) => await ExecuteSelectedItem(data));
+            SelectedCommand = new Command<object>(async (data) => await ExecuteSelectedItem(data));
             TodayNews = new ObservableRangeCollection<Data>();
             DayBeforeNews = new ObservableRangeCollection<Data>();
             PositionChangedCommand = new Command<int>(async (position) => await ExecutePositionChanged(position));
+            ExpandCollapseCommand = new Command(() => ExpandCollapeHandler());
+            //HideTodayPanelCommand = new Command(() => )
         }
 
         private async Task ExecutePositionChanged(int position)
@@ -49,13 +53,14 @@ namespace Tail.ViewModels
                 TodayNews.AddRange(response.ListData);
             }
         }
-        private async Task ExecuteSelectedItem(Data data)
+        private async Task ExecuteSelectedItem(object data)
         {
             try
             {
-                await Browser.OpenAsync(data.Url, BrowserLaunchMode.SystemPreferred);
+                await Browser.OpenAsync(((Data)data).Url, BrowserLaunchMode.SystemPreferred);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { 
+            }
         }
         public override async void OnPageAppearing()
         {
@@ -66,7 +71,6 @@ namespace Tail.ViewModels
                 await InitNewsFeed();
                 IsInitialLoading = false;
             }
-
         }
         private async Task InitNewsFeed()
         {
@@ -80,6 +84,12 @@ namespace Tail.ViewModels
             dayBeforeOffset += 1;
             var response = await GetMediaStack(dayBeforeOffset, limit, DateTimeOffset.Now.AddDays(-1));
             DayBeforeNews.AddRange(response.ListData);
+            if (TopPanelVisibility)
+            {
+                TopPanelVisibility = false;
+                TopHeight = new GridLength(0, GridUnitType.Absolute);
+                Glyph = "\uf107";
+            }
         }
         async Task<MediaStackResponse> GetMediaStack(int offset, int limit, DateTimeOffset dateTimeOffset)
         {
@@ -101,6 +111,37 @@ namespace Tail.ViewModels
             return new MediaStackResponse();
         }
 
+        private GridLength topHeight = GridLength.Star;
+        public GridLength TopHeight { get { return topHeight; } set { SetProperty(ref topHeight, value); } }
 
+        private bool topPanelVisibility = true;
+        public bool TopPanelVisibility
+        {
+            get { return topPanelVisibility; }
+            set { SetProperty(ref topPanelVisibility, value); }
+        }
+
+        private string glyph = "\uf106";
+        public string Glyph
+        {
+            get { return glyph; }
+            set { SetProperty(ref glyph, value); }
+        }
+
+        private void ExpandCollapeHandler()
+        {
+            if (TopHeight.IsStar)
+            {
+                TopPanelVisibility = false;
+                TopHeight = new GridLength(0, GridUnitType.Absolute);
+                Glyph = "\uf107";
+            }
+            else
+            {
+                TopPanelVisibility = true;
+                TopHeight = new GridLength(1, GridUnitType.Star);
+                Glyph = "\uf106";
+            }
+        }
     }
 }
