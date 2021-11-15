@@ -6,12 +6,12 @@
     xmlns:Common="clr-namespace:Tail.Common"
     xmlns:controls="clr-namespace:Tail.Controls"
     xmlns:models="clr-namespace:Tail.Models"
-    xmlns:template="clr-namespace:Tail.Views.Templates"
+    xmlns:template="clr-namespace:Tail.Views.Templates" 
     xmlns:converter="clr-namespace:Tail.Converters"
     xmlns:views="clr-namespace:Tail.Views">
     <views:AppPageBase.Resources>
         <Style TargetType="Grid">
-            <Setter Property="VisualStateManager.VisualStateGroups">
+            <Setter Property="VisualStateManager.VisualStateGroups"> 
                 <VisualStateGroupList>
                     <VisualStateGroup x:Name="CommonStates">
                         <VisualState x:Name="Normal" />
@@ -61,15 +61,12 @@
                         BackgroundColor="#dab9fc"
                         Margin="5,5,5,0"
                         Padding="0,4">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding}"></TapGestureRecognizer>
-                        </Label.GestureRecognizers>
                     </Label>
 
                     <Frame
                         Grid.Row="1"
                         Margin="10,0"
-                        BackgroundColor="#fdfdfd "
+                        Padding="0,0,0,3"
                         HasShadow="False">
                         <StackLayout>
                             <CarouselView
@@ -80,13 +77,13 @@
                                 Loop="False">
                                 <CarouselView.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid RowDefinitions="auto,*,*">
+                                        <Grid RowDefinitions="auto,*,auto">
                                             <Label
                                                 Grid.ColumnSpan="7"
                                                 HorizontalTextAlignment="Center"
                                                 MaxLines="2" FontAttributes="Bold"
                                                 LineBreakMode="TailTruncation"
-                                                Text="{Binding Title}" />
+                                                Text="{Binding Title}"/>
                                             <Image
                                                 Grid.Row="1"
                                                 Grid.Column="1"
@@ -96,7 +93,8 @@
                                                 Grid.Row="2"
                                                 Grid.ColumnSpan="7"
                                                 HorizontalOptions="Center"
-                                                MaxLines="2"
+                                                MaxLines="1"
+                                                Margin="10,0"
                                                 Text="{Binding Description}" 
                                                 LineBreakMode="TailTruncation"/>
                                         </Grid>
@@ -116,9 +114,7 @@
                 </Grid>
                 <ImageButton Grid.Row="1" BackgroundColor="Transparent" Command="{Binding ExpandCollapseCommand}" >
                     <ImageButton.Source>
-                        <FontImageSource FontFamily="FontAwesome5Solid"
-                     Color="#aaa"
-                     Glyph="{Binding Glyph}"/>
+                        <FontImageSource FontFamily="FontAwesome5Solid" Color="#aaa" Glyph="{Binding Glyph}"/>
                     </ImageButton.Source>
                 </ImageButton>
                 <CollectionView
@@ -142,7 +138,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Data">
                             <Grid
-                                Margin="10,5" HorizontalOptions="Fill"
+                                HorizontalOptions="FillAndExpand"
                                 BackgroundColor="White"
                                 ColumnDefinitions="15,*,auto,auto,15"
                                 RowDefinitions="30,30,50,50,40">
@@ -171,6 +167,7 @@
                                     Grid.ColumnSpan="3"
                                     MaxLines="3"
                                     Style="{x:StaticResource BlackLabelBold13}"
+                                    LineBreakMode="TailTruncation"
                                     Text="{Binding Description}" />
                                 <Label
                                     Grid.Row="4"

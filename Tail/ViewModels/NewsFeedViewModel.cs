@@ -10,6 +10,9 @@ using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using Xamarin.CommunityToolkit.ObjectModel;
+using System.Text.RegularExpressions;
+using System.Text;
+using System.Net;
 
 namespace Tail.ViewModels
 {
@@ -53,15 +56,18 @@ namespace Tail.ViewModels
                 TodayNews.AddRange(response.ListData);
             }
         }
+
         private async Task ExecuteSelectedItem(object data)
         {
             try
             {
                 await Browser.OpenAsync(((Data)data).Url, BrowserLaunchMode.SystemPreferred);
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
             }
         }
+
         public override async void OnPageAppearing()
         {
             base.OnPageAppearing();
@@ -99,7 +105,12 @@ namespace Tail.ViewModels
             {
                 try
                 {
-                    var response =  await res.Content.ReadAsAsync<MediaStackResponse>();
+                    var response = await res.Content.ReadAsAsync<MediaStackResponse>();
+                    response.ListData.ForEach(d =>
+                    {
+                        d.Title = WebUtility.HtmlDecode(d.Title);
+                        d.Description = WebUtility.HtmlDecode(d.Description);
+                    });
                     return response;
                 }
                 catch (Exception e)

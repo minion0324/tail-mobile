@@ -95,9 +95,13 @@
 		</Compile>
 	</ItemGroup>
 	<ItemGroup>
+		<None Remove="Resources\Fonts\Font Awesome 5 Free-Solid-900.otf" />
 		<None Remove="Xam.Plugins.Forms.ProgressRing" />
 		<None Remove="PCLCrypto" />
 		<None Remove="Microsoft.AspNet.WebApi.Client" />
 		<None Remove="Xamarin.CommunityToolkit" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\Fonts\Font Awesome 5 Free-Solid-900.otf" />
 	</ItemGroup>
 </Project>
