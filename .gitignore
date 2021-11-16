@@ -1,1 +1,8 @@
 .vs
+/Tail/obj
+/Tail.Android/obj
+/Tail.iOS/obj
+/Tail.Android/bin/Debug
+/Tail/bin/Debug/netstandard2.0
+/Tail.iOS/bin/iPhoneSimulator/Debug
+/Tail.iOS/bin/iPhoneSimulator/Debug
