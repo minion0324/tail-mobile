@@ -44,7 +44,6 @@
 		<Folder Include="Behaviors\" />
 		<Folder Include="Common\" />
 		<Folder Include="Controls\" />
-		<Folder Include="Converters\" />
 		<Folder Include="Models\" />
 		<Folder Include="Services\" />
 		<Folder Include="ViewModels\" />

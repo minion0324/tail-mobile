@@ -25,6 +25,9 @@
             </Setter>
         </Style>
         <converter:PublishedDayConverter x:Key="publishedDayConverter"/>
+        <converter:Row1HeightConverter x:Key="row1HeightConverter"/>
+        <converter:Row2HeightConverter x:Key="row2HeightConverter"/>
+        <converter:MaxLineConverter x:Key="maxLineConverter"/>
     </views:AppPageBase.Resources>
     <ContentPage.Content>
         <Grid
@@ -77,7 +80,12 @@
                                 Loop="False">
                                 <CarouselView.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid RowDefinitions="auto,*,auto">
+                                        <Grid Padding="10,5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="{Binding Image, Converter={StaticResource row1HeightConverter}}"/>
+                                                <RowDefinition Height="{Binding Image, Converter={StaticResource row2HeightConverter}}"/>
+                                            </Grid.RowDefinitions>
                                             <Label
                                                 Grid.ColumnSpan="7"
                                                 HorizontalTextAlignment="Center"
@@ -93,8 +101,7 @@
                                                 Grid.Row="2"
                                                 Grid.ColumnSpan="7"
                                                 HorizontalOptions="Center"
-                                                MaxLines="1"
-                                                Margin="10,0"
+                                                MaxLines="{Binding Image, Converter={StaticResource maxLineConverter},ConverterParameter='5|1'}"
                                                 Text="{Binding Description}" 
                                                 LineBreakMode="TailTruncation"/>
                                         </Grid>
@@ -107,6 +114,7 @@
                                 HorizontalOptions="Center"
                                 IndicatorColor="LightGray"
                                 IndicatorSize="10"
+                                Margin="0,0,0,10"
                                 IndicatorsShape="Circle"
                                 SelectedIndicatorColor="DarkGray" />
                         </StackLayout>
@@ -120,8 +128,8 @@
                 <CollectionView
                     x:Name="daybeforeCollection"
                     Grid.Row="2"
-                    Margin="10"
-                    ItemSizingStrategy="MeasureFirstItem"
+                    Margin="10,0"
+                    ItemSizingStrategy="MeasureAllItems"
                     ItemsSource="{Binding DayBeforeNews}"
                     RemainingItemsThreshold="0"
                     RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}"
@@ -141,7 +149,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 BackgroundColor="White"
                                 ColumnDefinitions="15,*,auto,auto,15"
-                                RowDefinitions="30,30,50,50,40">
+                                RowDefinitions="30,30,auto,*,auto">
                                 <Label
                                     Grid.ColumnSpan="5"
                                     BackgroundColor="#dab9fc"
@@ -154,7 +162,9 @@
                                     Grid.Column="1"
                                     MaxLines="1"
                                     Style="{x:StaticResource BlackLabelBold13}"
-                                    Text="{Binding Title}" HorizontalTextAlignment="Center"/>
+                                    Text="{Binding Title}" 
+                                    HorizontalTextAlignment="Center"
+                                    LineBreakMode="TailTruncation"/>
                                 <Image
                                     Grid.Row="2"
                                     Grid.Column="1"
@@ -165,18 +175,19 @@
                                     Grid.Row="3"
                                     Grid.Column="1"
                                     Grid.ColumnSpan="3"
-                                    MaxLines="3"
+                                    MaxLines="{Binding Image, Converter={StaticResource maxLineConverter},ConverterParameter='7|3'}"
                                     Style="{x:StaticResource BlackLabelBold13}"
                                     LineBreakMode="TailTruncation"
                                     Text="{Binding Description}" />
                                 <Label
                                     Grid.Row="4"
-                                    Grid.ColumnSpan="5"
-                                    Padding="10"
+                                    Grid.ColumnSpan="3"
+                                    Padding="5"
                                     HorizontalOptions="EndAndExpand"
                                     MaxLines="1"
+                                    LineBreakMode="TailTruncation"
                                     Style="{x:StaticResource BlackLabelBold13}"
-                                    Text="{Binding Source}" />
+                                    Text="{Binding Source}"/>
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
