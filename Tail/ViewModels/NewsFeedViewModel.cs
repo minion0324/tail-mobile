@@ -19,7 +19,7 @@ namespace Tail.ViewModels
     public class NewsFeedViewModel : PageViewModelBase
     {
         int todayOffset = 0;
-        int dayBeforeOffset = 0;
+        int dayBeforeOffset = 1;
         int limit = 6;
         DateTimeOffset currentDate;
         HttpClient httpclient;
@@ -90,17 +90,26 @@ namespace Tail.ViewModels
 
             var DayBeforeResponse = await GetMediaStack(dayBeforeOffset, limit, DateTimeOffset.Now.AddDays(-1));
             DayBeforeNews = new ObservableRangeCollection<Data>(DayBeforeResponse.ListData);
+            dayBeforeOffset += limit;
         }
+
+        bool waitFlag = false;
         private async Task LoadMore()
         {
-            dayBeforeOffset += 1;
-            var response = await GetMediaStack(dayBeforeOffset, limit, DateTimeOffset.Now.AddDays(-1));
-            DayBeforeNews.AddRange(response.ListData);
-            if (TopPanelVisibility)
+            if (!waitFlag)
             {
-                TopPanelVisibility = false;
-                TopHeight = new GridLength(0, GridUnitType.Absolute);
-                Glyph = "\uf107";
+                waitFlag = true;
+                var response = await GetMediaStack(dayBeforeOffset, limit, DateTimeOffset.Now.AddDays(-1));
+                DayBeforeNews.AddRange(response.ListData);
+                dayBeforeOffset += limit;
+
+                if (TopPanelVisibility)
+                {
+                    TopPanelVisibility = false;
+                    TopHeight = new GridLength(0, GridUnitType.Absolute);
+                    Glyph = "\uf107";
+                }
+                waitFlag = false;
             }
         }
         async Task<MediaStackResponse> GetMediaStack(int offset, int limit, DateTimeOffset dateTimeOffset)
