@@ -34,6 +34,7 @@ namespace Tail.ViewModels
         public ICommand SelectedCommand { get; set; }
         public ICommand HideTodayPanelCommand { get; set; }
         public ICommand ExpandCollapseCommand { get; set; }
+        public ICommand CarouselItemTapped { get; set; }
         public NewsFeedViewModel()
         {
             httpclient = new HttpClient();
@@ -44,7 +45,11 @@ namespace Tail.ViewModels
             DayBeforeNews = new ObservableRangeCollection<Data>();
             PositionChangedCommand = new Command<int>(async (position) => await ExecutePositionChanged(position));
             ExpandCollapseCommand = new Command(() => ExpandCollapeHandler());
-            //HideTodayPanelCommand = new Command(() => )
+            CarouselItemTapped = new Command(async (item) =>
+            {
+                if (!string.IsNullOrEmpty(item.ToString()))
+                    await Browser.OpenAsync(item.ToString(), BrowserLaunchMode.SystemPreferred);
+            });
         }
 
         private async Task ExecutePositionChanged(int position)
@@ -59,13 +64,8 @@ namespace Tail.ViewModels
 
         private async Task ExecuteSelectedItem(object data)
         {
-            try
-            {
+            if (data != null)
                 await Browser.OpenAsync(((Data)data).Url, BrowserLaunchMode.SystemPreferred);
-            }
-            catch (Exception ex)
-            {
-            }
         }
 
         public override async void OnPageAppearing()
@@ -80,8 +80,14 @@ namespace Tail.ViewModels
         }
         private async Task InitNewsFeed()
         {
-            var TodayResponse = await GetMediaStack(todayOffset, limit, DateTimeOffset.Now);
-            TodayNews = new ObservableRangeCollection<Data>(TodayResponse.ListData);
+            //var TodayResponse = await GetMediaStack(todayOffset, limit, DateTimeOffset.Now);
+            //TodayNews = new ObservableRangeCollection<Data>(TodayResponse.ListData);
+            TodayNews = new ObservableRangeCollection<Data>();
+            TodayNews.Add(new Data { Title = "Could This Be The Year We Finally Expand CFB Playoffs?", Image=new System.Uri("https://tailnetwork.blog/images/mg_collegefootballplayoff_1.jpg"), Url=new Uri("https://tailnetwork.blog/blog/could-this-the-year-we-finally-expand-cfb-playoffs/") });
+            TodayNews.Add(new Data { Title = "The Good the Bad and the Unbettable", Image = new Uri("https://tailnetwork.blog/images/new-project.png"), Url = new Uri("https://tailnetwork.blog/blog/the.good-the-bad-and-the-unbettable.which-teams-have-been-the-most-and-least-reliable-ats/") });
+            TodayNews.Add(new Data { Title = "The OBJ curse. Last shot to prove everyone wrong", Image = new Uri("https://tailnetwork.blog/images/hf8euaebeyk909zgiddb.jpg"), Url = new Uri("https://tailnetwork.blog/blog/the-obj-curse.one-last-shot-to-prove-everyone-wrong/") });
+            TodayNews.Add(new Data { Title = "Decentralization has been a buzzword lately. Here's how it ties into gambling", Image = new Uri("https://tailnetwork.blog/images/casino.jpg"), Url = new Uri("https://tailnetwork.blog/blog/decentralized-has-been-a-buzzword-lately.here-s-how-it-ties-into-gambling/") });
+
             var DayBeforeResponse = await GetMediaStack(dayBeforeOffset, limit, DateTimeOffset.Now.AddDays(-1));
             DayBeforeNews = new ObservableRangeCollection<Data>(DayBeforeResponse.ListData);
         }

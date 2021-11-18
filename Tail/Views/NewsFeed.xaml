@@ -11,7 +11,7 @@
     xmlns:views="clr-namespace:Tail.Views">
     <views:AppPageBase.Resources>
         <Style TargetType="Grid">
-            <Setter Property="VisualStateManager.VisualStateGroups"> 
+            <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
                     <VisualStateGroup x:Name="CommonStates">
                         <VisualState x:Name="Normal" />
@@ -53,7 +53,6 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-
                 <Grid Grid.Row="0" RowDefinitions="auto,*" IsVisible="{Binding TopPanelVisibility}">
                     <Label
                         HorizontalOptions="FillAndExpand"
@@ -84,31 +83,48 @@
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="{Binding Image, Converter={StaticResource row1HeightConverter}}"/>
-                                                <RowDefinition Height="{Binding Image, Converter={StaticResource row2HeightConverter}}"/>
+                                                <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
                                             <Label
                                                 Grid.ColumnSpan="7"
                                                 HorizontalTextAlignment="Center"
-                                                MaxLines="2" FontAttributes="Bold"
+                                                FontAttributes="Bold"
+                                                MaxLines="4"
                                                 LineBreakMode="TailTruncation"
-                                                Text="{Binding Title}"/>
+                                                Text="{Binding Title}">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.CarouselItemTapped,  Source={RelativeSource AncestorType={x:Type CarouselView}}}"
+                                                                              CommandParameter="{Binding Url}"/>
+                                                    </Label.GestureRecognizers>
+                                            </Label>
                                             <Image
-                                                Grid.Row="1"
-                                                Grid.Column="1"
-                                                Grid.ColumnSpan="5"
-                                                Source="{Binding Image}"/>
-                                            <Label
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Grid.ColumnSpan="5"
+                                            Source="{Binding Image}">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.CarouselItemTapped,  Source={RelativeSource AncestorType={x:Type CarouselView}}}"
+                                                                          CommandParameter="{Binding Url}"/>
+                                                </Image.GestureRecognizers>
+                                            </Image>
+                                            <!--<Label
                                                 Grid.Row="2"
                                                 Grid.ColumnSpan="7"
+                                                TextColor="Blue"
                                                 HorizontalOptions="Center"
-                                                MaxLines="{Binding Image, Converter={StaticResource maxLineConverter},ConverterParameter='5|1'}"
-                                                Text="{Binding Description}" 
-                                                LineBreakMode="TailTruncation"/>
+                                                TextDecorations="Underline"
+                                                VerticalOptions="End"
+                                                Text="Show More.." 
+                                                LineBreakMode="TailTruncation">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.CarouselItemTapped,  Source={RelativeSource AncestorType={x:Type CarouselView}}}"
+                                                                          CommandParameter="{Binding Url}"/>
+                                                </Label.GestureRecognizers>
+                                            </Label>-->
                                         </Grid>
                                     </DataTemplate>
                                 </CarouselView.ItemTemplate>
                             </CarouselView>
-
                             <IndicatorView
                                 x:Name="indicatorView"
                                 HorizontalOptions="Center"
@@ -149,7 +165,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 BackgroundColor="White"
                                 ColumnDefinitions="15,*,auto,auto,15"
-                                RowDefinitions="30,auto,auto,*,auto" HeightRequest="240">
+                                RowDefinitions="30,auto,*,auto" HeightRequest="240">
                                 <Label
                                     Grid.ColumnSpan="5"
                                     BackgroundColor="#dab9fc"
@@ -160,10 +176,10 @@
                                 <Label
                                     Grid.Row="1"
                                     Grid.Column="1"
-                                    MaxLines="1"
                                     Style="{x:StaticResource BlackLabelBold13}"
                                     Text="{Binding Title}" 
                                     HorizontalTextAlignment="Center"
+                                    MaxLines="{Binding Image, Converter={StaticResource maxLineConverter},ConverterParameter='6|4'}"
                                     LineBreakMode="TailTruncation"/>
                                 <Image
                                     Grid.Row="2"
@@ -171,23 +187,16 @@
                                     Grid.ColumnSpan="3"
                                     Aspect="AspectFit"
                                     Source="{Binding Image}" />
-                                <Label
-                                    Grid.Row="3"
-                                    Grid.Column="1"
-                                    Grid.ColumnSpan="3"
-                                    MaxLines="{Binding Image, Converter={StaticResource maxLineConverter},ConverterParameter='7|3'}"
-                                    Style="{x:StaticResource BlackLabelBold13}"
-                                    LineBreakMode="TailTruncation"
-                                    Text="{Binding Description}" />
-                                <Grid ColumnDefinitions="1*,9*" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="EndAndExpand">
+                                <Grid ColumnDefinitions="1*,9*" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="End" VerticalOptions="End">
                                     <Label
                                         Grid.Column="1"
-                                    Padding="5"
-                                    HorizontalOptions="EndAndExpand"
-                                    MaxLines="1"
-                                    LineBreakMode="TailTruncation"
-                                    Style="{x:StaticResource BlackLabelBold13}"
-                                    Text="{Binding Source}"/>
+                                        Padding="5"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="End"
+                                        MaxLines="1"
+                                        LineBreakMode="TailTruncation"
+                                        Style="{x:StaticResource BlackLabelBold13}"
+                                        Text="{Binding Source}"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>

@@ -20,7 +20,7 @@ namespace Tail.Converters
 
                 if (duration <= 1)
                 {
-                    return "Today";
+                    return DateTime.Now.Day == date.Day ? "Today" : "1 day ago";
                 }
                 else if (duration >= 1 && duration < 2)
                 {
