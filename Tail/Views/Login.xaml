@@ -83,7 +83,8 @@
                                     BorderWidth="0"
                                     Style="{StaticResource WhiteButtonRegular16}"
                                     Text="{Binding Resources[FacebookText]}"
-                                    VerticalOptions="CenterAndExpand" >
+                                    VerticalOptions="CenterAndExpand" 
+                                    Command="{Binding FacebookLogin}">
                                     <controls:FacebookLoginButton.HorizontalOptions>
                                         <OnPlatform x:TypeArguments="LayoutOptions">
                                             <On Platform="Android" Value="FillAndExpand" />
