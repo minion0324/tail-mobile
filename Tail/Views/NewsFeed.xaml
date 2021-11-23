@@ -138,7 +138,7 @@
                 </Grid>
                 <ImageButton Grid.Row="1" BackgroundColor="Transparent" Command="{Binding ExpandCollapseCommand}" >
                     <ImageButton.Source>
-                        <FontImageSource FontFamily="FontAwesome5Solid" Color="#aaa" Glyph="{Binding Glyph}" Size="{OnPlatform iOS=Medium, Android=Large}"/>
+                        <FontImageSource FontFamily="FontAwesome5Solid" Color="#aaa" Glyph="{Binding Glyph}" Size="{OnPlatform iOS=Small, Android=Large}"/>
                     </ImageButton.Source>
                 </ImageButton>
                 <CollectionView
@@ -161,19 +161,24 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Data">
-                            <Grid
-                                HorizontalOptions="FillAndExpand"
-                                BackgroundColor="White"
-                                ColumnDefinitions="15,*,auto,auto,15"
-                                RowDefinitions="30,auto,*,auto" HeightRequest="240">
-                                <Label
+                            <Frame x:Name="outerFrame" HasShadow="True" Padding="0"
+         HorizontalOptions="FillAndExpand" CornerRadius="8"
+         OutlineColor="#DCDCDC" BackgroundColor="{Binding Source={RelativeSource Self}, Path=OutlineColor}" >
+                                <Frame x:Name="innerFrame" Margin="3,3,5,5" Padding="0" HasShadow="False" 
+             HorizontalOptions="FillAndExpand" CornerRadius="0" 
+             OutlineColor="{Binding Source={x:Reference outerFrame}, Path=OutlineColor}" 
+             BackgroundColor="White" >
+                                    <Grid
+                                ColumnDefinitions="0,*,auto,auto,0"
+                                RowDefinitions="30,auto,*,auto" HeightRequest="250" Padding="0">
+                                        <Label
                                     Grid.ColumnSpan="5"
                                     BackgroundColor="#dab9fc"
                                     HorizontalOptions="FillAndExpand"
                                     Style="{x:StaticResource BlackLabelBold13}"
                                     Text="{Binding PublishedAt.DateTime, Converter={StaticResource publishedDayConverter}}"
-                                    VerticalTextAlignment="Center" Padding="15,0,0,0"/>
-                                <Label
+                                    VerticalTextAlignment="Center" Padding="15,0,0,0" Margin="-1,0,-3,0"/>
+                                        <Label
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     Style="{x:StaticResource BlackLabelBold13}"
@@ -181,14 +186,14 @@
                                     HorizontalTextAlignment="Center"
                                     MaxLines="{Binding Image, Converter={StaticResource maxLineConverter},ConverterParameter='6|4'}"
                                     LineBreakMode="TailTruncation"/>
-                                <Image
+                                        <Image
                                     Grid.Row="2"
                                     Grid.Column="1"
                                     Grid.ColumnSpan="3"
                                     Aspect="AspectFit"
-                                    Source="{Binding Image}" />
-                                <Grid ColumnDefinitions="1*,9*" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="End" VerticalOptions="End">
-                                    <Label
+                                    Source="{Binding Image}"/>
+                                        <Grid ColumnDefinitions="0*,4*" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="End" VerticalOptions="End">
+                                            <Label
                                         Grid.Column="1"
                                         Padding="5"
                                         HorizontalOptions="End"
@@ -197,8 +202,10 @@
                                         LineBreakMode="TailTruncation"
                                         Style="{x:StaticResource BlackLabelBold13}"
                                         Text="{Binding Source}"/>
-                                </Grid>
-                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Frame>
+                            </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
@@ -209,14 +216,12 @@
                 IsVisible="{Binding IsInitialLoading}"
                 VerticalOptions="Center"
                 Color="#E5B59D" />
-
             <template:ProgressView
                 Grid.RowSpan="2"
                 HorizontalOptions="Fill"
                 IsRunning="{Binding IsInitialLoading}"
                 IsVisible="{Binding IsInitialLoading}"
                 VerticalOptions="Fill" />
-
         </Grid>
     </ContentPage.Content>
 </views:AppPageBase>
