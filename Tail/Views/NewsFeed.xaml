@@ -164,7 +164,7 @@
                             <Frame x:Name="outerFrame" HasShadow="True" Padding="0"
          HorizontalOptions="FillAndExpand" CornerRadius="8"
          OutlineColor="#DCDCDC" BackgroundColor="{Binding Source={RelativeSource Self}, Path=OutlineColor}" >
-                                <Frame x:Name="innerFrame" Margin="3,3,5,5" Padding="0" HasShadow="False" 
+                                <Frame x:Name="innerFrame" Margin="5" Padding="0" HasShadow="False" 
              HorizontalOptions="FillAndExpand" CornerRadius="0" 
              OutlineColor="{Binding Source={x:Reference outerFrame}, Path=OutlineColor}" 
              BackgroundColor="White" >
@@ -177,7 +177,7 @@
                                     HorizontalOptions="FillAndExpand"
                                     Style="{x:StaticResource BlackLabelBold13}"
                                     Text="{Binding PublishedAt.DateTime, Converter={StaticResource publishedDayConverter}}"
-                                    VerticalTextAlignment="Center" Padding="15,0,0,0" Margin="-1,0,-3,0"/>
+                                    VerticalTextAlignment="Center" Padding="15,0,0,0"/>
                                         <Label
                                     Grid.Row="1"
                                     Grid.Column="1"
