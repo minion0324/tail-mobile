@@ -25347,34 +25347,37 @@ namespace Tail.Droid
 			public const int view_offset_helper = 2131231105;
 			
 			// aapt resource value: 0x7F080182
-			public const int view_tree_saved_state_registry_owner = 2131231106;
+			public const int view_tree_lifecycle_owner = 2131231106;
 			
 			// aapt resource value: 0x7F080183
-			public const int visible = 2131231107;
+			public const int view_tree_saved_state_registry_owner = 2131231107;
 			
 			// aapt resource value: 0x7F080184
-			public const int visible_removing_fragment_view_tag = 2131231108;
+			public const int visible = 2131231108;
 			
 			// aapt resource value: 0x7F080185
-			public const int when_playing = 2131231109;
+			public const int visible_removing_fragment_view_tag = 2131231109;
 			
 			// aapt resource value: 0x7F080186
-			public const int wide = 2131231110;
-			
-			// aapt resource value: 0x7F080188
-			public const int withinBounds = 2131231112;
+			public const int when_playing = 2131231110;
 			
 			// aapt resource value: 0x7F080187
-			public const int withText = 2131231111;
+			public const int wide = 2131231111;
 			
 			// aapt resource value: 0x7F080189
-			public const int wrap_content = 2131231113;
+			public const int withinBounds = 2131231113;
+			
+			// aapt resource value: 0x7F080188
+			public const int withText = 2131231112;
 			
 			// aapt resource value: 0x7F08018A
-			public const int zero_corner_chip = 2131231114;
+			public const int wrap_content = 2131231114;
 			
 			// aapt resource value: 0x7F08018B
-			public const int zoom = 2131231115;
+			public const int zero_corner_chip = 2131231115;
+			
+			// aapt resource value: 0x7F08018C
+			public const int zoom = 2131231116;
 			
 			static Id()
 			{

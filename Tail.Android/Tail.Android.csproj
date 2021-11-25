@@ -110,13 +110,13 @@
       <Version>1.2.1.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Facebook.Android">
-      <Version>7.1.0</Version>
+      <Version>11.2.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Facebook.Login.Android">
-      <Version>7.1.0</Version>
+      <Version>11.2.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Facebook.Core.Android">
-      <Version>7.1.0</Version>
+      <Version>11.2.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData">
       <Version>2.2.0.4</Version>
