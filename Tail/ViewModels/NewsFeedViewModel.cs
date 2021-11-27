@@ -107,7 +107,7 @@ namespace Tail.ViewModels
                 {
                     TopPanelVisibility = false;
                     TopHeight = new GridLength(0, GridUnitType.Absolute);
-                    Glyph = "\uf107";
+                    Glyph = "DownArrow.png";
                 }
                 waitFlag = false;
             }
@@ -147,7 +147,7 @@ namespace Tail.ViewModels
             set { SetProperty(ref topPanelVisibility, value); }
         }
 
-        private string glyph = "\uf106";
+        private string glyph = "UpArrow.png";
         public string Glyph
         {
             get { return glyph; }
@@ -160,13 +160,13 @@ namespace Tail.ViewModels
             {
                 TopPanelVisibility = false;
                 TopHeight = new GridLength(0, GridUnitType.Absolute);
-                Glyph = "\uf107";
+                Glyph = "DownArrow.png";
             }
             else
             {
                 TopPanelVisibility = true;
                 TopHeight = new GridLength(1, GridUnitType.Star);
-                Glyph = "\uf106";
+                Glyph = "UpArrow.png";
             }
         }
     }

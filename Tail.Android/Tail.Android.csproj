@@ -5282,7 +5282,9 @@
       </Generator>
     </AndroidResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\UpArrow.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tail\Tail.csproj">
       <Project>{A4820B88-C494-40E6-9D2B-BE2827E662F2}</Project>
@@ -5323,6 +5325,9 @@
   </ItemGroup>
   <ItemGroup>
     <GoogleServicesJson Include="google-services.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\DownArrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

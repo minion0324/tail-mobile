@@ -92,10 +92,10 @@
                                                 MaxLines="4"
                                                 LineBreakMode="TailTruncation"
                                                 Text="{Binding Title}">
-                                                    <Label.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.CarouselItemTapped,  Source={RelativeSource AncestorType={x:Type CarouselView}}}"
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.CarouselItemTapped,  Source={RelativeSource AncestorType={x:Type CarouselView}}}"
                                                                               CommandParameter="{Binding Url}"/>
-                                                    </Label.GestureRecognizers>
+                                                </Label.GestureRecognizers>
                                             </Label>
                                             <Image
                                             Grid.Row="1"
@@ -136,11 +136,16 @@
                         </StackLayout>
                     </Frame>
                 </Grid>
-                <ImageButton Grid.Row="1" BackgroundColor="Transparent" Command="{Binding ExpandCollapseCommand}" >
+                <!--<ImageButton Grid.Row="1" BackgroundColor="Transparent" Command="{Binding ExpandCollapseCommand}" >
                     <ImageButton.Source>
                         <FontImageSource FontFamily="FontAwesome5Solid" Color="#aaa" Glyph="{Binding Glyph}" Size="{OnPlatform iOS=Small, Android=Large}"/>
                     </ImageButton.Source>
-                </ImageButton>
+                </ImageButton>-->
+                <Image  Grid.Row="1" Source="{Binding Glyph}" HeightRequest="25">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ExpandCollapseCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
                 <CollectionView
                     x:Name="daybeforeCollection"
                     Grid.Row="2"
@@ -161,9 +166,15 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Data">
-                            <Frame x:Name="outerFrame" HasShadow="True" Padding="0"
+                            <Frame x:Name="outerFrame" Padding="0"
          HorizontalOptions="FillAndExpand" CornerRadius="8"
          OutlineColor="#DCDCDC" BackgroundColor="{Binding Source={RelativeSource Self}, Path=OutlineColor}" >
+                                <Frame.HasShadow>
+                                    <OnPlatform x:TypeArguments="x:Boolean">
+                                        <On Platform="iOS" Value="false" />
+                                        <On Platform="Android" Value="true"/>
+                                    </OnPlatform>
+                                </Frame.HasShadow>
                                 <Frame x:Name="innerFrame" Margin="5" Padding="0" HasShadow="False" 
              HorizontalOptions="FillAndExpand" CornerRadius="0" 
              OutlineColor="{Binding Source={x:Reference outerFrame}, Path=OutlineColor}" 
@@ -225,3 +236,5 @@
         </Grid>
     </ContentPage.Content>
 </views:AppPageBase>
+
+

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -248,11 +248,7 @@
       <Name>Tail</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataHelpers\" />
-    <Folder Include="Renderers\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BundleResource Include="Resources\Splash.png" />
     <BundleResource Include="Resources\Splash%402x.png" />
@@ -777,5 +773,11 @@
     <BundleResource Include="Resources\basketball_placeholder_small.png" />
     <BundleResource Include="Resources\football_placeholder_small.png" />
     <BundleResource Include="Resources\hocky_placeholder_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\DownArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\UpArrow.png" />
   </ItemGroup>
 </Project>
