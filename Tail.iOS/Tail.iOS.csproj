@@ -31,6 +31,7 @@
     <DeviceSpecificBuild>false</DeviceSpecificBuild>
     <CodesignProvision>TailNetworkDistributionProfile</CodesignProvision>
     <MtouchFloat32>true</MtouchFloat32>
+    <IOSDebuggerPort>10001</IOSDebuggerPort>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>

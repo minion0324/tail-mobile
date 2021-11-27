@@ -127,7 +127,7 @@
                             </CarouselView>
                             <IndicatorView
                                 x:Name="indicatorView"
-                                HorizontalOptions="Center"
+                                HorizontalOptions="Fill"
                                 IndicatorColor="LightGray"
                                 IndicatorSize="10"
                                 Margin="0,0,0,10"
