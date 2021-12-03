@@ -83,7 +83,7 @@
                                     BorderWidth="0"
                                     Style="{StaticResource WhiteButtonRegular16}"
                                     Text="{Binding Resources[FacebookText]}"
-                                    VerticalOptions="CenterAndExpand" >
+                                    VerticalOptions="CenterAndExpand">
                                     <controls:FacebookLoginButton.HorizontalOptions>
                                         <OnPlatform x:TypeArguments="LayoutOptions">
                                             <On Platform="Android" Value="FillAndExpand" />
@@ -211,7 +211,7 @@
                                     MaxLength="50"
                                     Placeholder="{Binding Resources[PlaceHolderPassword]}"
                                     ReturnKeyType="Done"
-                                    
+
                                     Style="{StaticResource EntryRegular14}"
                                     Text="{Binding Password.Value}">
                                     <controls:TailPasswordEntry.Behaviors>
