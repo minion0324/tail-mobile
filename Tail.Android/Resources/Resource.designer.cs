@@ -23999,187 +23999,196 @@ namespace Tail.Droid
 			public const int NBA = 2131165534;
 			
 			// aapt resource value: 0x7F07015F
-			public const int next_arrow = 2131165535;
+			public const int news_feed = 2131165535;
 			
 			// aapt resource value: 0x7F070160
-			public const int notification = 2131165536;
+			public const int news_feed_selected = 2131165536;
 			
 			// aapt resource value: 0x7F070161
-			public const int notification_action_background = 2131165537;
+			public const int next_arrow = 2131165537;
 			
 			// aapt resource value: 0x7F070162
-			public const int notification_bg = 2131165538;
+			public const int NoImage = 2131165538;
 			
 			// aapt resource value: 0x7F070163
-			public const int notification_bg_low = 2131165539;
+			public const int notification = 2131165539;
 			
 			// aapt resource value: 0x7F070164
-			public const int notification_bg_low_normal = 2131165540;
+			public const int notification_action_background = 2131165540;
 			
 			// aapt resource value: 0x7F070165
-			public const int notification_bg_low_pressed = 2131165541;
+			public const int notification_bg = 2131165541;
 			
 			// aapt resource value: 0x7F070166
-			public const int notification_bg_normal = 2131165542;
+			public const int notification_bg_low = 2131165542;
 			
 			// aapt resource value: 0x7F070167
-			public const int notification_bg_normal_pressed = 2131165543;
+			public const int notification_bg_low_normal = 2131165543;
 			
 			// aapt resource value: 0x7F070168
-			public const int notification_icon = 2131165544;
+			public const int notification_bg_low_pressed = 2131165544;
 			
 			// aapt resource value: 0x7F070169
-			public const int notification_icon_background = 2131165545;
+			public const int notification_bg_normal = 2131165545;
 			
 			// aapt resource value: 0x7F07016A
-			public const int notification_template_icon_bg = 2131165546;
+			public const int notification_bg_normal_pressed = 2131165546;
 			
 			// aapt resource value: 0x7F07016B
-			public const int notification_template_icon_low_bg = 2131165547;
+			public const int notification_icon = 2131165547;
 			
 			// aapt resource value: 0x7F07016C
-			public const int notification_tile_bg = 2131165548;
+			public const int notification_icon_background = 2131165548;
 			
 			// aapt resource value: 0x7F07016D
-			public const int notify_panel_notification_icon_bg = 2131165549;
+			public const int notification_template_icon_bg = 2131165549;
 			
 			// aapt resource value: 0x7F07016E
-			public const int pacers = 2131165550;
+			public const int notification_template_icon_low_bg = 2131165550;
 			
 			// aapt resource value: 0x7F07016F
-			public const int placeholder = 2131165551;
+			public const int notification_tile_bg = 2131165551;
 			
 			// aapt resource value: 0x7F070170
-			public const int placeholder_small = 2131165552;
+			public const int notify_panel_notification_icon_bg = 2131165552;
 			
 			// aapt resource value: 0x7F070171
-			public const int play = 2131165553;
+			public const int pacers = 2131165553;
 			
 			// aapt resource value: 0x7F070172
-			public const int play_small = 2131165554;
+			public const int placeholder = 2131165554;
 			
 			// aapt resource value: 0x7F070173
-			public const int post_image = 2131165555;
+			public const int placeholder_small = 2131165555;
 			
 			// aapt resource value: 0x7F070174
-			public const int post_pick = 2131165556;
+			public const int play = 2131165556;
 			
 			// aapt resource value: 0x7F070175
-			public const int post_something = 2131165557;
+			public const int play_small = 2131165557;
 			
 			// aapt resource value: 0x7F070176
-			public const int profile_menu = 2131165558;
+			public const int post_image = 2131165558;
 			
 			// aapt resource value: 0x7F070177
-			public const int profile_menu_selected = 2131165559;
+			public const int post_pick = 2131165559;
 			
 			// aapt resource value: 0x7F070178
-			public const int purchase_wallet = 2131165560;
+			public const int post_something = 2131165560;
 			
 			// aapt resource value: 0x7F070179
-			public const int radio = 2131165561;
+			public const int profile_menu = 2131165561;
 			
 			// aapt resource value: 0x7F07017A
-			public const int radio_selected = 2131165562;
+			public const int profile_menu_selected = 2131165562;
 			
 			// aapt resource value: 0x7F07017B
-			public const int Rectangle_7 = 2131165563;
+			public const int purchase_wallet = 2131165563;
 			
 			// aapt resource value: 0x7F07017C
-			public const int remove_pic = 2131165564;
+			public const int radio = 2131165564;
 			
 			// aapt resource value: 0x7F07017D
-			public const int report_post = 2131165565;
+			public const int radio_selected = 2131165565;
 			
 			// aapt resource value: 0x7F07017E
-			public const int right_arrow = 2131165566;
+			public const int Rectangle_7 = 2131165566;
 			
 			// aapt resource value: 0x7F07017F
-			public const int search = 2131165567;
+			public const int remove_pic = 2131165567;
 			
 			// aapt resource value: 0x7F070180
-			public const int search_selected = 2131165568;
+			public const int report_post = 2131165568;
 			
 			// aapt resource value: 0x7F070181
-			public const int select_all = 2131165569;
+			public const int right_arrow = 2131165569;
 			
 			// aapt resource value: 0x7F070182
-			public const int send_btn = 2131165570;
+			public const int search = 2131165570;
 			
 			// aapt resource value: 0x7F070183
-			public const int settings_menu = 2131165571;
+			public const int search_selected = 2131165571;
 			
 			// aapt resource value: 0x7F070184
-			public const int settings_menu_selected = 2131165572;
+			public const int select_all = 2131165572;
 			
 			// aapt resource value: 0x7F070185
-			public const int share_post = 2131165573;
+			public const int send_btn = 2131165573;
 			
 			// aapt resource value: 0x7F070186
-			public const int splash = 2131165574;
+			public const int settings_menu = 2131165574;
 			
 			// aapt resource value: 0x7F070187
-			public const int suns = 2131165575;
+			public const int settings_menu_selected = 2131165575;
 			
 			// aapt resource value: 0x7F070188
-			public const int support_menu = 2131165576;
+			public const int share_post = 2131165576;
 			
 			// aapt resource value: 0x7F070189
-			public const int support_menu_selected = 2131165577;
+			public const int splash = 2131165577;
 			
 			// aapt resource value: 0x7F07018A
-			public const int switch_off = 2131165578;
+			public const int suns = 2131165578;
 			
 			// aapt resource value: 0x7F07018B
-			public const int switch_on = 2131165579;
+			public const int support_menu = 2131165579;
 			
 			// aapt resource value: 0x7F07018C
-			public const int tail_coins = 2131165580;
+			public const int support_menu_selected = 2131165580;
 			
 			// aapt resource value: 0x7F07018D
-			public const int tail_logo = 2131165581;
+			public const int switch_off = 2131165581;
 			
 			// aapt resource value: 0x7F07018E
-			public const int team_placeholder = 2131165582;
+			public const int switch_on = 2131165582;
 			
 			// aapt resource value: 0x7F07018F
-			public const int test_custom_background = 2131165583;
+			public const int tail_coins = 2131165583;
 			
 			// aapt resource value: 0x7F070190
-			public const int time = 2131165584;
+			public const int tail_logo = 2131165584;
 			
 			// aapt resource value: 0x7F070191
-			public const int tomhardy = 2131165585;
+			public const int team_placeholder = 2131165585;
 			
 			// aapt resource value: 0x7F070192
-			public const int tooltip_frame_dark = 2131165586;
+			public const int test_custom_background = 2131165586;
 			
 			// aapt resource value: 0x7F070193
-			public const int tooltip_frame_light = 2131165587;
+			public const int time = 2131165587;
 			
 			// aapt resource value: 0x7F070194
-			public const int unfollow = 2131165588;
+			public const int tomhardy = 2131165588;
 			
 			// aapt resource value: 0x7F070195
-			public const int UpArrow = 2131165589;
+			public const int tooltip_frame_dark = 2131165589;
 			
 			// aapt resource value: 0x7F070196
-			public const int visacard = 2131165590;
+			public const int tooltip_frame_light = 2131165590;
 			
 			// aapt resource value: 0x7F070197
-			public const int wallet = 2131165591;
+			public const int unfollow = 2131165591;
 			
 			// aapt resource value: 0x7F070198
-			public const int wallet_menu = 2131165592;
+			public const int UpArrow = 2131165592;
 			
 			// aapt resource value: 0x7F070199
-			public const int wallet_menu_selected = 2131165593;
+			public const int visacard = 2131165593;
 			
 			// aapt resource value: 0x7F07019A
-			public const int won = 2131165594;
+			public const int wallet = 2131165594;
 			
 			// aapt resource value: 0x7F07019B
-			public const int won_badge = 2131165595;
+			public const int wallet_menu = 2131165595;
+			
+			// aapt resource value: 0x7F07019C
+			public const int wallet_menu_selected = 2131165596;
+			
+			// aapt resource value: 0x7F07019D
+			public const int won = 2131165597;
+			
+			// aapt resource value: 0x7F07019E
+			public const int won_badge = 2131165598;
 			
 			static Drawable()
 			{

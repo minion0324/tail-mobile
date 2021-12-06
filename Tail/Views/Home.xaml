@@ -19,7 +19,7 @@
             <local:Home_Feeds />
         </x:Arguments>
     </NavigationPage>
-    <NavigationPage x:Name="TabSearch" IconImageSource="news_Feed">
+    <NavigationPage x:Name="TabSearch" IconImageSource="news_feed">
         <x:Arguments>
             <local:NewsFeed />
         </x:Arguments>
