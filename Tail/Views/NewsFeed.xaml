@@ -28,6 +28,7 @@
         <converter:Row1HeightConverter x:Key="row1HeightConverter"/>
         <converter:Row2HeightConverter x:Key="row2HeightConverter"/>
         <converter:MaxLineConverter x:Key="maxLineConverter"/>
+        <converter:NoImageConverter x:Key="noImageConverter"/>
     </views:AppPageBase.Resources>
     <ContentPage.Content>
         <Grid
@@ -101,7 +102,7 @@
                                             Grid.Row="1"
                                             Grid.Column="1"
                                             Grid.ColumnSpan="5"
-                                            Source="{Binding Image}">
+                                            Source="{Binding Image, Converter={StaticResource noImageConverter}}">
                                                 <Image.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.CarouselItemTapped,  Source={RelativeSource AncestorType={x:Type CarouselView}}}"
                                                                           CommandParameter="{Binding Url}"/>
@@ -202,7 +203,7 @@
                                     Grid.Column="1"
                                     Grid.ColumnSpan="3"
                                     Aspect="AspectFit"
-                                    Source="{Binding Image}"/>
+                                    Source="{Binding Image, Converter={StaticResource noImageConverter}}"/>
                                         <Grid ColumnDefinitions="0*,4*" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="End" VerticalOptions="End">
                                             <Label
                                         Grid.Column="1"

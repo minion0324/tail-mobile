@@ -91,7 +91,7 @@ namespace Tail.Droid.Renderers
                     args.Item.SetIcon(Resources.GetDrawable(Resource.Drawable.home_selected));
                     break;
                 case 1:
-                    args.Item.SetIcon(Resources.GetDrawable(Resource.Drawable.search_selected));
+                    args.Item.SetIcon(Resources.GetDrawable(Resource.Drawable.news_feed_selected));
                     break;
                 case 2:
 
@@ -122,7 +122,7 @@ namespace Tail.Droid.Renderers
                             IMenu menu = (childRelativeLayoutView as BottomNavigationView).Menu;
 
                             menu.FindItem(0).SetIcon(Resources.GetDrawable(Resource.Drawable.home));
-                            menu.FindItem(1).SetIcon(Resources.GetDrawable(Resource.Drawable.search));
+                            menu.FindItem(1).SetIcon(Resources.GetDrawable(Resource.Drawable.news_Feed));
 
                             menu.FindItem(3).SetIcon(Resources.GetDrawable(Resource.Drawable.account));
                             menu.FindItem(4).SetIcon(Resources.GetDrawable(Resource.Drawable.menu));

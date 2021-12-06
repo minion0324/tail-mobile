@@ -249,7 +249,9 @@
       <Name>Tail</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="Resources\noImage.png" />
+  </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Splash.png" />
     <BundleResource Include="Resources\Splash%402x.png" />
@@ -780,5 +782,11 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\UpArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\news_feed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\news_feed_selected.png" />
   </ItemGroup>
 </Project>
