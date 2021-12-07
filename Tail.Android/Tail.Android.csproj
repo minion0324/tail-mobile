@@ -5330,12 +5330,6 @@
     <AndroidResource Include="Resources\drawable\DownArrow.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\NoImage.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\noImage.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\news_feed.png" />
   </ItemGroup>
   <ItemGroup>

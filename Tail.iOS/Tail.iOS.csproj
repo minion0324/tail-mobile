@@ -250,9 +250,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\noImage.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\Splash.png" />
     <BundleResource Include="Resources\Splash%402x.png" />
     <BundleResource Include="Resources\Splash%403x.png" />
