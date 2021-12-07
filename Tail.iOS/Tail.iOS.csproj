@@ -789,4 +789,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\news_feed_selected.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\no_Image.png" />
+  </ItemGroup>
 </Project>

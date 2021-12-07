@@ -12,7 +12,7 @@ namespace Tail.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
-                return "noImage.png";
+                return "no_Image.png";
 
             var imageUri = value.ToString();
             if (imageUri.Contains("http"))
@@ -21,7 +21,7 @@ namespace Tail.Converters
             }
             else
             {
-                return "noImage.png";
+                return "no_Image.png";
             }
         }
 
